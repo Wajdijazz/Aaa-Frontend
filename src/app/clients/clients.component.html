@@ -28,7 +28,7 @@
                           <tbody>
                           <tr *ngFor="let client of clients">
                           <td>{{client.clientName}}</td>
-                          <td>{{client.clientId}}</td>
+                          <td>{{client.clientContact}}</td>
                           <td>
                           <button mat-raised-button type="button" matTooltip="Edit " [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                             <i class="material-icons">edit</i>
@@ -52,17 +52,17 @@
                   <mat-tab label="New Client">
                     <br>
 
-                   <form>
+                   <form #f="ngForm">
 
                       <mat-form-field>
-                        <input matInput name="ClientName" ngModel placeholder="Client Name" required>
+                        <input matInput name="ClientName" [(ngModel)]="client.clientName" placeholder="Client Name" required>
                       </mat-form-field>
 
                       <mat-form-field>
-                        <input matInput name="Contact" ngModel placeholder="contact" required>
+                        <input matInput name="Contact" [(ngModel)]="client.clientContact" placeholder="contact" required>
                       </mat-form-field>
 
-                     <button mat-raised-button type="submit" class="btn btn-info pull-right"  > Add </button>
+                     <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="addClient(client)" > Add </button>
                    </form>
                   </mat-tab>
 

@@ -9,13 +9,12 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'assessment', class: '' },
-
     { path: '/persons', title: ' Persons',  icon:'account_box', class: '' },
+    { path: '/managers', title: 'Managers',  icon:'supervisor_account', class: '' },
     { path: '/clients', title: 'Clients',  icon:'sentiment_satisfied', class: '' },
-
     { path: '/typography', title: 'Projects',  icon:'business_center', class: '' },
-    { path: '/icons', title: 'Daily Rates',  icon:'monetization_on', class: '' },
-    { path: '/icons', title: 'interventions',  icon:'touch_app', class: '' },
+    { path: '/tjs', title: 'Daily Rates',  icon:'monetization_on', class: '' },
+    { path: '/icons', title: 'Interventions',  icon:'touch_app', class: '' },
 
 
 
@@ -28,17 +27,20 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
+    menuItems: any[];
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
-  }
-  isMobileMenu() {
-      if ($(window).width() > 991) {
-          return false;
-      }
-      return true;
-  };
+    ngOnInit() {
+        this.menuItems = ROUTES.filter(menuItem => menuItem);
+    }
+
+    isMobileMenu() {
+        if ($(window).width() > 991) {
+            return false;
+        }
+        return true;
+    };
+
 }

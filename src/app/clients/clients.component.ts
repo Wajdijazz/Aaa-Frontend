@@ -14,6 +14,7 @@ export class ClientsComponent implements OnInit {
 
     clientId:null,
     clientName:'',
+    clientContact:'',
   }
   constructor(private clientService: ClientService) { }
 
@@ -24,7 +25,7 @@ export class ClientsComponent implements OnInit {
 
   /* Fonction qui permet de reccuper la liste de tous les clients */
   getAllClients(){
-    this.clientService.getAllClient().subscribe((data:Client[])=>{
+    this.clientService.getClients().subscribe((data:Client[])=>{
       this.clients=data;
       console.log((this.clients))
     })
@@ -33,7 +34,7 @@ export class ClientsComponent implements OnInit {
 
 
   addClient(data:Client){
-    this.clientService.saveNewClient(data)
+    this.clientService.saveClient(data)
     window.location.reload();
     this.getAllClients()
 
