@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ClientService} from '../services/client.service';
+import {Person} from '../persons/person';
+import {Client} from './client';
 
 @Component({
   selector: 'app-clients',
@@ -7,16 +9,33 @@ import {ClientService} from '../services/client.service';
   styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
+  clients:Client[];
+  client:Client={
 
+    clientId:null,
+    clientName:'',
+  }
   constructor(private clientService: ClientService) { }
 
 
-  // Declaration liste des clients à recupérer
-  clients;
   ngOnInit() {
-    return this.clientService.getAllClient().subscribe(data=>{this.clients=data;},err=>{
-      console.log(err);
-    })
+    this.getAllClients()
   }
 
+  /* Fonction qui permet de reccuper la liste de tous les clients */
+  getAllClients(){
+    this.clientService.getAllClient().subscribe((data:Client[])=>{
+      this.clients=data;
+      console.log((this.clients))
+    })
+
+    }
+
+
+  addClient(data:Client){
+    this.clientService.saveNewClient(data)
+    window.location.reload();
+    this.getAllClients()
+
+  }
 }

@@ -24,17 +24,22 @@
                           </th>
                           <th> Edit</th>
                           <th> Delete</th>
-
-                          <tr >
-                            <td></td>
-                            <td></td>
-                          </tr>
                           </thead>
                           <tbody>
-                          <tr *ngFor="let c of clients"></tr>
-                          <td>{{c.clientName}}</td>
-                          <td>{{c.clientName}}</td>
-
+                          <tr *ngFor="let client of clients">
+                          <td>{{client.clientName}}</td>
+                          <td>{{client.clientId}}</td>
+                          <td>
+                          <button mat-raised-button type="button" matTooltip="Edit " [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                            <i class="material-icons">edit</i>
+                          </button>
+                          </td>
+                          <td>
+                          <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                            <i class="material-icons">close</i>
+                          </button>
+                          </td>
+                          </tr>
                           </tbody>
                         </table>
                       </div>
@@ -47,7 +52,7 @@
                   <mat-tab label="New Client">
                     <br>
 
-                   <form  >
+                   <form>
 
                       <mat-form-field>
                         <input matInput name="ClientName" ngModel placeholder="Client Name" required>
@@ -56,7 +61,9 @@
                       <mat-form-field>
                         <input matInput name="Contact" ngModel placeholder="contact" required>
                       </mat-form-field>
-                   </form>>
+
+                     <button mat-raised-button type="submit" class="btn btn-info pull-right"  > Add </button>
+                   </form>
                   </mat-tab>
 
                 </mat-tab-group>
