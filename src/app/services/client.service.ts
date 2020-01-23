@@ -13,11 +13,11 @@ export class ClientService {
   }
 
   getClients() {
-    return this.http.get(`${config.apiUrl}/clients`);
+    return this.http.get(`${config.apiUrl}/client/`);
   }
 
   saveClient(data : Client){
-    this.http.post(`${config.apiUrl}/clients`, data)
+    this.http.post(`${config.apiUrl}/client/`, data)
         .subscribe(
             res => {
               console.log(res);

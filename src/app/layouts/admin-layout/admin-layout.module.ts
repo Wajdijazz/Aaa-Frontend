@@ -19,6 +19,8 @@ import {
 import {MatTabsModule} from '@angular/material/tabs';
 
 import {PersonsComponent} from '../../persons/persons.component';
+import {ProjectsComponent} from '../../projects/projects.component';
+import {MatListModule} from '@angular/material/list';
 @NgModule({
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ import {PersonsComponent} from '../../persons/persons.component';
     MatSelectModule,
     MatTooltipModule,
     MatTabsModule,
+    MatListModule,
   ],
   declarations: [
     DashboardComponent,
@@ -38,6 +41,9 @@ import {PersonsComponent} from '../../persons/persons.component';
     TjsComponent,
     PersonsComponent,
     ManagersComponent,
+
+    PersonsComponent,
+    ProjectsComponent
 
   ]
 })

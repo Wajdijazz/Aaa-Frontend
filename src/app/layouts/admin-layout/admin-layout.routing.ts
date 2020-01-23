@@ -3,6 +3,8 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import {ClientsComponent} from '../../clients/clients.component';
 import {PersonsComponent} from '../../persons/persons.component';
+import {ProjectsComponent} from '../../projects/projects.component';
+
 import {TjsComponent} from '../../tjs/tjs.component';
 import {ManagersComponent} from '../../managers/managers.component';
 
@@ -53,6 +55,7 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'persons',   component: PersonsComponent },
+    { path: 'projects',     component: ProjectsComponent },
     { path: 'clients',      component: ClientsComponent },
     { path: 'tjs',      component: TjsComponent },
     {path : 'managers', component: ManagersComponent},
