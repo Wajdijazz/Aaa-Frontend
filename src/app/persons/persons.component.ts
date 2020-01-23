@@ -16,9 +16,12 @@ persons:Person[];
   ngOnInit() {
     this.personService.getPersons().subscribe((data:Person[])=>{
 this.persons=data;
-
+console.log((this.persons))
     })
   }
+addPerson(){
 
+
+}
 
 }

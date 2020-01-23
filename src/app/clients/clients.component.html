@@ -52,7 +52,7 @@
 
                   <mat-tab label="New Client">
                     <br>
-                   <form #f="ngForm" >
+                   <form (ngSubmit)="onSubmit()" >
 
                       <mat-form-field>
                         <input matInput name="ClientName" ngModel placeholder="Client Name" required>
