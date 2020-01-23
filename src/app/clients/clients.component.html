@@ -28,14 +28,7 @@
                           <tr >
                             <td></td>
                             <td></td>
-                            <td> <button mat-raised-button type="button" matTooltip="Edit " [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                              <i class="material-icons">edit</i>
-                            </button></td>
-                            <td>
-                              <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
+
 
                           </tr>
                           </thead>
@@ -52,19 +45,7 @@
 
                   <mat-tab label="New Client">
                     <br>
-                   <form #f="ngForm" >
 
-                      <mat-form-field>
-                        <input matInput name="ClientName" ngModel placeholder="Client Name" required>
-                      </mat-form-field>
-
-                      <mat-form-field>
-                        <input matInput name="Contact" ngModel placeholder="contact" required>
-                      </mat-form-field>
-
-
-                      <button mat-raised-button type="submit" class="btn btn-info pull-right" > Ajouter </button>
-                    </form>
                   </mat-tab>
 
                 </mat-tab-group>
