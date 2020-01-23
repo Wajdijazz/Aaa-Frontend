@@ -21,7 +21,11 @@ import {
   MatTooltipModule,
   MatSelectModule
 } from '@angular/material';
+<<<<<<< HEAD
 import {MatTabsModule} from '@angular/material/tabs';
+=======
+import {PersonsComponent} from '../../persons/persons.component';
+>>>>>>> commit service exemple
 @NgModule({
   imports: [
     CommonModule,
@@ -44,7 +48,11 @@ import {MatTabsModule} from '@angular/material/tabs';
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
+<<<<<<< HEAD
     ClientsComponent,
+=======
+    PersonsComponent
+>>>>>>> commit service exemple
   ]
 })
 
