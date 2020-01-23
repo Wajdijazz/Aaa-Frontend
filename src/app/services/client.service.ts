@@ -25,4 +25,13 @@ export class ClientService {
         );
   }
 
+  deleteClient(id:number){
+      this.http.delete(`${config.apiUrl}/client/${id}`)
+          .subscribe(
+              res => {
+                  console.log(res);
+              }
+          );
+  }
+
 }

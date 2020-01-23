@@ -39,7 +39,7 @@ addPerson(data:Person){
   //window.location.reload();
   this.getAllPersons()
 }
-  deletPerson(personId){
+  deletePerson(personId){
   this.personService.deletePerson(personId)
     this.getAllPersons()
   //  window.location.reload();

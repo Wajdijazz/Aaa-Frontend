@@ -39,4 +39,12 @@ export class ClientsComponent implements OnInit {
     this.getAllClients()
 
   }
+
+  deleteClient(clientId){
+    this.clientService.deleteClient(clientId)
+    this.getAllClients()
+      window.location.reload();
+
+
+  }
 }
