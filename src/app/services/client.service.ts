@@ -12,12 +12,12 @@ export class ClientService {
   constructor(private http: HttpClient) {
   }
 
-  getAllClient() {
-    return this.http.get(`${config.apiUrl}/clients`);
+  getClients() {
+    return this.http.get(`${config.apiUrl}/client/`);
   }
 
-  saveNewClient(data : Client){
-    this.http.post(`${config.apiUrl}/clients`, data)
+  saveClient(data : Client){
+    this.http.post(`${config.apiUrl}/client/`, data)
         .subscribe(
             res => {
               console.log(res);

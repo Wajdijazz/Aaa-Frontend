@@ -14,7 +14,8 @@ export class ProjectsComponent implements OnInit {
   projects:Project[]
   client:Client={
     clientId:null,
-    clientName:''
+    clientName:'',
+      clientContact:''
   }
 IdClient;
   project:Project={
@@ -39,7 +40,7 @@ IdClient;
   }
 
   getAllClients(){
-    this.clientService.getAllClient().subscribe((data:Client[])=>{
+    this.clientService.getClients().subscribe((data:Client[])=>{
       this.clients=data
 
     })

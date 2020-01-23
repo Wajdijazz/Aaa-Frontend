@@ -13,12 +13,12 @@ export class PersonService {
   constructor(private http: HttpClient) { }
 
   getPersons() {
-    return this.http.get(`${config.apiUrl}/persons`);
+    return this.http.get(`${config.apiUrl}/person/`);
   }
 
 
   savePerson(data: Person) {
-    this.http.post(`${config.apiUrl}/persons`, data)
+    this.http.post(`${config.apiUrl}/person/`, data)
         .subscribe(
             res => {
               console.log(res);

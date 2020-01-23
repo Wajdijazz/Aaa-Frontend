@@ -1,7 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 
@@ -17,6 +16,8 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
+
+
 
 
 @NgModule({
@@ -35,6 +36,8 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+
+
 
 
 
