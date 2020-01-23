@@ -9,7 +9,7 @@
           </div>
           <div class="card-body">
             <mat-tab-group animationDuration="0ms">
-              <mat-tab label="Clients List">
+              <mat-tab label="Persons List">
                 <br>
                 <div class="card-body">
 
@@ -37,7 +37,7 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr *ngFor="let person of persons | async">
+                      <tr *ngFor="let person of persons">
                         <td>{{person.firstName}}</td>
                         <td>{{person.lastName}}</td>
 
@@ -49,10 +49,21 @@
 
                 </div>
               </mat-tab>
-
-              <mat-tab label="New Client">
+              <mat-tab label="New Person">
                 <br>
+                <form #f="ngForm" >
 
+                  <mat-form-field>
+                    <input matInput name="First Name" ngModel placeholder="First Name" required>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <input matInput name="Last Name" ngModel placeholder="Last Name" required>
+                  </mat-form-field>
+
+
+                  <button mat-raised-button type="submit" class="btn btn-info pull-right" > Add </button>
+                </form>
               </mat-tab>
 
             </mat-tab-group>

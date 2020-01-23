@@ -9,11 +9,16 @@ import {PersonService} from '../services/person.service';
   styleUrls: ['./persons.component.scss']
 })
 export class PersonsComponent implements OnInit {
-
+persons:Person[];
 
   constructor(private personService:PersonService) { }
 
   ngOnInit() {
+    this.personService.getPersons().subscribe((data:Person[])=>{
+this.persons=data;
+
+    })
   }
+
 
 }
