@@ -38,6 +38,8 @@
                       </thead>
                       <tbody>
                       <tr *ngFor="let person of persons | async">
+                        <td>{{person.firstName}}</td>
+                        <td>{{person.lastName}}</td>
 
                       </tbody>
                     </table>
