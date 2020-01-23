@@ -9,7 +9,7 @@
           </div>
           <div class="card-body">
             <mat-tab-group animationDuration="0ms">
-              <mat-tab label="Clients List">
+              <mat-tab label="Persons List">
                 <br>
                 <div class="card-body">
 
@@ -25,21 +25,19 @@
                       <th> Edit</th>
                       <th> Delete</th>
 
-                      <tr >
-                        <td></td>
-                        <td></td>
-                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="openDialog2(a)">
+
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let person of persons">
+                        <td>{{person.firstName}}</td>
+                        <td>{{person.lastName}}</td>
+                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button></td>
-                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="openDialog2(a)">
+                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" >
                           <i class="material-icons">Delete</i>
                         </button></td>
                       </tr>
-                      </thead>
-                      <tbody>
-                      <tr *ngFor="let person of persons | async">
-                        <td>{{person.firstName}}</td>
-                        <td>{{person.lastName}}</td>
 
                       </tbody>
                     </table>
@@ -49,10 +47,21 @@
 
                 </div>
               </mat-tab>
-
-              <mat-tab label="New Client">
+              <mat-tab label="New Person">
                 <br>
+                <form #f="ngForm" >
 
+                  <mat-form-field>
+                    <input matInput name="First Name" [(ngModel)]="person.firstName" placeholder="First Name" required>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <input matInput name="Last Name" [(ngModel)]="person.lastName" placeholder="Last Name" required>
+                  </mat-form-field>
+
+
+                  <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="addPerson(person)"  > Add </button>
+                </form>
               </mat-tab>
 
             </mat-tab-group>
