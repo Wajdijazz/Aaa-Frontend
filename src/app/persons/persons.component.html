@@ -52,15 +52,15 @@
                 <form #f="ngForm" >
 
                   <mat-form-field>
-                    <input matInput name="First Name" ngModel placeholder="First Name" required>
+                    <input matInput name="First Name" [(ngModel)]="person.firstName" placeholder="First Name" required>
                   </mat-form-field>
 
                   <mat-form-field>
-                    <input matInput name="Last Name" ngModel placeholder="Last Name" required>
+                    <input matInput name="Last Name" [(ngModel)]="person.lastName" placeholder="Last Name" required>
                   </mat-form-field>
 
 
-                  <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="addPerson()" > Add </button>
+                  <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="addPerson(person)"  > Add </button>
                 </form>
               </mat-tab>
 
