@@ -13,6 +13,6 @@ export class PersonService {
   constructor(private http: HttpClient) { }
 
   getPersons(): Observable<any> {
-    return this.http.get(`${config.apiUrl}`);
+    return this.http.get(`${config.apiUrl}/persons`);
   }
 }
