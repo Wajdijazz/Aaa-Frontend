@@ -17,10 +17,12 @@ person:Person={
   firstName:'',
   lastName:''
 }
-  constructor(private personService:PersonService,private router: Router) { }
+  constructor(private personService:PersonService,private router: Router) {
+    this.getAllPersons()
+
+  }
 
   ngOnInit() {
-  this.getAllPersons()
   }
 
   getAllPersons(){
@@ -34,11 +36,14 @@ person:Person={
   }
 addPerson(data:Person){
   this.personService.savePerson(data)
-  this.router.navigateByUrl(`persons`);
+  window.location.reload();
   this.getAllPersons()
-
-
-
 }
+  deletPerson(personId){
+  this.personService.deletePerson(personId)
+    this.getAllPersons()
+    window.location.reload();
 
+
+  }
 }

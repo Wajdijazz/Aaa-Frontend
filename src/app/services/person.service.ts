@@ -26,4 +26,13 @@ export class PersonService {
         );
   }
 
+    deletePerson(id: number) {
+        this.http.delete(`${config.apiUrl}/person/${id}`)
+            .subscribe(
+                res => {
+                    console.log(res);
+                }
+            );
+    }
+
 }
