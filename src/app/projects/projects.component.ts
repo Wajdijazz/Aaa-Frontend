@@ -20,8 +20,7 @@ export class ProjectsComponent implements OnInit {
 IdClient;
   project:Project={
     projectId:null,
-    projectName:'',
-    client:null
+    projectName:''
 
   }
   constructor(private clientService:ClientService,private projectService:ProjectService) { }
@@ -53,11 +52,8 @@ IdClient;
 
 
   addProject(data:Project){
-      data.client=this.IdClient
-      console.log(data)
-
-
-      this.projectService.saveProject(data);
+      console.log(this.IdClient)
+      this.projectService.saveProject(data,this.IdClient);
 
   }
 

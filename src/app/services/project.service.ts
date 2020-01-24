@@ -13,12 +13,15 @@ export class ProjectService {
     return this.http.get(`${config.apiUrl}/project/`);
   }
 
-  saveProject(data:Project){
-
+  saveProject(data:Project,clientId :number){
     this.http.post(`${config.apiUrl}/project/`, data)
+
+    this.http.post(`${config.apiUrl}/project/client/${clientId}/project`, data)
+
         .subscribe(
             res => {
-              console.log(res);
+              console.log(clientId);
+                console.log(data);
             }
         );
   }
