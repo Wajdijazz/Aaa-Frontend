@@ -59,26 +59,20 @@
 
                   <mat-form-field>
                     <mat-label> Select Person</mat-label>
-                    <mat-select  name="typeAffaire" required>
-                      <mat-option value="Projet_Client">Projet Client</mat-option>
-                      <mat-option value ="interne " >Projet Interne</mat-option>
-                      <mat-option value="Intercontrat"> Intercontrat</mat-option>
-                      <mat-option value="Formation"> Formation </mat-option>
+                    <mat-select  name="persons list" [(ngModel)]="person" (selectionChange)="selectPerson(person.personId)" required>
+                      <mat-option *ngFor="let person of persons" [value]="person.personId">{{ person.firstName }} {{person.lastName}}</mat-option>
                     </mat-select>
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>  Select Project </mat-label>
-                    <mat-select   name="typeAffaire" required>
-                      <mat-option value="Projet_Client">Projet Client</mat-option>
-                      <mat-option value ="interne " >Projet Interne</mat-option>
-                      <mat-option value="Intercontrat"> Intercontrat</mat-option>
-                      <mat-option value="Formation"> Formation </mat-option>
+                    <mat-select  name="project list" [(ngModel)]="project" (selectionChange)="selectProject(project.projectId)" required>
+                      <mat-option *ngFor="let project of projects" [value]="project.projectId">{{ project.projectName }}</mat-option>
                     </mat-select>
                   </mat-form-field>
 
                   <mat-form-field>
-                    <input matInput name="Contact" placeholder="Daily Rate" required>
+                    <input matInput name="Contact" placeholder="Daily Rate" required >
                   </mat-form-field>
 
                   <button mat-raised-button type="submit" class="btn btn-info pull-right"  > Add </button>

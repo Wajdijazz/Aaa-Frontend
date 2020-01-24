@@ -10,12 +10,12 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   getPerojects() {
-    return this.http.get(`${config.apiUrl}/project`);
+    return this.http.get(`${config.apiUrl}/project/`);
   }
 
   saveProject(data:Project){
 
-    this.http.post(`${config.apiUrl}/projects`, data)
+    this.http.post(`${config.apiUrl}/project/`, data)
         .subscribe(
             res => {
               console.log(res);
