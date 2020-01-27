@@ -73,6 +73,10 @@ export class InterventionsComponent implements OnInit {
     console.log(personId);
   }
 
+  public onDate(event): void {
+    this.intervention.startDate = event;
+   console.log(this.intervention.startDate)
+  }
   addIntervention(data:Intervention){
     console.log(data);
 

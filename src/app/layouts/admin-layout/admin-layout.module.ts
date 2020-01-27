@@ -40,7 +40,6 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatTabsModule,
     MatListModule,
     MatDatepickerModule,
-    MatDatepickerModule,
     MatNativeDateModule
   ],
   declarations: [

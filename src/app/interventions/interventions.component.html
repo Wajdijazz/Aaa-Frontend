@@ -65,23 +65,20 @@
                     </mat-select>
                   </mat-form-field>
 
-                  <mat-form-field>
-                    <mat-label>  Select Project </mat-label>
-                    <mat-select  name="project list" [(ngModel)]="project" (selectionChange)="selectProject(project)" required>
-                      <mat-option *ngFor="let project of projects" [value]="project.projectId">{{ project.projectName }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
 
                   <mat-form-field>
-                    <input matInput [matDatepicker]="myDatepicker"  name="intervention.startDate" placeholder="Select start date" >
-                    <mat-datepicker-toggle matSuffix [for]="myDatepicker" name="intervention.startDate" #startDate="ngModel" [(ngModel)]="intervention.startDate" type="date" required></mat-datepicker-toggle>
+                    <input matInput [matDatepicker]="myDatepicker"   name="startDate"  [(ngModel)]="intervention.startDate" placeholder="Select start date" ngModel>
+                    <mat-datepicker-toggle matSuffix [for]="myDatepicker"  required ></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput [matDatepicker]="myDatepicker1"  name="intervention.endDate" placeholder="Select end date"  ngModel  >
-                    <mat-datepicker-toggle matSuffix [for]="myDatepicker1"  name="intervention.endDate" #endDate="ngModel" [(ngModel)]="intervention.endDate" type="date" required ></mat-datepicker-toggle>
+
+                    <input matInput [matDatepicker]="myDatepicker1" name="endDate"  [(ngModel)]="intervention.endDate"  placeholder="Select end date"  ngModel  >
+                    <mat-datepicker-toggle matSuffix [for]="myDatepicker1"  required ></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker1 disabled="false" ></mat-datepicker>
                   </mat-form-field>
+
+
                   <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="addIntervention(intervention)"  > Add </button>
                 </form>
               </mat-tab>
