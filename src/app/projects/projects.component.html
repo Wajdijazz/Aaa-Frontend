@@ -31,11 +31,11 @@
                       <tbody>
                       <tr *ngFor="let project of projects">
                         <td>{{project.projectName}}</td>
-                        <td></td>
+                        <td>{{project.client.clientName}}</td>
                         <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button></td>
-                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" >
+                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="deletProject(project.projectId)">
                           <i class="material-icons">close</i>
                         </button></td>
                       </tr>

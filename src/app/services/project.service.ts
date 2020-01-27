@@ -25,5 +25,12 @@ export class ProjectService {
             }
         );
   }
-
+    deleteProject(id: number) {
+        this.http.delete(`${config.apiUrl}/project/${id}`)
+            .subscribe(
+                res => {
+                    console.log(res);
+                }
+            );
+    }
 }

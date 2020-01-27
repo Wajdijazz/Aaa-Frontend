@@ -23,4 +23,13 @@ export class TjService {
     getTjs() {
         return this.http.get(`${config.apiUrl}/tj/`);
     }
+
+    deleteTj(id: number) {
+        this.http.delete(`${config.apiUrl}/tj/${id}`)
+            .subscribe(
+                res => {
+                    console.log(res);
+                }
+            );
+    }
 }

@@ -11,7 +11,6 @@ import {Client} from './client';
 export class ClientsComponent implements OnInit {
   clients:Client[];
   client:Client={
-
     clientId:null,
     clientName:'',
     clientContact:'',

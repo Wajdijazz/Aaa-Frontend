@@ -20,7 +20,8 @@ export class ProjectsComponent implements OnInit {
 IdClient;
   project:Project={
     projectId:null,
-    projectName:''
+    projectName:'',
+      client:null
 
   }
   constructor(private clientService:ClientService,private projectService:ProjectService) { }
@@ -54,8 +55,19 @@ IdClient;
   addProject(data:Project){
       console.log(this.IdClient)
       this.projectService.saveProject(data,this.IdClient);
+      window.location.reload();
+
 
   }
+    deletProject(projectId){
 
+      this.projectService.deleteProject(projectId);
+        window.location.reload();
+
+
+
+
+
+    }
 
 }

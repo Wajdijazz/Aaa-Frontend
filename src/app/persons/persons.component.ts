@@ -36,13 +36,13 @@ person:Person={
   }
 addPerson(data:Person){
   this.personService.savePerson(data)
-  //window.location.reload();
+  window.location.reload();
   this.getAllPersons()
 }
   deletePerson(personId){
   this.personService.deletePerson(personId)
     this.getAllPersons()
-  //  window.location.reload();
+   window.location.reload();
 
 
   }
