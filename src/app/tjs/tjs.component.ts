@@ -49,6 +49,7 @@ constructor(private personService:PersonService , private projectService:Project
   getAllPersons(){
   this.personService.getPersons().subscribe((data:Person[])=>{
     this.persons=data;
+
   })
 }
 
@@ -86,9 +87,9 @@ getAllTjs(){
 
 }
   deletTj(tjId){
-    this.tjService.deleteTj(tjId);
+  this.tjService.deleteTj(tjId)
     console.log(tjId);
-  //  window.location.reload();
+  window.location.reload();
 
   }
 }
