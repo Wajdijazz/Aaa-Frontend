@@ -47,9 +47,17 @@ export class InterventionsComponent implements OnInit {
   ngOnInit() {
     this.getAllPersons();
     this.getAllProject();
+    this.getAllInterventions()
+
   }
 
+getAllInterventions(){
 
+    this.interventionService.getInterventions().subscribe((data:Intervention[])=>{
+
+      this.interventions=data
+    })
+}
   getAllPersons(){
     this.personService.getPersons().subscribe((data:Person[])=>{
       this.persons=data;
@@ -76,7 +84,7 @@ export class InterventionsComponent implements OnInit {
   addIntervention(data:Intervention){
     console.log(data);
 
-this.interventionService.saveIntervention(data,this.personId,this.projectId);
+this.interventionService.saveIntervention(data,this.projectId,this.personId);
 
   }
 
