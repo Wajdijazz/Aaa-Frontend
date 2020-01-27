@@ -14,7 +14,7 @@ export class ProjectService {
   }
 
   saveProject(data:Project,clientId :number){
-    this.http.post(`${config.apiUrl}/project/`, data)
+
 
     this.http.post(`${config.apiUrl}/project/client/${clientId}/project`, data)
 

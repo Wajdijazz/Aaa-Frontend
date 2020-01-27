@@ -17,8 +17,8 @@ export class PersonService {
   }
 
 
-  savePerson(data: Person) {
-    this.http.post(`${config.apiUrl}/person/`, data)
+  savePerson(data: Person,managerId:number) {
+    this.http.post(`${config.apiUrl}/person/manager/${managerId}/person`, data)
         .subscribe(
             res => {
               console.log(res);
