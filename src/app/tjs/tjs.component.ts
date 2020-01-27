@@ -19,9 +19,8 @@ export class TjsComponent implements OnInit {
   tj : Tj= {
     tjId : null ,
     tarif : null ,
-    person :null,
+    person : null,
     project : null,
-
   }
 
   project: Project={
@@ -33,8 +32,10 @@ export class TjsComponent implements OnInit {
   person: Person = {
   personId: null,
   firstName: '',
-  lastName: ''
+  lastName: '',
+    manager : null
 }
+
   personId;
   projectId;
 constructor(private personService:PersonService , private projectService:ProjectService , private tjService:TjService) { }

@@ -24,8 +24,8 @@ export class TjService {
         return this.http.get(`${config.apiUrl}/tj/`);
     }
 
-    deleteTj(id: number) {
-        this.http.delete(`${config.apiUrl}/tj/${id}`)
+    deleteTj(tjId: number) {
+        this.http.delete(`${config.apiUrl}/tj/${tjId}`)
             .subscribe(
                 res => {
                     console.log(res);
