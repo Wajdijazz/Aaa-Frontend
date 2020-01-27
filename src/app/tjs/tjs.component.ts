@@ -88,6 +88,7 @@ getAllTjs(){
 }
   deletTj(tjId){
     console.log(tjId);
+    this.tjService.deleteTj(tjId);
 
    window.location.reload();
 

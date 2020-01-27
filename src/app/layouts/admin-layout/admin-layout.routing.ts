@@ -7,6 +7,7 @@ import {ProjectsComponent} from '../../projects/projects.component';
 
 import {TjsComponent} from '../../tjs/tjs.component';
 import {ManagersComponent} from '../../managers/managers.component';
+import {InterventionsComponent} from '../../interventions/interventions.component';
 
 
 
@@ -59,6 +60,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'clients',      component: ClientsComponent },
     { path: 'tjs',      component: TjsComponent },
     {path : 'managers', component: ManagersComponent},
+    {path : 'interventions', component: InterventionsComponent},
+
 
 
 ];
