@@ -19,9 +19,8 @@ export class TjsComponent implements OnInit {
   tj : Tj= {
     tjId : null ,
     tarif : null ,
-    person :null,
+    person : null,
     project : null,
-
   }
 
   project: Project={
@@ -34,8 +33,9 @@ export class TjsComponent implements OnInit {
   personId: null,
   firstName: '',
   lastName: '',
-    manager:null
+    manager : null
 }
+
   personId;
   projectId;
 constructor(private personService:PersonService , private projectService:ProjectService , private tjService:TjService) { }
@@ -87,10 +87,12 @@ getAllTjs(){
 
 }
   deletTj(tjId){
+  this.tjService.deleteTj(tjId)
     console.log(tjId);
-    this.tjService.deleteTj(tjId);
+  window.location.reload();
 
-   window.location.reload();
+
+
 
   }
 }

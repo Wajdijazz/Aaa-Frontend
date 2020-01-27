@@ -14,7 +14,7 @@ import {InterventionService} from '../services/intervention.service';
 
 
 export class InterventionsComponent implements OnInit {
-  interventions : Intervention[];
+  interventions :Intervention[];
   persons : Person[];
   projects : Project [];
 
@@ -45,6 +45,8 @@ export class InterventionsComponent implements OnInit {
   constructor(private personService:PersonService , private projectService:ProjectService, private interventionService:InterventionService) { }
 
   ngOnInit() {
+    this.getAllPersons();
+    this.getAllProject();
   }
 
 
@@ -72,6 +74,7 @@ export class InterventionsComponent implements OnInit {
   }
 
   addIntervention(data:Intervention){
+    console.log(data);
 
 this.interventionService.saveIntervention(data,this.personId,this.projectId);
 
