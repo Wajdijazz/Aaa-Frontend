@@ -28,13 +28,15 @@
 
                       </thead>
                       <tbody>
-                      <tr >
-                        <td></td>
-                        <td></td>
+
+
+                      <tr  *ngFor="let manager of managers">
+                        <td>{{manager.firstName}}</td>
+                        <td>{{manager.lastName}}</td>
                         <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button></td>
-                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" >
+                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon"  (click)="deleteManager(manager.managerId)" >
                           <i class="material-icons">close</i>
                         </button></td>
                       </tr>
@@ -52,15 +54,15 @@
                 <form #f="ngForm" >
 
                   <mat-form-field>
-                    <input matInput name="First Name" placeholder="First Name" required>
+                    <input matInput name="First Name" placeholder="First Name" [(ngModel)]="manager.firstName" required>
                   </mat-form-field>
 
                   <mat-form-field>
-                    <input matInput name="Last Name"  placeholder="Last Name" required>
+                    <input matInput name="Last Name"  placeholder="Last Name" required  [(ngModel)]="manager.lastName">
                   </mat-form-field>
 
 
-                  <button mat-raised-button type="submit" class="btn btn-info pull-right"  > Add </button>
+                  <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="addManager(manager)" > Add </button>
                 </form>
               </mat-tab>
 
