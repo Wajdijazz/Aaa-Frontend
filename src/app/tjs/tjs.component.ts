@@ -69,4 +69,10 @@ addTj(data:Tj){
   this.tjService.saveTj(data,this.projectId,this.personId)
 }
 
+getAllTjs(){
+
+
+
+}
+
 }
