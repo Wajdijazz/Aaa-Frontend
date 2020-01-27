@@ -19,12 +19,12 @@ export class InterventionsComponent implements OnInit {
   projects : Project [];
 
   intervention : Intervention= {
-
     interventionId:null,
     startDate : null,
     endDate : null ,
     worked : null,
-    person : null, project : null
+    person : null,
+    project : null
 
 }
 
