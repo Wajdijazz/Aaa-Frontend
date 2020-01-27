@@ -24,7 +24,8 @@ export class TjsComponent implements OnInit {
 
   project: Project={
     projectId: null,
-    projectName:''
+    projectName:'',
+    client:null,
 }
 
   person: Person = {
