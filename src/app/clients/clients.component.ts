@@ -9,13 +9,15 @@ import {Client} from './client';
   styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
-  clients:Client[];
-  client:Client={
-    clientId:null,
-    clientName:'',
-    clientContact:'',
+  clients: Client[];
+  client: Client = {
+    clientId: null,
+    clientName: '',
+    clientContact: '',
   }
-  constructor(private clientService: ClientService) { }
+
+  constructor(private clientService: ClientService) {
+  }
 
 
   ngOnInit() {
@@ -23,26 +25,26 @@ export class ClientsComponent implements OnInit {
   }
 
   /* Fonction qui permet de reccuper la liste de tous les clients */
-  getAllClients(){
-    this.clientService.getClients().subscribe((data:Client[])=>{
-      this.clients=data;
+  getAllClients() {
+    this.clientService.getClients().subscribe((data: Client[]) => {
+      this.clients = data;
       console.log((this.clients))
     })
 
-    }
+  }
 
 
-  addClient(data:Client){
+  addClient(data: Client) {
     this.clientService.saveClient(data)
     window.location.reload();
     this.getAllClients()
 
   }
 
-  deleteClient(clientId){
+  deleteClient(clientId) {
     this.clientService.deleteClient(clientId)
     this.getAllClients()
-      window.location.reload();
+    window.location.reload();
 
 
   }

@@ -64,7 +64,7 @@
                   </mat-form-field>
                   <mat-form-field>
                     <mat-select placeholder="Select Manager" name="client list" [(ngModel)]="manager" (selectionChange)="selectManager(manager)"   required>
-                      <mat-option *ngFor="let manager of managers" [value]="manager.managerId" >{{ manager.firstName }}</mat-option>
+                      <mat-option *ngFor="let manager of managers" [value]="manager.managerId" >{{ manager.firstName }} {{ manager.lastName }}</mat-option>
                     </mat-select>
                   </mat-form-field>
 

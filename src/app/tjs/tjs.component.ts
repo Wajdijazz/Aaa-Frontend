@@ -33,7 +33,8 @@ export class TjsComponent implements OnInit {
   person: Person = {
   personId: null,
   firstName: '',
-  lastName: ''
+  lastName: '',
+    manager:null
 }
   personId;
   projectId;
@@ -48,6 +49,7 @@ constructor(private personService:PersonService , private projectService:Project
   getAllPersons(){
   this.personService.getPersons().subscribe((data:Person[])=>{
     this.persons=data;
+
   })
 }
 
@@ -85,9 +87,9 @@ getAllTjs(){
 
 }
   deletTj(tjId){
-    this.tjService.deleteTj(tjId);
     console.log(tjId);
-  //  window.location.reload();
+
+   window.location.reload();
 
   }
 }
