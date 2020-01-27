@@ -18,7 +18,9 @@ export class TjsComponent implements OnInit {
 
   tj : Tj= {
     tjId : null ,
-    tarif : null
+    tarif : null ,
+    person :null,
+    project : null,
 
   }
 
@@ -40,6 +42,7 @@ constructor(private personService:PersonService , private projectService:Project
   ngOnInit() {
   this.getAllPersons();
   this.getAllProject();
+  this.getAllTjs();
   }
 
   getAllPersons(){
@@ -67,7 +70,24 @@ selectPerson(personId){
 addTj(data:Tj){
   console.log(this.projectId);
   console.log(this.personId);
-  this.tjService.saveTj(data,this.projectId,this.personId)
+  this.tjService.saveTj(data,this.projectId,this.personId);
+  window.location.reload();
 }
 
+
+getAllTjs(){
+  this.tjService.getTjs().subscribe((data:Tj[])=>{
+    this.tjs=data;
+    console.log(this.tjs);
+
+  })
+
+
+}
+  deletTj(tjId){
+    this.tjService.deleteTj(tjId);
+    console.log(tjId);
+  //  window.location.reload();
+
+  }
 }
