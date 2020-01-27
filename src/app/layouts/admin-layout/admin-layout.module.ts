@@ -7,6 +7,8 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { ClientsComponent } from '../../clients/clients.component';
 import { TjsComponent } from '../../tjs/tjs.component';
 import { ManagersComponent } from '../../managers/managers.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 import {
   MatButtonModule,
@@ -14,13 +16,16 @@ import {
   MatRippleModule,
   MatFormFieldModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+
 } from '@angular/material';
 import {MatTabsModule} from '@angular/material/tabs';
 
 import {PersonsComponent} from '../../persons/persons.component';
 import {ProjectsComponent} from '../../projects/projects.component';
 import {MatListModule} from '@angular/material/list';
+import {InterventionsComponent} from '../../interventions/interventions.component';
+import {MatNativeDateModule} from '@angular/material/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -34,6 +39,9 @@ import {MatListModule} from '@angular/material/list';
     MatTooltipModule,
     MatTabsModule,
     MatListModule,
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     DashboardComponent,
@@ -43,7 +51,8 @@ import {MatListModule} from '@angular/material/list';
     ManagersComponent,
 
     PersonsComponent,
-    ProjectsComponent
+    ProjectsComponent,
+      InterventionsComponent
 
   ]
 })

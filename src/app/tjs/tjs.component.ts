@@ -91,5 +91,8 @@ getAllTjs(){
     console.log(tjId);
   window.location.reload();
 
+
+
+
   }
 }
