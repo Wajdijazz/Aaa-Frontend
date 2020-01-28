@@ -85,6 +85,18 @@ getAllInterventions(){
     console.log(data);
 
 this.interventionService.saveIntervention(data,this.projectId,this.personId);
+    window.location.reload();
+
+
+  }
+
+  deleteIntervention(interventionId){
+    this.interventionService.deleteIntervention(interventionId)
+    console.log(interventionId);
+    window.location.reload();
+
+
+
 
   }
 
