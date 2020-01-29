@@ -4,7 +4,7 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import {ClientsComponent} from '../../clients/clients.component';
 import {PersonsComponent} from '../../persons/persons.component';
 import {ProjectsComponent} from '../../projects/projects.component';
-
+import { DetailsComponent } from '../../details/details.component';
 import {TjsComponent} from '../../tjs/tjs.component';
 import {ManagersComponent} from '../../managers/managers.component';
 import {InterventionsComponent} from '../../interventions/interventions.component';
@@ -61,6 +61,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'tjs',      component: TjsComponent },
     {path : 'managers', component: ManagersComponent},
     {path : 'interventions', component: InterventionsComponent},
+    {path : 'details', component: DetailsComponent},
 
 
 

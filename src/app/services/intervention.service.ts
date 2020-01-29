@@ -34,4 +34,12 @@ export class InterventionService {
         );
   }
 
+  getInterventionsByPersonAndProject(projectId :number ,personId: number){
+      return this.http.get(`${config.apiUrl}/intervention/project/${projectId}/person/${personId}`);
+  }
+
+  getWorkedByPersonAndProject(projectId :number ,personId: number){
+      return this.http.get(`${config.apiUrl}/intervention/worked/project/${projectId}/person/${personId}`);
+  }
+
 }

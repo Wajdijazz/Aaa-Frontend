@@ -1,8 +1,7 @@
 export class Intervention {
-    interventionId: number
-   startDate: Date
-    endDate: Date;
-    worked:number;
+    interventionId: number;
+    date: Date;
+    mode : any;
     project : any;
     person : any;
 

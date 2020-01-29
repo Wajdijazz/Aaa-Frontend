@@ -5,6 +5,8 @@ import {Project} from '../projects/project';
 import {Person} from '../persons/person';
 import {Intervention} from './intervention';
 import {InterventionService} from '../services/intervention.service';
+import {DetailsComponent} from '../details/details.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-interventions',
@@ -15,16 +17,16 @@ import {InterventionService} from '../services/intervention.service';
 
 export class InterventionsComponent implements OnInit {
   interventions :Intervention[];
+
   persons : Person[];
   projects : Project [];
 
   intervention : Intervention= {
-
     interventionId:null,
-    startDate : null,
-    endDate : null ,
-    worked : null,
-    person : null, project : null
+    date : null,
+    person : null,
+    project : null,
+    mode : null,
 
 }
 
@@ -42,12 +44,21 @@ export class InterventionsComponent implements OnInit {
   }
   personId;
   projectId;
-  constructor(private personService:PersonService , private projectService:ProjectService, private interventionService:InterventionService) { }
+
+  constructor( public dialog: MatDialog ,private personService:PersonService , private projectService:ProjectService, private interventionService:InterventionService) { }
 
   ngOnInit() {
     this.getAllPersons();
     this.getAllProject();
+    this.getAllInterventions()
+
   }
+
+getAllInterventions(){
+    this.interventionService.getInterventions().subscribe((data:Intervention[])=>{
+      this.interventions=data;
+    })
+}
 
 
   getAllPersons(){
@@ -73,15 +84,28 @@ export class InterventionsComponent implements OnInit {
     console.log(personId);
   }
 
-  public onDate(event): void {
-    this.intervention.startDate = event;
-   console.log(this.intervention.startDate)
-  }
   addIntervention(data:Intervention){
     console.log(data);
-
-this.interventionService.saveIntervention(data,this.personId,this.projectId);
-
+    this.interventionService.saveIntervention(data,this.projectId,this.personId);
+    window.location.reload();
   }
 
+  deletIntervention(interventionId){
+    this.interventionService.deleteIntervention(interventionId);
+    console.log(interventionId);
+    window.location.reload();
+  }
+
+  openDialog(intervention): void {
+    let dialogRef = this.dialog.open(DetailsComponent, {
+      width: '900px',
+      data: {person: intervention.person , project: intervention.project }
+    });
+
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }
