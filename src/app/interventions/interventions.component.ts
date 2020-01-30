@@ -43,11 +43,9 @@ export class InterventionsComponent implements OnInit {
     projectId;
     private result: any;
     private listIntervention: any;
-
     constructor(public dialog: MatDialog, private personService: PersonService, private projectService: ProjectService,
                 private interventionService: InterventionService) {
     }
-
     ngOnInit() {
         this.getAllPersons();
         this.getAllProject();
@@ -55,55 +53,45 @@ export class InterventionsComponent implements OnInit {
 
     }
 
-    filterData(dataList: Intervention[], id1, id2) {
-        dataList.forEach((item, index) => {
-            if (this.newArr.findIndex(i => i.id1 == item.person.id1
-                && i.project.id2 == item.project.id2) === -1) {
-                this.newArr.push(item)
-            }
-        });
-    }
-
     getAllInterventions() {
         this.interventionService.getInterventions().subscribe((data: Intervention[]) => {
             this.interventions = data;
-            this.filterData(this.interventions, this.person.personId, this.project.projectId)
+            this.interventions.forEach((item, index) => {
+                if (this.newArr.findIndex(i => i.person.personId == item.person.personId
+                    && i.project.projectId == item.project.projectId) === -1) {
+                    this.newArr.push(item)
+                }
+            });
         })
-    }
 
+    }
     getAllPersons() {
         this.personService.getPersons().subscribe((data: Person[]) => {
             this.persons = data;
         })
     }
-
     getAllProject() {
-        this.projectService.getProjects().subscribe((data: Project[]) => {
+          this.projectService.getProjects().subscribe((data: Project[]) => {
             this.projects = data
         })
     }
-
     selectProject(projectId) {
         this.projectId = projectId;
         console.log(projectId);
     }
-
     selectPerson(personId) {
         this.personId = personId;
         console.log(personId);
     }
-
     addIntervention(data: Intervention) {
         console.log(data);
         this.interventionService.saveIntervention(data, this.projectId, this.personId);
         window.location.reload();
     }
-
     deletIntervention(personId, projectId) {
         this.interventionService.deleteIntervention(personId, projectId);
         window.location.reload();
     }
-
     openDialog(intervention): void {
         let dialogRef = this.dialog.open(DetailsComponent, {
             width: '900px',
