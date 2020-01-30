@@ -61,7 +61,7 @@ export class DetailsComponent implements OnInit {
 
 
   deletIntervention(interventionId){
-    this.interventionService.deleteIntervention(interventionId);
+    this.interventionService.deleteInterventionHistorique(interventionId);
     console.log(interventionId);
     this.ngOnInit();
   }

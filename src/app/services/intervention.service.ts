@@ -32,7 +32,15 @@ export class InterventionService {
             }
         );
   }
+deleteInterventionHistorique(interventionId){
 
+    this.http.delete(`${config.apiUrl}/intervention/${interventionId}`)
+        .subscribe(
+            res => {
+                console.log(res);
+            }
+        )
+    }
   getInterventionsByPersonAndProject(projectId :number ,personId: number){
       return this.http.get(`${config.apiUrl}/intervention/project/${projectId}/person/${personId}`);
   }
