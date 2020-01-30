@@ -32,7 +32,7 @@ IdClient;
   }
 
   getAllProjects(){
-      this.projectService.getPerojects().subscribe((data:Project[])=>{
+      this.projectService.getProjects().subscribe((data:Project[])=>{
           this.projects=data
 
       })

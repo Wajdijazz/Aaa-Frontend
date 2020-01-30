@@ -54,7 +54,7 @@ constructor(private personService:PersonService , private projectService:Project
 }
 
 getAllProject(){
-  this.projectService.getPerojects().subscribe((data:Project[])=>{
+  this.projectService.getProjects().subscribe((data:Project[])=>{
     this.projects=data
   })
 }

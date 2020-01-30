@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PersonService} from '../services/person.service';
 import {ProjectService} from '../services/project.service';
 import {Project} from '../projects/project';
@@ -10,118 +10,107 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import {element} from 'protractor';
 
 @Component({
-  selector: 'app-interventions',
-  templateUrl: './interventions.component.html',
-  styleUrls: ['./interventions.component.scss']
+    selector: 'app-interventions',
+    templateUrl: './interventions.component.html',
+    styleUrls: ['./interventions.component.scss']
 })
 
 
 export class InterventionsComponent implements OnInit {
-  interventions :Intervention[];
-  newArr = []
+    interventions: Intervention[];
+    newArr = []
+    persons: Person[];
+    projects: Project [];
+    intervention: Intervention = {
+        interventionId: null,
+        date: null,
+        person: null,
+        project: null,
+        mode: null,
+    }
+    project: Project = {
+        projectId: null,
+        projectName: '',
+        client: null,
+    }
+    person: Person = {
+        personId: null,
+        firstName: '',
+        lastName: '',
+        manager: null
+    }
+    personId;
+    projectId;
+    private result: any;
+    private listIntervention: any;
 
-  persons : Person[];
-  projects : Project [];
+    constructor(public dialog: MatDialog, private personService: PersonService, private projectService: ProjectService,
+                private interventionService: InterventionService) {
+    }
 
-  intervention : Intervention= {
-    interventionId:null,
-    date : null,
-    person : null,
-    project : null,
-    mode : null,
+    ngOnInit() {
+        this.getAllPersons();
+        this.getAllProject();
+        this.getAllInterventions()
 
-}
+    }
 
-  project: Project={
-    projectId: null,
-    projectName:'',
-    client:null,
-  }
+    filterData(dataList: Intervention[], id1, id2) {
+        dataList.forEach((item, index) => {
+            if (this.newArr.findIndex(i => i.id1 == item.person.id1
+                && i.project.id2 == item.project.id2) === -1) {
+                this.newArr.push(item)
+            }
+        });
+    }
 
-  person: Person = {
-    personId: null,
-    firstName: '',
-    lastName: '',
-    manager:null
-  }
-  personId;
-  projectId;
-  private result:any;
-  private listIntervention: any;
+    getAllInterventions() {
+        this.interventionService.getInterventions().subscribe((data: Intervention[]) => {
+            this.interventions = data;
+            this.filterData(this.interventions, this.person.personId, this.project.projectId)
+        })
+    }
 
-  constructor( public dialog: MatDialog ,private personService:PersonService , private projectService:ProjectService, private interventionService:InterventionService) { }
+    getAllPersons() {
+        this.personService.getPersons().subscribe((data: Person[]) => {
+            this.persons = data;
+        })
+    }
 
-  ngOnInit() {
-    this.getAllPersons();
-    this.getAllProject();
-    this.getAllInterventions()
+    getAllProject() {
+        this.projectService.getProjects().subscribe((data: Project[]) => {
+            this.projects = data
+        })
+    }
 
-  }
+    selectProject(projectId) {
+        this.projectId = projectId;
+        console.log(projectId);
+    }
 
-getAllInterventions(){
-    this.interventionService.getInterventions().subscribe((data:Intervention[])=> {
-      this.interventions = data;
-      this.interventions.forEach((item, index) => {
-        if (this.newArr.findIndex(i => i.person.personId == item.person.personId && i.project.projectId==item.project.projectId) === -1)
-        {
-          this.newArr.push(item)
-        }
-      });
-      console.log((this.newArr))
-    })}
+    selectPerson(personId) {
+        this.personId = personId;
+        console.log(personId);
+    }
 
+    addIntervention(data: Intervention) {
+        console.log(data);
+        this.interventionService.saveIntervention(data, this.projectId, this.personId);
+        window.location.reload();
+    }
 
-  getAllPersons(){
-    this.personService.getPersons().subscribe((data:Person[])=>{
-      this.persons=data;
+    deletIntervention(personId, projectId) {
+        this.interventionService.deleteIntervention(personId, projectId);
+        window.location.reload();
+    }
 
-    })
-  }
-
-  getAllProject(){
-    this.projectService.getPerojects().subscribe((data:Project[])=>{
-      this.projects=data
-    })
-  }
-
-  selectProject(projectId){
-    this.projectId=projectId;
-    console.log(projectId);
-  }
-
-  selectPerson(personId){
-    this.personId=personId;
-    console.log(personId);
-  }
-
-  addIntervention(data:Intervention){
-    console.log(data);
-    this.interventionService.saveIntervention(data,this.projectId,this.personId);
-    window.location.reload();
-  }
-
-
-
-
-
-
-
-
-  deletIntervention(personId,projectId){
-    this.interventionService.deleteIntervention(personId,projectId);
- window.location.reload();
-  }
-
-  openDialog(intervention): void {
-    let dialogRef = this.dialog.open(DetailsComponent, {
-      width: '900px',
-      data: {person: intervention.person , project: intervention.project }
-    });
-
-
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
+    openDialog(intervention): void {
+        let dialogRef = this.dialog.open(DetailsComponent, {
+            width: '900px',
+            data: {person: intervention.person, project: intervention.project}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
 }

@@ -9,7 +9,7 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
 
-  getPerojects() {
+  getProjects() {
     return this.http.get(`${config.apiUrl}/project/`);
   }
 

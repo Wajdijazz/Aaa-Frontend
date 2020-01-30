@@ -47,14 +47,16 @@ export class DetailsComponent implements OnInit {
   }
 
   getInterventionsByPersonAndProject(){
-    this.interventionService.getInterventionsByPersonAndProject( this.data.project.projectId , this.data.person.personId ).subscribe((data:Intervention[])=>{
+    this.interventionService.getInterventionsByPersonAndProject( this.data.project.projectId , this.data.person.personId )
+        .subscribe((data:Intervention[])=>{
       this.interventionsByPerson=data;
       console.log(this.interventionsByPerson);
     })
   }
 
  getWorkedByPeronAndProject(){
-    this.interventionService.getWorkedByPersonAndProject( this.data.project.projectId, this.data.person.personId).subscribe((data: number)=>{
+    this.interventionService.getWorkedByPersonAndProject( this.data.project.projectId, this.data.person.personId)
+        .subscribe((data: number)=>{
       this.worked=data / 2;
     console.log(this.worked)})
  }
