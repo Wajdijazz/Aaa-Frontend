@@ -5,6 +5,9 @@ import {Project} from '../projects/project';
 import {Person} from '../persons/person';
 import {Intervention} from './intervention';
 import {InterventionService} from '../services/intervention.service';
+import {DetailsComponent} from '../details/details.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-interventions',
@@ -15,16 +18,17 @@ import {InterventionService} from '../services/intervention.service';
 
 export class InterventionsComponent implements OnInit {
   interventions :Intervention[];
+  newArr = []
+
   persons : Person[];
   projects : Project [];
 
   intervention : Intervention= {
     interventionId:null,
-    startDate : null,
-    endDate : null ,
-    worked : null,
+    date : null,
     person : null,
-    project : null
+    project : null,
+    mode : null,
 
 }
 
@@ -42,7 +46,10 @@ export class InterventionsComponent implements OnInit {
   }
   personId;
   projectId;
-  constructor(private personService:PersonService , private projectService:ProjectService, private interventionService:InterventionService) { }
+  private result:any;
+  private listIntervention: any;
+
+  constructor( public dialog: MatDialog ,private personService:PersonService , private projectService:ProjectService, private interventionService:InterventionService) { }
 
   ngOnInit() {
     this.getAllPersons();
@@ -52,12 +59,18 @@ export class InterventionsComponent implements OnInit {
   }
 
 getAllInterventions(){
+    this.interventionService.getInterventions().subscribe((data:Intervention[])=> {
+      this.interventions = data;
+      this.interventions.forEach((item, index) => {
+        if (this.newArr.findIndex(i => i.person.personId == item.person.personId && i.project.projectId==item.project.projectId) === -1)
+        {
+          this.newArr.push(item)
+        }
+      });
+      console.log((this.newArr))
+    })}
 
-    this.interventionService.getInterventions().subscribe((data:Intervention[])=>{
 
-      this.interventions=data
-    })
-}
   getAllPersons(){
     this.personService.getPersons().subscribe((data:Person[])=>{
       this.persons=data;
@@ -83,21 +96,33 @@ getAllInterventions(){
 
   addIntervention(data:Intervention){
     console.log(data);
-
-this.interventionService.saveIntervention(data,this.projectId,this.personId);
+    this.interventionService.saveIntervention(data,this.projectId,this.personId);
     window.location.reload();
-
-
   }
 
-  deleteIntervention(interventionId){
-    this.interventionService.deleteIntervention(interventionId)
+
+
+
+
+
+
+
+  deletIntervention(interventionId){
+    this.interventionService.deleteIntervention(interventionId);
     console.log(interventionId);
-    window.location.reload();
-
-
-
-
+//    window.location.reload();
   }
 
+  openDialog(intervention): void {
+    let dialogRef = this.dialog.open(DetailsComponent, {
+      width: '900px',
+      data: {person: intervention.person , project: intervention.project }
+    });
+
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }

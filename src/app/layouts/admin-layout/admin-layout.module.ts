@@ -7,8 +7,9 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { ClientsComponent } from '../../clients/clients.component';
 import { TjsComponent } from '../../tjs/tjs.component';
 import { ManagersComponent } from '../../managers/managers.component';
+import { DetailsComponent } from '../../details/details.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 
 import {
   MatButtonModule,
@@ -40,8 +41,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatTabsModule,
     MatListModule,
     MatDatepickerModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule ,
   ],
   declarations: [
     DashboardComponent,
@@ -49,10 +50,10 @@ import {MatNativeDateModule} from '@angular/material/core';
     TjsComponent,
     PersonsComponent,
     ManagersComponent,
-
+    DetailsComponent,
     PersonsComponent,
     ProjectsComponent,
-      InterventionsComponent
+    InterventionsComponent
 
   ]
 })
