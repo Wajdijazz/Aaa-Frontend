@@ -15,8 +15,7 @@ export class InterventionService {
     this.http.post(`${config.apiUrl}/intervention/project/${projectId}/person/${personId}`, data)
         .subscribe(
             res => {
-              console.log("added");
-              console.log(data);
+
             }
         );
   }
@@ -25,8 +24,8 @@ export class InterventionService {
     return this.http.get(`${config.apiUrl}/intervention/`);
   }
 
-  deleteIntervention(id: number) {
-    this.http.delete(`${config.apiUrl}/intervention/${id}`)
+  deleteIntervention(personId: number,projectId:number) {
+    this.http.delete(`${config.apiUrl}/intervention/person/${personId}/project/${projectId}`)
         .subscribe(
             res => {
               console.log(res);

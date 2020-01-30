@@ -41,7 +41,7 @@
                                                         <i class="material-icons">edit</i>
                                                     </button>
                                                 </td>
-                                                <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="deletIntervention(intervention.interventionId)">
+                                                <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="deletIntervention(intervention.person.personId,intervention.project.projectId)">
                                                     <i class="material-icons">close</i>
                                                 </button></td>
                                             </tr>

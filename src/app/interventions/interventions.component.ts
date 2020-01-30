@@ -107,10 +107,9 @@ getAllInterventions(){
 
 
 
-  deletIntervention(interventionId){
-    this.interventionService.deleteIntervention(interventionId);
-    console.log(interventionId);
-//    window.location.reload();
+  deletIntervention(personId,projectId){
+    this.interventionService.deleteIntervention(personId,projectId);
+ window.location.reload();
   }
 
   openDialog(intervention): void {
