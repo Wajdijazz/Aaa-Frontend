@@ -1,98 +1,110 @@
-<div class="main-content" >
-  <div style="heigh:20% , width:80%">
-    <div class="container-fluid" style="width:90%">
-      <div class="col-md-16">
-        <div class="card card-plain">
-          <div class="card-header card-header-info">
-            <h4 class="card-title mt-0"> List Of Daily Rates </h4>
-            <p class="card-category"> </p>
-          </div>
-          <div class="card-body">
-            <mat-tab-group animationDuration="0ms">
-              <mat-tab label="Daily Rates List">
-                <br>
-                <div class="card-body">
+<div class="main-content">
+    <div style="heigh:20% , width:80%">
+        <div class="container-fluid" style="width:90%">
+            <div class="col-md-16">
+                <div class="card card-plain">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title mt-0"> List Of Daily Rates </h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+                        <mat-tab-group animationDuration="0ms">
+                            <mat-tab label="Daily Rates List">
+                                <br>
+                                <div class="card-body">
 
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead class="">
-                      <th>
-                       Person
-                      </th>
-                      <th>
-                       Project
-                      </th>
-                      <th>
-                        Daily Rate
-                      </th>
-                      <th> Edit</th>
-                      <th> Delete</th>
-                      </thead>
-                      <tbody>
-                      <tr *ngFor="let tj of tjs" >
-                      <td>{{tj.person.firstName}} {{tj.person.lastName}}</td>
-                      <td>{{tj.project.projectName}}</td>
-                        <td>{{tj.tarif}}</td>
-                        <td>
-                          <button mat-raised-button type="button" matTooltip="Edit " [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                            <i class="material-icons">edit</i>
-                          </button>
-                      </td>
-
-
-
-                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="deletTj(tj.tjId)">
-                          <i class="material-icons">close</i>
-                        </button></td>
-
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class="">
+                                            <th>
+                                                Person
+                                            </th>
+                                            <th>
+                                                Project
+                                            </th>
+                                            <th>
+                                                Daily Rate
+                                            </th>
+                                            <th> Edit</th>
+                                            <th> Delete</th>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let tj of tjs">
+                                                <td>{{tj.person.firstName}} {{tj.person.lastName}}</td>
+                                                <td>{{tj.project.projectName}}</td>
+                                                <td>{{tj.tarif}}</td>
+                                                <td>
+                                                    <button mat-raised-button type="button" matTooltip="Edit "
+                                                            [matTooltipPosition]="'above'"
+                                                            class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                </td>
 
 
+                                                <td>
+                                                    <button mat-raised-button type="button" atTooltip="voir details"
+                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                                            (click)="deletTj(tj.tjId)">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </mat-tab>
+
+                            <mat-tab label="New Daily Rate">
+                                <br>
+
+                                <form #f="ngForm">
+
+                                    <mat-form-field>
+                                        <mat-label> Select Person</mat-label>
+                                        <mat-select name="persons list" [(ngModel)]="person"
+                                                    (selectionChange)="selectPerson(person)" required>
+                                            <mat-option *ngFor="let person of persons"
+                                                        [value]="person.personId">
+                                                {{ person.firstName }} {{person.lastName}} </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <mat-label> Select Project</mat-label>
+                                        <mat-select name="project list" [(ngModel)]="project"
+                                                    (selectionChange)="selectProject(project)" required>
+                                            <mat-option *ngFor="let project of projects"
+                                                        [value]="project.projectId">{{ project.projectName }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <input matInput name="tarif" placeholder="Daily Rate" [(ngModel)]="tj.tarif"
+                                               required>
+                                    </mat-form-field>
+
+                                    <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                                            (click)="addTj(tj)"> Add
+                                    </button>
+                                </form>
+                            </mat-tab>
+
+                        </mat-tab-group>
+
+                    </div>
+                    <hr>
 
                 </div>
-              </mat-tab>
 
-              <mat-tab label="New Daily Rate">
-                <br>
-
-                <form #f="ngForm">
-
-                  <mat-form-field>
-                    <mat-label> Select Person</mat-label>
-                    <mat-select  name="persons list" [(ngModel)]="person" (selectionChange)="selectPerson(person)" required>
-                      <mat-option *ngFor="let person of persons" [value]="person.personId">{{ person.firstName }} {{person.lastName}} </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                  <mat-form-field>
-                    <mat-label>  Select Project </mat-label>
-                    <mat-select  name="project list" [(ngModel)]="project" (selectionChange)="selectProject(project)" required>
-                      <mat-option *ngFor="let project of projects" [value]="project.projectId">{{ project.projectName }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                  <mat-form-field>
-                    <input matInput name="tarif" placeholder="Daily Rate" [(ngModel)]="tj.tarif" required >
-                  </mat-form-field>
-
-                  <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="addTj(tj)"  > Add </button>
-                </form>
-              </mat-tab>
-
-            </mat-tab-group>
-
-          </div>
-          <hr>
+            </div>
 
         </div>
-
-      </div>
-
-    </div></div>
-
+    </div>
 
 
 </div>

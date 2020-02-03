@@ -1,14 +1,14 @@
 <h2 mat-dialog-title> Intervention Details </h2>
-<mat-dialog-content class="mat-typography">
-<h3>Person : {{data.person.firstName}} {{data.person.lastName}}</h3>
-  <h3>Manager :{{data.person.manager.firstName}} {{data.person.manager.lastName}}</h3>
- <h3>Project : {{data.project.projectName}}</h3>
+<mat-dialog-content class="mat-typography" id="1">
+    <h3>Person : {{data.person.firstName}} {{data.person.lastName}}</h3>
+    <h3>Manager :{{data.person.manager.firstName}} {{data.person.manager.lastName}}</h3>
+    <h3>Project : {{data.project.projectName}}</h3>
     <h3> Total Worked Days :{{worked}}</h3>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead class="">
             <th>
-              Date
+                Date
             </th>
             <th>
                 Mode
@@ -16,17 +16,21 @@
             <th>Delete</th>
             </thead>
             <tbody>
-            <tr *ngFor="let intervention of interventionsByPerson" >
-                <td>{{intervention.date}}</td>
-                <td>{{intervention.mode}}</td>
-                <td>  <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="deletIntervention(intervention.interventionId)">
-                <i class="material-icons">close</i>
-            </button></td>
+            <tr *ngFor="let element of dateList">
+                <td>{{element.value | date}}</td>
+                <td>{{element.key}}</td>
+                <td>
+                    <button mat-raised-button type="button" atTooltip="voir details"
+                            class="btn btn-primary btn-link btn-sm btn-just-icon"
+                            (click)="deletIntervention(element.id)">
+                        <i class="material-icons">close</i>
+                    </button>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Close </button>
+    <button mat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>

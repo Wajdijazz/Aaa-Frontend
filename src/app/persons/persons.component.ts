@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Person} from './person';
 import {PersonService} from '../services/person.service';
-import {Router} from '@angular/router';
 import {Manager} from '../managers/manager';
 import {ManagerService} from '../services/manager.service';
 
@@ -25,32 +24,37 @@ export class PersonsComponent implements OnInit {
         lastName: '',
         manager: null
     }
-    constructor(private personService: PersonService, private managerService: ManagerService, private router: Router) {
+
+    constructor(private personService: PersonService, private managerService: ManagerService) {
         this.getAllPersons()
     }
+
     ngOnInit() {
         this.getAllManagers()
     }
+
     getAllPersons() {
         this.personService.getPersons().subscribe((data: Person[]) => {
             this.persons = data;
-            console.log((this.persons))
         })
     }
+
     getAllManagers() {
         this.managerService.getManagers().subscribe((data: Manager[]) => {
             this.managers = data
         })
     }
+
     deletPerson(personId) {
         this.personService.deletePerson(personId)
         this.getAllPersons()
         window.location.reload();
     }
+
     selectManager(managerId) {
-        console.log((managerId))
         this.Idmanager = managerId
     }
+
     addPerson(data: Person) {
         this.personService.savePerson(data, this.Idmanager)
         window.location.reload();

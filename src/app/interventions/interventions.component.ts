@@ -7,7 +7,7 @@ import {Intervention} from './intervention';
 import {InterventionService} from '../services/intervention.service';
 import {DetailsComponent} from '../details/details.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {element} from 'protractor';
+
 
 @Component({
     selector: 'app-interventions',
@@ -27,6 +27,8 @@ export class InterventionsComponent implements OnInit {
         person: null,
         project: null,
         mode: null,
+        startDate:null,
+        endDate:null,
     }
     project: Project = {
         projectId: null,
@@ -41,16 +43,17 @@ export class InterventionsComponent implements OnInit {
     }
     personId;
     projectId;
-    private result: any;
-    private listIntervention: any;
-    constructor(public dialog: MatDialog, private personService: PersonService, private projectService: ProjectService,
+    private listInterventions: void;
+
+    constructor(public dialog: MatDialog, private personService: PersonService,
+                private projectService: ProjectService,
                 private interventionService: InterventionService) {
     }
+
     ngOnInit() {
         this.getAllPersons();
         this.getAllProject();
         this.getAllInterventions()
-
     }
 
     getAllInterventions() {
@@ -65,40 +68,49 @@ export class InterventionsComponent implements OnInit {
         })
 
     }
+
     getAllPersons() {
         this.personService.getPersons().subscribe((data: Person[]) => {
             this.persons = data;
         })
     }
+
     getAllProject() {
-          this.projectService.getProjects().subscribe((data: Project[]) => {
+        this.projectService.getProjects().subscribe((data: Project[]) => {
             this.projects = data
         })
     }
+
     selectProject(projectId) {
         this.projectId = projectId;
-        console.log(projectId);
     }
+
     selectPerson(personId) {
         this.personId = personId;
         console.log(personId);
     }
+
     addIntervention(data: Intervention) {
-        console.log(data);
+        this.listInterventions = this.getAllInterventions()
         this.interventionService.saveIntervention(data, this.projectId, this.personId);
         window.location.reload();
     }
+
     deletIntervention(personId, projectId) {
         this.interventionService.deleteIntervention(personId, projectId);
         window.location.reload();
     }
+
+    /**
+     * Cette focntion permet d'ouvrire un poup et afficher les detaills de l'intervention dans le composant details
+     * @param intervention
+     */
     openDialog(intervention): void {
         let dialogRef = this.dialog.open(DetailsComponent, {
             width: '900px',
             data: {person: intervention.person, project: intervention.project}
         });
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
         });
     }
 }

@@ -1,82 +1,85 @@
-<div class="main-content" >
-  <div style="heigh:20% , width:80%">
-    <div class="container-fluid" style="width:90%">
-      <div class="col-md-16">
-        <div class="card card-plain">
-          <div class="card-header card-header-info">
-            <h4 class="card-title mt-0"> List Of Managers </h4>
-            <p class="card-category"> </p>
-          </div>
-          <div class="card-body">
-            <mat-tab-group animationDuration="0ms">
-              <mat-tab label="Managers List">
-                <br>
-                <div class="card-body">
+<div class="main-content">
+    <div style="heigh:20% , width:80%">
+        <div class="container-fluid" style="width:90%">
+            <div class="col-md-16">
+                <div class="card card-plain">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title mt-0"> List Of Managers </h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+                        <mat-tab-group animationDuration="0ms">
+                            <mat-tab label="Managers List">
+                                <br>
+                                <div class="card-body">
 
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead class="">
-                      <th>
-                        First Name
-                      </th>
-                      <th>
-                        Last Name
-                      </th>
-                      <th> Edit</th>
-                      <th> Delete</th>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class="">
+                                            <th>
+                                                First Name
+                                            </th>
+                                            <th>
+                                                Last Name
+                                            </th>
+                                            <th> Edit</th>
+                                            <th> Delete</th>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let manager of managers">
+                                                <td>{{manager.firstName}}</td>
+                                                <td>{{manager.lastName}}</td>
+                                                <td>
+                                                    <button mat-raised-button type="button" atTooltip="voir details"
+                                                            class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button mat-raised-button type="button" atTooltip="voir details"
+                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                                            (click)="deleteManager(manager.managerId)">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="New Manager">
+                                <br>
+                                <form #f="ngForm">
+
+                                    <mat-form-field>
+                                        <input matInput name="First Name" placeholder="First Name"
+                                               [(ngModel)]="manager.firstName" required>
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <input matInput name="Last Name" placeholder="Last Name" required
+                                               [(ngModel)]="manager.lastName">
+                                    </mat-form-field>
 
 
-                      </thead>
-                      <tbody>
+                                    <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                                            (click)="addManager(manager)"> Add
+                                    </button>
+                                </form>
+                            </mat-tab>
 
+                        </mat-tab-group>
 
-                      <tr  *ngFor="let manager of managers">
-                        <td>{{manager.firstName}}</td>
-                        <td>{{manager.lastName}}</td>
-                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                          <i class="material-icons">edit</i>
-                        </button></td>
-                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon"  (click)="deleteManager(manager.managerId)" >
-                          <i class="material-icons">close</i>
-                        </button></td>
-                      </tr>
-
-                      </tbody>
-                    </table>
-                  </div>
-
-
+                    </div>
+                    <hr>
 
                 </div>
-              </mat-tab>
-              <mat-tab label="New Manager">
-                <br>
-                <form #f="ngForm" >
 
-                  <mat-form-field>
-                    <input matInput name="First Name" placeholder="First Name" [(ngModel)]="manager.firstName" required>
-                  </mat-form-field>
-
-                  <mat-form-field>
-                    <input matInput name="Last Name"  placeholder="Last Name" required  [(ngModel)]="manager.lastName">
-                  </mat-form-field>
-
-
-                  <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="addManager(manager)" > Add </button>
-                </form>
-              </mat-tab>
-
-            </mat-tab-group>
-
-          </div>
-          <hr>
+            </div>
 
         </div>
-
-      </div>
-
-    </div></div>
-
+    </div>
 
 
 </div>

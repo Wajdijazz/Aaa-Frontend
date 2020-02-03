@@ -4,67 +4,69 @@ import {InterventionService} from '../services/intervention.service';
 import {Intervention} from '../interventions/intervention';
 import {Person} from '../persons/person';
 import {Project} from '../projects/project';
+
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
+    selector: 'app-details',
+    templateUrl: './details.component.html',
+    styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
-  interventionsByPerson : Intervention[];
-  persons : Person[];
-  projects : Project [];
+    interventionsByPerson: Intervention[];
+    persons: Person[];
+    projects: Project [];
 
-  intervention : Intervention= {
-    interventionId:null,
-    date : null,
-    person : null,
-    project : null,
-    mode : null,
+    project: Project = {
+        projectId: null,
+        projectName: '',
+        client: null,
+    }
 
-  }
+    person: Person = {
+        personId: null,
+        firstName: '',
+        lastName: '',
+        manager: null
+    }
+    worked;
+    private dateTest: Date;
 
-  project: Project={
-    projectId: null,
-    projectName:'',
-    client:null,
-  }
+    private dateList = [{id: null, key: '', value: null}];
 
-  person: Person = {
-    personId: null,
-    firstName: '',
-    lastName: '',
-    manager:null
-  }
-  worked;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any ,private interventionService:InterventionService ) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private interventionService: InterventionService) {
+    }
 
-  ngOnInit() {
-    this.getInterventionsByPersonAndProject();
-   this.getWorkedByPeronAndProject();
-    console.log(this.data.person.personId);
-    console.log(this.data.project.projectId);
-    console.log(this.worked);
-  }
+    ngOnInit() {
+        this.getInterventionsByPersonAndProject();
+        this.getWorkedByPeronAndProject();
+    }
 
-  getInterventionsByPersonAndProject(){
-    this.interventionService.getInterventionsByPersonAndProject( this.data.project.projectId , this.data.person.personId )
-        .subscribe((data:Intervention[])=>{
-      this.interventionsByPerson=data;
-      console.log(this.interventionsByPerson);
-    })
-  }
+    /**
+     * Cette fonction permet de récuperer tous les interventions auprés de serveur et corriger le problémes de décalages des dates
+     */
+    getInterventionsByPersonAndProject() {
+        this.interventionService.getInterventionsByPersonAndProject(this.data.project.projectId, this.data.person.personId)
+            .subscribe((data: Intervention[]) => {
+                this.interventionsByPerson = data;
+                this.interventionsByPerson.forEach(element => {
+                    this.dateTest = new Date(element.date)
+                    this.dateTest.setDate(this.dateTest.getDate() + 1)
+                    this.dateList.push({id: element.interventionId, key: element.mode, value: this.dateTest})
+                })
+            })
+        this.dateList = []
 
- getWorkedByPeronAndProject(){
-    this.interventionService.getWorkedByPersonAndProject( this.data.project.projectId, this.data.person.personId)
-        .subscribe((data: number)=>{
-      this.worked=data / 2;
-    console.log(this.worked)})
- }
+    }
 
+    getWorkedByPeronAndProject() {
+        this.interventionService.getWorkedByPersonAndProject(this.data.project.projectId, this.data.person.personId)
+            .subscribe((data: number) => {
+                this.worked = data / 2;
+            })
+    }
 
-  deletIntervention(interventionId){
-    this.interventionService.deleteInterventionHistorique(interventionId);
-    console.log(interventionId);
-    this.ngOnInit();
-  }
+    deletIntervention(interventionId) {
+        this.interventionService.deleteInterventionHistorique(interventionId);
+        this.ngOnInit()
+    }
+
 }

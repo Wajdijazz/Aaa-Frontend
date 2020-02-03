@@ -1,86 +1,82 @@
-<div class="main-content" >
-  <div style="heigh:20% , width:80%">
-    <div class="container-fluid" style="width:90%">
-      <div class="col-md-16">
-        <div class="card card-plain">
-          <div class="card-header card-header-info">
-            <h4 class="card-title mt-0"> List Of Persons </h4>
-            <p class="card-category"> </p>
-          </div>
-          <div class="card-body">
-            <mat-tab-group animationDuration="0ms">
-              <mat-tab label="Project List">
-                <br>
-                <div class="card-body">
+<div class="main-content">
+    <div style="heigh:20% , width:80%">
+        <div class="container-fluid" style="width:90%">
+            <div class="col-md-16">
+                <div class="card card-plain">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title mt-0"> List Of Persons </h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+                        <mat-tab-group animationDuration="0ms">
+                            <mat-tab label="Project List">
+                                <br>
+                                <div class="card-body">
 
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead class="">
-                      <th>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class="">
+                                            <th>
+                                                Project Name
+                                            </th>
+                                            <th>
+                                                Client Name
+                                            </th>
+                                            <th> Edit</th>
+                                            <th> Delete</th>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let project of projects">
+                                                <td>{{project.projectName}}</td>
+                                                <td>{{project.client.clientName}}</td>
+                                                <td>
+                                                    <button mat-raised-button type="button" atTooltip="voir details"
+                                                            class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button mat-raised-button type="button" atTooltip="voir details"
+                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                                            (click)="deletProject(project.projectId)">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>
+                                            </tr>
 
-                          Project Name
-                      </th>
-                      <th>
-                        Client Name
-                      </th>
-                      <th> Edit</th>
-                      <th> Delete</th>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="New Project">
+                                <br>
+                                <form #f="ngForm">
 
+                                    <mat-form-field>
+                                        <input matInput name="Project Name"
+                                               [(ngModel)]="project.projectName" placeholder="First Name" required>
+                                    </mat-form-field>
 
-                      </thead>
-                      <tbody>
-                      <tr *ngFor="let project of projects">
-                        <td>{{project.projectName}}</td>
-                        <td>{{project.client.clientName}}</td>
-                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                          <i class="material-icons">edit</i>
-                        </button></td>
-                        <td> <button mat-raised-button type="button"  atTooltip="voir details" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="deletProject(project.projectId)">
-                          <i class="material-icons">close</i>
-                        </button></td>
-                      </tr>
-
-                      </tbody>
-                    </table>
-                  </div>
-
-
-
+                                    <mat-form-field>
+                                        <mat-select placeholder="Select client" name="client list"
+                                                    [(ngModel)]="client" (selectionChange)="selectClient(client)"
+                                                    required>
+                                            <mat-option *ngFor="let client of clients" [value]="client.clientId">
+                                                {{ client.clientName }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <button mat-raised-button type="submit"
+                                            class="btn btn-info pull-right" (click)="addProject(project)"> Add
+                                    </button>
+                                </form>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+                    <hr>
                 </div>
-              </mat-tab>
-              <mat-tab label="New Project">
-                <br>
-                <form #f="ngForm" >
-
-                  <mat-form-field>
-                    <input matInput name="Project Name"  [(ngModel)]="project.projectName"  placeholder="First Name" required>
-                  </mat-form-field>
-
-                  <mat-form-field>
-                    <mat-select placeholder="Select client" name="client list" [(ngModel)]="client" (selectionChange)="selectClient(client)"   required>
-                      <mat-option *ngFor="let client of clients" [value]="client.clientId" >{{ client.clientName }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-
-
-
-
-                  <button mat-raised-button type="submit" class="btn btn-info pull-right"  (click)="addProject(project)" > Add </button>
-                </form>
-              </mat-tab>
-
-            </mat-tab-group>
-
-          </div>
-          <hr>
-
+            </div>
         </div>
-
-      </div>
-
-    </div></div>
-
-
+    </div>
 
 </div>
