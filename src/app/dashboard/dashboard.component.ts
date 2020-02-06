@@ -1,150 +1,112 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as Chartist from 'chartist';
+import {PersonService} from '../services/person.service';
+import {ProjectService} from '../services/project.service';
+import {Person} from '../persons/person';
+import {Project} from '../projects/project';
+import {InterventionService} from '../services/intervention.service';
+import {Intervention} from '../interventions/intervention';
+import {Manager} from '../managers/manager';
+import {element} from 'protractor';
+import {Observable} from 'rxjs';
+import {DetailsComponent} from '../details/details.component';
+import {MatDialog} from '@angular/material/dialog';
+import {DetailsWorkComponent} from '../details-work/details-work.component';
+import {TjService} from '../services/tj.service';
+import {Tj} from '../tjs/tj';
+
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
-  startAnimationForLineChart(chart){
-      let seq: any, delays: any, durations: any;
-      seq = 0;
-      delays = 80;
-      durations = 500;
+    persons: Person[];
+    private projects: Project[];
+    worked: any
+    managers: Manager[];
+    manager: Manager = {
+        managerId: null,
+        firstName: '',
+        lastName: ''
+    }
+    person: Person = {
+        personId: null,
+        firstName: '',
+        lastName: '',
+        manager: null,
+    }
 
-      chart.on('draw', function(data) {
-        if(data.type === 'line' || data.type === 'area') {
-          data.element.animate({
-            d: {
-              begin: 600,
-              dur: 700,
-              from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-              to: data.path.clone().stringify(),
-              easing: Chartist.Svg.Easing.easeOutQuint
-            }
-          });
-        } else if(data.type === 'point') {
-              seq++;
-              data.element.animate({
-                opacity: {
-                  begin: seq * delays,
-                  dur: durations,
-                  from: 0,
-                  to: 1,
-                  easing: 'ease'
-                }
-              });
-          }
-      });
+    dataset = []
+    private personName: string;
+    private projectName: string;
+    private interventions: Intervention[];
+    newArr = []
+    datasetClone=[]
+    private result: any;
+    private tjs: Tj[];
+    private dataSource: Person[];
+    private val1: Person | null | string | any;
+    private months: string[];
+    month: ''
+    private selectedMonth: any;
 
-      seq = 0;
-  };
-  startAnimationForBarChart(chart){
-      let seq2: any, delays2: any, durations2: any;
+    constructor(private personService: PersonService, private projectService: ProjectService,
+                private interventionService: InterventionService, public dialog: MatDialog, private tjService: TjService) {
+    }
 
-      seq2 = 0;
-      delays2 = 80;
-      durations2 = 500;
-      chart.on('draw', function(data) {
-        if(data.type === 'bar'){
-            seq2++;
-            data.element.animate({
-              opacity: {
-                begin: seq2 * delays2,
-                dur: durations2,
-                from: 0,
-                to: 1,
-                easing: 'ease'
-              }
-            });
+
+    ngOnInit() {
+        this.getAllPersons()
+        this.getAllProject()
+        this.getAllTjs()
+        this.getWorkedDayByPeronAndProject()
+        this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+            'September', 'October', 'November', 'December'];
+
+    }
+
+    selectMonth(month) {
+        this.selectedMonth = month
+    }
+
+    getAllPersons() {
+        this.personService.getPersons().subscribe((data: Person[]) => {
+            this.persons = data;
+            this.dataSource = this.persons;
+
+
+        })
+    }
+
+    getAllProject() {
+        this.projectService.getProjects().subscribe((data: Project[]) => {
+            this.projects = data
+        })
+    }
+
+    getAllTjs() {
+        this.tjService.getTjs().subscribe((data: Tj[]) => {
+            this.tjs = data;
+
+        })
+    }
+
+    getWorkedDayByPeronAndProject() {
+        this.dataset = [{
+            person: [{name: 'Mohamed', worked: 4, price: 100}, {name: 'Wajdi', worked: 0, price: 0}, {name: 'Noe', worked: 0, price: 0}],
+            project: {projectName: 'followup'}
         }
-      });
-
-      seq2 = 0;
-  };
-  ngOnInit() {
-      /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
-
-      const dataDailySalesChart: any = {
-          labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-          series: [
-              [12, 17, 7, 17, 23, 18, 38]
-          ]
-      };
-
-     const optionsDailySalesChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
-              tension: 0
-          }),
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
-      }
-
-      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
-      this.startAnimationForLineChart(dailySalesChart);
-
-
-      /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
-
-      const dataCompletedTasksChart: any = {
-          labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-          series: [
-              [230, 750, 450, 300, 280, 240, 200, 190]
-          ]
-      };
-
-     const optionsCompletedTasksChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
-              tension: 0
-          }),
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
-      }
-
-      var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-      // start animation for the Completed Tasks Chart - Line Chart
-      this.startAnimationForLineChart(completedTasksChart);
-
-
-
-      /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
-
-      var datawebsiteViewsChart = {
-        labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-        series: [
-          [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-        ]
-      };
-      var optionswebsiteViewsChart = {
-          axisX: {
-              showGrid: false
-          },
-          low: 0,
-          high: 1000,
-          chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
-      };
-      var responsiveOptions: any[] = [
-        ['screen and (max-width: 640px)', {
-          seriesBarDistance: 5,
-          axisX: {
-            labelInterpolationFnc: function (value) {
-              return value[0];
+            , {
+                person: [{name: 'Mohamed', worked: 0, price: 0}, {name: 'Wajdi', worked: 10, price: 120}, {
+                    name: 'Noe',
+                    worked: 5,
+                    price: 1000
+                }],
+                project: {projectName: 'project 2 personnes'}
             }
-          }
-        }]
-      ];
-      var websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
-
-      //start animation for the Emails Subscription Chart
-      this.startAnimationForBarChart(websiteViewsChart);
-  }
-
+        ]
+    }
 }

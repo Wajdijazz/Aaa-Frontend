@@ -4,4 +4,5 @@ export class Person {
     lastName: string;
     manager: any;
 
+
 }

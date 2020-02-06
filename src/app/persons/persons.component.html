@@ -32,10 +32,11 @@
                                             <tr *ngFor="let person of persons">
                                                 <td>{{person.firstName}}</td>
                                                 <td>{{person.lastName}}</td>
-                                                <td>{{person.manager.firstName}}</td>
+                                                <td>{{person.manager.firstName}} {{person.manager.lastName}}</td>
                                                 <td>
                                                     <button mat-raised-button type="button" atTooltip="voir details"
-                                                            class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                                            (click)="updatePerson(person)">
                                                         <i class="material-icons">edit</i>
                                                     </button>
                                                 </td>

@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Update client</h2>
+<mat-dialog-content class="mat-typography" id="1">
+    <form #f="ngForm">
+
+        <mat-form-field>
+            <input matInput name="ClientName" [(ngModel)]="client.clientName"
+                   placeholder="Client Name" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput name="Contact" [(ngModel)]="client.clientContact"
+                   placeholder="contact" required>
+        </mat-form-field>
+
+        <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                (click)="updateClient(client)"> UPDATE
+        </button>
+    </form>
+
+</mat-dialog-content>
+

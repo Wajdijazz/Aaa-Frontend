@@ -31,7 +31,8 @@
                                                 <td>{{project.client.clientName}}</td>
                                                 <td>
                                                     <button mat-raised-button type="button" atTooltip="voir details"
-                                                            class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                                            (click)="updateProject(project)">
                                                         <i class="material-icons">edit</i>
                                                     </button>
                                                 </td>

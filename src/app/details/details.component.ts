@@ -40,6 +40,8 @@ export class DetailsComponent implements OnInit {
         this.getWorkedByPeronAndProject();
     }
 
+
+
     /**
      * Cette fonction permet de récuperer tous les interventions auprés de serveur et corriger le problémes de décalages des dates
      */

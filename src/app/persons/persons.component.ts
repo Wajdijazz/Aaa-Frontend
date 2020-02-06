@@ -3,6 +3,9 @@ import {Person} from './person';
 import {PersonService} from '../services/person.service';
 import {Manager} from '../managers/manager';
 import {ManagerService} from '../services/manager.service';
+import {MatDialog} from '@angular/material/dialog';
+import {UpdateManagerComponent} from '../updates-data/update-manager/update-manager.component';
+import {UpdatePersonComponent} from '../updates-data/update-person/update-person.component';
 
 @Component({
     selector: 'app-persons',
@@ -22,15 +25,17 @@ export class PersonsComponent implements OnInit {
         personId: null,
         firstName: '',
         lastName: '',
-        manager: null
+        manager: null,
+
     }
 
-    constructor(private personService: PersonService, private managerService: ManagerService) {
-        this.getAllPersons()
+    constructor(private personService: PersonService, private managerService: ManagerService, public dialog: MatDialog) {
     }
 
     ngOnInit() {
         this.getAllManagers()
+        this.getAllPersons()
+
     }
 
     getAllPersons() {
@@ -47,8 +52,7 @@ export class PersonsComponent implements OnInit {
 
     deletPerson(personId) {
         this.personService.deletePerson(personId)
-        this.getAllPersons()
-        window.location.reload();
+      window.location.reload();
     }
 
     selectManager(managerId) {
@@ -60,4 +64,20 @@ export class PersonsComponent implements OnInit {
         window.location.reload();
         this.getAllPersons()
     }
+
+    /**
+     * Cette focntion permet d'ouvrire un poup et afficher une formulaire pour modifier une personne
+     * @param person
+     */
+    updatePerson(person): void {
+        let dialogRef = this.dialog.open(UpdatePersonComponent, {
+            width: '900px',
+            data: {person}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+
+    }
+
+
 }

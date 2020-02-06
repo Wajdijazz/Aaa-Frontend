@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ManagerService} from '../services/manager.service';
 import {Manager} from './manager';
 import {NavigationEnd, Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {DetailsComponent} from '../details/details.component';
+import {UpdateManagerComponent} from '../updates-data/update-manager/update-manager.component';
 
 @Component({
     selector: 'app-managers',
@@ -17,7 +20,7 @@ export class ManagersComponent implements OnInit {
         lastName: ''
     }
 
-    constructor(private managerService: ManagerService) {
+    constructor(private managerService: ManagerService,public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -42,5 +45,19 @@ export class ManagersComponent implements OnInit {
         this.getAllManagers()
         window.location.reload();
     }
+
+    /**
+     * Cette focntion permet d'ouvrire un poup et afficher une formulaire pour modifier un manager
+     * @param manager
+     */
+    updateManager(manager): void {
+        let dialogRef = this.dialog.open(UpdateManagerComponent, {
+            width: '900px',
+            data: {manager}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+
+}
 
 }

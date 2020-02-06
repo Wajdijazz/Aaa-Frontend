@@ -3,6 +3,9 @@ import {Client} from '../clients/client';
 import {ClientService} from '../services/client.service';
 import {Project} from './project';
 import {ProjectService} from '../services/project.service';
+import {MatDialog} from '@angular/material/dialog';
+import {UpdatePersonComponent} from '../updates-data/update-person/update-person.component';
+import {UpdateProjectComponent} from '../updates-data/update-project/update-project.component';
 
 @Component({
     selector: 'app-projects',
@@ -25,7 +28,7 @@ export class ProjectsComponent implements OnInit {
 
     }
 
-    constructor(private clientService: ClientService, private projectService: ProjectService) {
+    constructor(private clientService: ClientService, private projectService: ProjectService,public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -57,6 +60,15 @@ export class ProjectsComponent implements OnInit {
     deletProject(projectId) {
         this.projectService.deleteProject(projectId);
         window.location.reload();
+    }
+    updateProject(project): void {
+        let dialogRef = this.dialog.open(UpdateProjectComponent, {
+            width: '900px',
+            data: {project}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+
     }
 
 }

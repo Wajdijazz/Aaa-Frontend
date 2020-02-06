@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Update person</h2>
+<mat-dialog-content class="mat-typography" id="1">
+    <form #f="ngForm">
+        <mat-form-field>
+            <input matInput name="First Name" [(ngModel)]="person.firstName"
+                   placeholder="First Name" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput name="Last Name" [(ngModel)]="person.lastName"
+                   placeholder="Last Name" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Select Manager" name="client list"
+                        [(ngModel)]="manager" (selectionChange)="selectManager(manager)"
+                        required>
+                <mat-option *ngFor="let manager of managers" [value]="manager.managerId">
+                    {{ manager.firstName }} {{ manager.lastName }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                (click)="updatePerson(person)"> UPDATE
+        </button>
+    </form>
+</mat-dialog-content>
+

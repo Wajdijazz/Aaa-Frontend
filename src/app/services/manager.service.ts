@@ -22,6 +22,13 @@ export class ManagerService {
                 }
             );
     }
+    updateManager(id:number,data: Manager) {
+        this.http.put(`${config.apiUrl}/manager/${id}`, data)
+            .subscribe(
+                res => {
+                }
+            );
+    }
 
     deleteManager(id: number) {
         this.http.delete(`${config.apiUrl}/manager/${id}`)

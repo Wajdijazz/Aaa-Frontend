@@ -6,6 +6,5 @@ export class Intervention {
     person : any;
     startDate:Date;
     endDate: Date;
-
 }
 

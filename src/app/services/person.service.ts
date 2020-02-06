@@ -24,6 +24,15 @@ export class PersonService {
             );
     }
 
+   updatePerson(id:number,data: Person, managerId: number) {
+        this.http.put(`${config.apiUrl}/person/${id}/${managerId}`, data)
+            .subscribe(
+                res => {
+                }
+            );
+    }
+
+
     deletePerson(id: number) {
         this.http.delete(`${config.apiUrl}/person/${id}`)
             .subscribe(

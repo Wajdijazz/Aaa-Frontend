@@ -27,6 +27,13 @@ import {ProjectsComponent} from '../../projects/projects.component';
 import {MatListModule} from '@angular/material/list';
 import {InterventionsComponent} from '../../interventions/interventions.component';
 import {MatNativeDateModule} from '@angular/material/core';
+import {UpdateManagerComponent} from '../../updates-data/update-manager/update-manager.component';
+import {UpdatePersonComponent} from '../../updates-data/update-person/update-person.component';
+import {UpdateClientComponent} from '../../updates-data/update-client/update-client.component';
+import {UpdateProjectComponent} from '../../updates-data/update-project/update-project.component';
+import {UpdateTjComponent} from '../../updates-data/update-tj/update-tj.component';
+import {MatTableModule} from '@angular/material/table';
+import {DetailsWorkComponent} from '../../details-work/details-work.component';
 
 @NgModule({
     imports: [
@@ -44,6 +51,7 @@ import {MatNativeDateModule} from '@angular/material/core';
         MatDatepickerModule,
         MatNativeDateModule,
         MatDialogModule,
+        MatTableModule,
     ],
     declarations: [
         DashboardComponent,
@@ -54,8 +62,13 @@ import {MatNativeDateModule} from '@angular/material/core';
         DetailsComponent,
         PersonsComponent,
         ProjectsComponent,
-        InterventionsComponent
-
+        InterventionsComponent,
+        UpdateManagerComponent,
+        UpdatePersonComponent,
+        UpdateClientComponent,
+        UpdateProjectComponent,
+        UpdateTjComponent,
+        DetailsWorkComponent
     ]
 })
 

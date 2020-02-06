@@ -19,9 +19,24 @@ export class TjService {
             );
     }
 
+
+    updateTj(id: number, projectId: number, personId: number, data: Tj) {
+        this.http.put(`${config.apiUrl}/tj/${id}/${projectId}/${personId}`, data)
+            .subscribe(
+                res => {
+                }
+            );
+    }
+
     getTjs() {
         return this.http.get(`${config.apiUrl}/tj/`);
     }
+
+    getTijByProjectAnPerson(projectId: number, personId: number) {
+      return  this.http.get(`${config.apiUrl}/tj/${projectId}/${personId}`)
+
+    }
+
 
     deleteTj(tjId: number) {
         this.http.delete(`${config.apiUrl}/tj/${tjId}`)

@@ -8,6 +8,12 @@ import { DetailsComponent } from '../../details/details.component';
 import {TjsComponent} from '../../tjs/tjs.component';
 import {ManagersComponent} from '../../managers/managers.component';
 import {InterventionsComponent} from '../../interventions/interventions.component';
+import {UpdateManagerComponent} from '../../updates-data/update-manager/update-manager.component';
+import {UpdatePersonComponent} from '../../updates-data/update-person/update-person.component';
+import {UpdateClientComponent} from '../../updates-data/update-client/update-client.component';
+import {UpdateProjectComponent} from '../../updates-data/update-project/update-project.component';
+import {UpdateTjComponent} from '../../updates-data/update-tj/update-tj.component';
+import {DetailsWorkComponent} from '../../details-work/details-work.component';
 
 
 
@@ -62,6 +68,14 @@ export const AdminLayoutRoutes: Routes = [
     {path : 'managers', component: ManagersComponent},
     {path : 'interventions', component: InterventionsComponent},
     {path : 'details', component: DetailsComponent},
+    {path : 'update-manager', component: UpdateManagerComponent},
+    {path : 'update-person', component: UpdatePersonComponent},
+    {path: 'update-client', component: UpdateClientComponent},
+    {path: 'update-project', component: UpdateProjectComponent},
+    {path: 'update-tj', component: UpdateTjComponent},
+    {path : 'details-worked', component: DetailsWorkComponent},
+
+
 
 
 

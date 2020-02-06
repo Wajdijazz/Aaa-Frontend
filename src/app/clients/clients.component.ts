@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ClientService} from '../services/client.service';
 import {Person} from '../persons/person';
 import {Client} from './client';
+import {MatDialog} from '@angular/material/dialog';
+import {UpdateManagerComponent} from '../updates-data/update-manager/update-manager.component';
+import {UpdateClientComponent} from '../updates-data/update-client/update-client.component';
 
 @Component({
     selector: 'app-clients',
@@ -16,7 +19,7 @@ export class ClientsComponent implements OnInit {
         clientContact: '',
     }
 
-    constructor(private clientService: ClientService) {
+    constructor(private clientService: ClientService,public dialog: MatDialog) {
     }
 
 
@@ -41,4 +44,17 @@ export class ClientsComponent implements OnInit {
         this.getAllClients()
         window.location.reload();
     }
+
+    updateClient(client): void {
+        let dialogRef = this.dialog.open(UpdateClientComponent, {
+            width: '900px',
+            data: {client}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+
+    }
+
+
+
 }

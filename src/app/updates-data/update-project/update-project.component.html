@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Update project</h2>
+<mat-dialog-content class="mat-typography" id="1">
+    <form #f="ngForm">
+
+        <mat-form-field>
+            <input matInput name="Project Name"
+                   [(ngModel)]="project.projectName" placeholder="First Name" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select placeholder="Select client" name="client list"
+                        [(ngModel)]="client" (selectionChange)="selectClient(client)"
+                        required>
+                <mat-option *ngFor="let client of clients" [value]="client.clientId">
+                    {{ client.clientName }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button type="submit"
+                class="btn btn-info pull-right" (click)="updateProject(project)"> UPDATE
+        </button>
+    </form>
+</mat-dialog-content>
+

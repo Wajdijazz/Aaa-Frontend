@@ -23,6 +23,16 @@ export class ProjectService {
             );
     }
 
+
+    updateProject(id:number, data: Project, clientId: number) {
+        this.http.put(`${config.apiUrl}/project/${id}/${clientId}`, data)
+            .subscribe(
+                res => {
+                }
+            );
+    }
+
+
     deleteProject(id: number) {
         this.http.delete(`${config.apiUrl}/project/${id}`)
             .subscribe(

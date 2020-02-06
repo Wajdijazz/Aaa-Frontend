@@ -1,82 +1,90 @@
-<div class="main-content" >
-  <div style="heigh:20% , width:80%">
-    <div class="container-fluid" style="width:90%">
-          <div class="col-md-16">
-            <div class="card card-plain">
-              <div class="card-header card-header-info">
-                <h4 class="card-title mt-0"> List Of Clients </h4>
-                <p class="card-category"> </p>
-              </div>
-              <div class="card-body">
-                <mat-tab-group animationDuration="0ms">
-                  <mat-tab label="Clients List">
-                    <br>
+<div class="main-content">
+    <div style="heigh:20% , width:80%">
+        <div class="container-fluid" style="width:90%">
+            <div class="col-md-16">
+                <div class="card card-plain">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title mt-0"> List Of Clients </h4>
+                        <p class="card-category"></p>
+                    </div>
                     <div class="card-body">
+                        <mat-tab-group animationDuration="0ms">
+                            <mat-tab label="Clients List">
+                                <br>
+                                <div class="card-body">
 
-                      <div class="table-responsive">
-                        <table class="table table-hover">
-                          <thead class="">
-                          <th>
-                          Client
-                          </th>
-                          <th>
-                           Contact
-                          </th>
-                          <th> Edit</th>
-                          <th> Delete</th>
-                          </thead>
-                          <tbody>
-                          <tr *ngFor="let client of clients">
-                          <td>{{client.clientName}}</td>
-                          <td>{{client.clientContact}}</td>
-                          <td>
-                          <button mat-raised-button type="button" matTooltip="Edit " [matTooltipPosition]="'above'"
-                                  class="btn btn-primary btn-link btn-sm btn-just-icon">
-                            <i class="material-icons">edit</i>
-                          </button>
-                          </td>
-                          <td>
-                          <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
-                                  (click)="deleteClient(client.clientId)" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                            <i class="material-icons">close</i>
-                          </button>
-                          </td>
-                          </tr>
-                          </tbody>
-                        </table>
-                      </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class="">
+                                            <th>
+                                                Client
+                                            </th>
+                                            <th>
+                                                Contact
+                                            </th>
+                                            <th> Edit</th>
+                                            <th> Delete</th>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let client of clients">
+                                                <td>{{client.clientName}}</td>
+                                                <td>{{client.clientContact}}</td>
+                                                <td>
+                                                    <button mat-raised-button type="button" matTooltip="Edit "
+                                                            [matTooltipPosition]="'above'"
+                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"
+                                                            (click)="updateClient(client)">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button mat-raised-button type="button" matTooltip="Remove"
+                                                            [matTooltipPosition]="'above'"
+                                                            (click)="deleteClient(client.clientId)"
+                                                            class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </mat-tab>
+
+                            <mat-tab label="New Client">
+                                <br>
+
+                                <form #f="ngForm">
+
+                                    <mat-form-field>
+                                        <input matInput name="ClientName" [(ngModel)]="client.clientName"
+                                               placeholder="Client Name" required>
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <input matInput name="Contact" [(ngModel)]="client.clientContact"
+                                               placeholder="contact" required>
+                                    </mat-form-field>
+
+                                    <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                                            (click)="addClient(client)"> Add
+                                    </button>
+                                </form>
+                            </mat-tab>
+
+                        </mat-tab-group>
 
                     </div>
-                  </mat-tab>
+                    <hr>
 
-                  <mat-tab label="New Client">
-                    <br>
-
-                   <form #f="ngForm">
-
-                      <mat-form-field>
-                        <input matInput name="ClientName" [(ngModel)]="client.clientName" placeholder="Client Name" required>
-                      </mat-form-field>
-
-                      <mat-form-field>
-                        <input matInput name="Contact" [(ngModel)]="client.clientContact" placeholder="contact" required>
-                      </mat-form-field>
-
-                     <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="addClient(client)" > Add </button>
-                   </form>
-                  </mat-tab>
-
-                </mat-tab-group>
-
-              </div>
-              <hr>
+                </div>
 
             </div>
 
-          </div>
-
-        </div></div>
-
+        </div>
+    </div>
 
 
-  </div>
+</div>
