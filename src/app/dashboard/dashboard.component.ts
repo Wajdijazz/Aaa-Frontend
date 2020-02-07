@@ -14,6 +14,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {DetailsWorkComponent} from '../details-work/details-work.component';
 import {TjService} from '../services/tj.service';
 import {Tj} from '../tjs/tj';
+import {DatasetService} from '../services/dataset.service';
+import {dataset} from '../dataset';
 
 
 @Component({
@@ -23,7 +25,7 @@ import {Tj} from '../tjs/tj';
 })
 export class DashboardComponent implements OnInit {
 
-    persons: Person[];
+
     private projects: Project[];
     worked: any
     managers: Manager[];
@@ -39,8 +41,8 @@ export class DashboardComponent implements OnInit {
         manager: null,
     }
 
-    dataset = []
-    private personName: string;
+    dataset =[]
+    private personName=[];
     private projectName: string;
     private interventions: Intervention[];
     newArr = []
@@ -52,61 +54,64 @@ export class DashboardComponent implements OnInit {
     private months: string[];
     month: ''
     private selectedMonth: any;
+    private personList=[];
 
     constructor(private personService: PersonService, private projectService: ProjectService,
-                private interventionService: InterventionService, public dialog: MatDialog, private tjService: TjService) {
+                private interventionService: InterventionService, public dialog: MatDialog
+                , private tjService: TjService,private datasetService :DatasetService) {
     }
 
-
     ngOnInit() {
-        this.getAllPersons()
-        this.getAllProject()
-        this.getAllTjs()
-        this.getWorkedDayByPeronAndProject()
-        this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
-            'September', 'October', 'November', 'December'];
 
+        this.getWorkedDayByPeronAndProject()
     }
 
     selectMonth(month) {
         this.selectedMonth = month
     }
 
-    getAllPersons() {
-        this.personService.getPersons().subscribe((data: Person[]) => {
-            this.persons = data;
-            this.dataSource = this.persons;
-
-
-        })
-    }
-
-    getAllProject() {
-        this.projectService.getProjects().subscribe((data: Project[]) => {
-            this.projects = data
-        })
-    }
-
-    getAllTjs() {
-        this.tjService.getTjs().subscribe((data: Tj[]) => {
-            this.tjs = data;
-
-        })
-    }
 
     getWorkedDayByPeronAndProject() {
-        this.dataset = [{
-            person: [{name: 'Mohamed', worked: 4, price: 100}, {name: 'Wajdi', worked: 0, price: 0}, {name: 'Noe', worked: 0, price: 0}],
-            project: {projectName: 'followup'}
-        }
-            , {
-                person: [{name: 'Mohamed', worked: 0, price: 0}, {name: 'Wajdi', worked: 10, price: 120}, {
-                    name: 'Noe',
-                    worked: 5,
-                    price: 1000
-                }],
-                project: {projectName: 'project 2 personnes'}
-            }
-        ]
+
+        /*  this.dataset = [{
+          persons: [{name: 'Mohamed', worked: 4, price: 100}, {name: 'Wajdi', worked: 0, price: 0}, {name: 'Noe', worked: 0, price: 0}],
+          project: {projectName: 'followup'}
+      }
+          , {
+              persons: [{name: 'Mohamed', worked: 0, price: 0}, {name: 'Wajdi', worked: 10, price: 120}, {
+                  name: 'Noe',
+                  worked: 5,
+                  price: 1000
+              }],
+              project: {projectName: 'project 2 personnes'}
+          }
+      ]*/
+
+        this.projectService.getProjects().subscribe((data: Project[]) => {
+            this.projects = data
+            this.projects.forEach(project=>{
+    this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
+        this.personList=data.persons
+        this.personList.forEach(person=>{
+
+            this.interventionService.getWorkedByPersonAndProject(project.projectId,person.personId)
+                .subscribe((data: number) => {
+                    this.worked = data / 2;
+                    person.worked=this.worked
+     this.tjService.getTijByProjectAnPerson(project.projectId,person.personId).subscribe((tarif:number)=>{
+         person.price=tarif
+
+
+             })
+     })
+    })
+
+        this.dataset.push(data)
+
+    })
+
+})
+        })
+
     }
 }
