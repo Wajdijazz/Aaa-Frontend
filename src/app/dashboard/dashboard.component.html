@@ -3,34 +3,34 @@
         <div class="container-fluid" style="width:90%">
 
 
-
             <div class="col-md-16">
                 <div class="card card-plain">
                     <div class="card-header card-header-info">
                         <h4 class="card-title mt-0">Report</h4>
                     </div>
                     <div class="card-body">
-                        <div  class="table-responsive">
+                        <div class="table-responsive">
 
 
-                            <table style="text-align: center" class="table" >
+                            <table style="text-align: center" class="table">
 
-                                <tr >
-                                    <th >
+                                <tr>
+                                    <th>
                                         Projects/Persons
                                     </th>
-                                    <th *ngFor="let myperson of personList" >
-                                        {{myperson.name}}
+                                    <th *ngFor="let myperson of personListView">
+                                        {{myperson.firstName}} {{myperson.lastName}}
+
                                     </th>
 
                                 </tr>
-                                <tr *ngFor="let data of dataset" >
-                                    <th >
+                                <tr *ngFor="let data of dataset">
+                                    <th>
                                         {{data.project.project}}
                                     </th>
 
-                                    <td *ngFor="let myperson of data.persons" >
-                                        {{ myperson.worked+" j -- "+myperson.price+"€"}}
+                                    <td *ngFor="let myperson of data.persons">
+                                        {{ myperson.worked + " j -- " + myperson.price + "€"}}
                                     </td>
 
                                 </tr>

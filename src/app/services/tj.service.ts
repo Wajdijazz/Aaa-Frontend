@@ -33,10 +33,9 @@ export class TjService {
     }
 
     getTijByProjectAnPerson(projectId: number, personId: number) {
-      return  this.http.get(`${config.apiUrl}/tj/${projectId}/${personId}`)
+        return this.http.get(`${config.apiUrl}/tj/${projectId}/${personId}`)
 
     }
-
 
     deleteTj(tjId: number) {
         this.http.delete(`${config.apiUrl}/tj/${tjId}`)
