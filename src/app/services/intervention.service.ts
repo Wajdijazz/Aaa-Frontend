@@ -48,4 +48,7 @@ export class InterventionService {
         return this.http.get(`${config.apiUrl}/intervention/worked/project/${projectId}/person/${personId}`);
     }
 
+    getWorkedByPersonAndProjectByMonth(projectId: number, personId: number, monthNumber: number) {
+        return this.http.get(`${config.apiUrl}/intervention/${projectId}/${personId}/${monthNumber}`);
+    }
 }

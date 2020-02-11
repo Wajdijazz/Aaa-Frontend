@@ -37,7 +37,8 @@ export class DashboardComponent implements OnInit {
     private selectedMonth: any;
     private personList = [];
     private personListView = [];
-    private datasetList = [];
+    private monthNames: string[];
+    private month: any;
 
     constructor(private personService: PersonService, private projectService: ProjectService,
                 private interventionService: InterventionService,
@@ -45,7 +46,44 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getWorkedDayByPeronAndProject()
+        this.monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+      //  this.getWorkedDayByPeronAndProject()
+    }
+
+    selectMonth(month) {
+        this.month=this.monthNames.indexOf(month)
+        this.projectService.getProjects().subscribe((dataProject: Project[]) => {
+            this.projects = dataProject
+            this.projects.forEach(project => {
+                this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
+                    this.personList = data.persons
+                    this.personList.forEach(person => {
+                        let indexName = this.personListView.findIndex(p => p.firstName === person.firstName &&
+                            p.lastName === person.lastName)
+                        if (indexName === -1) {
+                            this.personListView.push(person)
+                        }
+                        this.interventionService.getWorkedByPersonAndProjectByMonth(project.projectId, person.personId,this.month+1)
+                            .subscribe((data: number) => {
+                                this.worked = data;
+                                person.worked = this.worked
+                                this.tjService.getTijByProjectAnPerson(project.projectId, person.personId)
+                                    .subscribe((tarif: number) => {
+                                        person.price = tarif / 1
+                                    })
+                            })
+                    })
+
+                    if (data.project) {
+                        this.dataset.push(data)
+                    }
+                })
+            })
+        })
+        this.dataset=[]
+
     }
 
     getWorkedDayByPeronAndProject() {
@@ -55,7 +93,8 @@ export class DashboardComponent implements OnInit {
                 this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
                     this.personList = data.persons
                     this.personList.forEach(person => {
-                        let indexName = this.personListView.findIndex(p => p.firstName === person.firstName && p.lastName ===person.lastName)
+                        let indexName = this.personListView.findIndex(p => p.firstName === person.firstName &&
+                            p.lastName === person.lastName)
                         if (indexName === -1) {
                             this.personListView.push(person)
                         }

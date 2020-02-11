@@ -4,6 +4,13 @@
 
 
             <div class="col-md-16">
+
+                <mat-label> Select Month</mat-label>
+                <mat-select name="months list" [(ngModel)]="selectedMonth"
+                            (selectionChange)="selectMonth(selectedMonth)" required>
+                    <mat-option *ngFor="let month of monthNames" [value]="month">
+                        {{month }}</mat-option>
+                </mat-select>
                 <div class="card card-plain">
                     <div class="card-header card-header-info">
                         <h4 class="card-title mt-0">Report</h4>
@@ -12,7 +19,7 @@
                         <div class="table-responsive">
 
 
-                            <table style="text-align: center" class="table">
+                            <table style="text-align: center" class="table" id="persons">
 
                                 <tr>
                                     <th>
@@ -20,19 +27,17 @@
                                     </th>
                                     <th *ngFor="let myperson of personListView">
                                         {{myperson.firstName}} {{myperson.lastName}}
-
                                     </th>
 
                                 </tr>
                                 <tr *ngFor="let data of dataset">
+
                                     <th>
                                         {{data.project.project}}
                                     </th>
-
                                     <td *ngFor="let myperson of data.persons">
                                         {{ myperson.worked + " j -- " + myperson.price + "€"}}
                                     </td>
-
                                 </tr>
 
                             </table>
