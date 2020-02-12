@@ -98,7 +98,8 @@ export class DashboardComponent implements OnInit {
                                 person.worked = this.worked
                                 this.tjService.getTijByProjectAnPerson(project.projectId, person.personId)
                                     .subscribe((tarif: number) => {
-                                        person.price = tarif / 1
+                                        person.price = ((tarif / 1)*data)
+                                        console.log(person)
                                     })
                             })
                     })

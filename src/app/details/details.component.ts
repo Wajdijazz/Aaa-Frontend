@@ -62,13 +62,14 @@ export class DetailsComponent implements OnInit {
     getWorkedByPeronAndProject() {
         this.interventionService.getWorkedByPersonAndProject(this.data.project.projectId, this.data.person.personId)
             .subscribe((data: number) => {
-                this.worked = data / 2;
+                this.worked = data;
             })
     }
 
     deletIntervention(interventionId) {
         this.interventionService.deleteInterventionHistorique(interventionId);
-        this.ngOnInit()
+        window.location.reload();
+
     }
 
 }
