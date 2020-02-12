@@ -52,6 +52,7 @@ import {DetailsWorkComponent} from '../../details-work/details-work.component';
         MatNativeDateModule,
         MatDialogModule,
         MatTableModule,
+        ReactiveFormsModule,
     ],
     declarations: [
         DashboardComponent,

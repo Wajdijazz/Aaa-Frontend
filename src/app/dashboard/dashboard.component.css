@@ -5,3 +5,10 @@
 table, th, td,tr,thead,tbody {
     border: 1px ridge black;
 }
+.example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+    display: none;
+}

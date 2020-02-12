@@ -4,13 +4,16 @@
 
 
             <div class="col-md-16">
-
-                <mat-label> Select Month</mat-label>
-                <mat-select name="months list" [(ngModel)]="selectedMonth"
-                            (selectionChange)="selectMonth(selectedMonth)" required>
-                    <mat-option *ngFor="let month of monthNames" [value]="month">
-                        {{month }}</mat-option>
-                </mat-select>
+                <mat-form-field>
+                    <mat-label>Select year and month</mat-label>
+                    <input matInput [matDatepicker]="dp" [formControl]="date">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                    <mat-datepicker #dp
+                                    startView="multi-year"
+                                    (monthSelected)="chosenMonthHandler($event,$event, dp)"
+                                    panelClass="example-month-picker">
+                    </mat-datepicker>
+                </mat-form-field>
                 <div class="card card-plain">
                     <div class="card-header card-header-info">
                         <h4 class="card-title mt-0">Report</h4>
