@@ -8,6 +8,7 @@ import {TjService} from '../services/tj.service';
 import {UpdateProjectComponent} from '../updates-data/update-project/update-project.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateTjComponent} from '../updates-data/update-tj/update-tj.component';
+import {DatasetService} from '../services/dataset.service';
 
 @Component({
     selector: 'app-tjs',
@@ -41,21 +42,29 @@ export class TjsComponent implements OnInit {
 
     personId;
     projectId;
+    private personList = [];
+    private personListView = [];
+    private dataset = [];
 
     constructor(private personService: PersonService, private projectService: ProjectService,
-                private tjService: TjService,public dialog: MatDialog) {
+                private tjService: TjService, public dialog: MatDialog, private datasetService: DatasetService) {
     }
 
     ngOnInit() {
+        this.displayTable()
         this.getAllPersons();
         this.getAllProject();
-        this.getAllTjs();
     }
 
     getAllPersons() {
         this.personService.getPersons().subscribe((data: Person[]) => {
             this.persons = data;
         })
+    }
+
+    selectPerson(personId) {
+        this.personId = personId;
+        console.log(personId);
     }
 
     getAllProject() {
@@ -66,10 +75,34 @@ export class TjsComponent implements OnInit {
 
     selectProject(projectId) {
         this.projectId = projectId;
+        console.log(projectId);
     }
 
-    selectPerson(personId) {
-        this.personId = personId;
+    displayTable() {
+        this.projectService.getProjects().subscribe((dataProject: Project[]) => {
+            this.projects = dataProject
+            this.projects.forEach(project => {
+                this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
+                    this.personList = data.persons
+                    this.personList.forEach(person => {
+                        person.price = 0
+                        let indexName = this.personListView.findIndex(p => p.firstName === person.firstName &&
+                            p.lastName === person.lastName)
+                        if (indexName === -1) {
+                            this.personListView.push(person)
+                        }
+                        this.tjService.getTijByProjectAnPerson(project.projectId, person.personId)
+                            .subscribe((tarif: any) => {
+                                person.price = tarif / 1
+                            })
+                    })
+                    if (data.project) {
+                        this.dataset.push(data)
+                    }
+                })
+            })
+            this.dataset = []
+        })
     }
 
     addTj(data: Tj) {
@@ -77,16 +110,20 @@ export class TjsComponent implements OnInit {
         window.location.reload();
     }
 
-    getAllTjs() {
-        this.tjService.getTjs().subscribe((data: Tj[]) => {
-            this.tjs = data;
-        })
+    onKey(event, projectId, personId) {
+        console.log('project' + projectId + 'Person' + personId)
+        const tarif = event;
+        this.tj.tarif = tarif
+        this.tjService.saveTj(this.tj, projectId, personId)
+        window.location.reload();
+
     }
 
-    deletTj(tjId) {
+    deleteTj(tjId) {
         this.tjService.deleteTj(tjId)
         window.location.reload();
     }
+
     updateTj(tj): void {
         let dialogRef = this.dialog.open(UpdateTjComponent, {
             width: '900px',

@@ -16,6 +16,8 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 // @ts-ignore
 import {default as _rollupMoment, Moment} from 'moment';
+import {logger} from 'codelyzer/util/logger';
+import {Tj} from '../tjs/tj';
 
 const moment = _rollupMoment || _moment;
 
@@ -47,6 +49,7 @@ export const MY_FORMATS = {
 export class DashboardComponent implements OnInit {
 
     private projects: Project[];
+
     worked: any
     managers: Manager[];
     manager: Manager = {
@@ -54,11 +57,18 @@ export class DashboardComponent implements OnInit {
         firstName: '',
         lastName: ''
     }
+
     person: Person = {
         personId: null,
         firstName: '',
         lastName: '',
         manager: null,
+    }
+    tj: Tj = {
+        tjId: null,
+        person: null,
+        project: null,
+        tarif: null
     }
 
     dataset = []
@@ -75,41 +85,72 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.date = new FormControl(moment());
+        this.getAllProjects()
     }
 
-    chosenMonthHandler(normalizedMonth: Moment, normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
-        this.date = new FormControl(normalizedMonth);
-        this.year = normalizedYear.year()
-        this.month = normalizedMonth.month() + 1
+    /**
+     * cette fontion permet de lister tous les projets
+     */
+    getAllProjects() {
         this.projectService.getProjects().subscribe((dataProject: Project[]) => {
             this.projects = dataProject
-            this.projects.forEach(project => {
-                this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
-                    this.personList = data.persons
-                    this.personList.forEach(person => {
-                        let indexName = this.personListView.findIndex(p => p.firstName === person.firstName &&
-                            p.lastName === person.lastName)
-                        if (indexName === -1) {
-                            this.personListView.push(person)
-                        }
-                        this.interventionService.getWorkedByPersonAndProjectByMonth(project.projectId, person.personId, this.month, this.year)
-                            .subscribe((data: number) => {
-                                this.worked = data;
-                                person.worked = this.worked
-                                this.tjService.getTijByProjectAnPerson(project.projectId, person.personId)
-                                    .subscribe((tarif: number) => {
-                                        person.price = ((tarif / 1)*data)
-                                        console.log(person)
-                                    })
+        })
+        return this.projects
+    }
+
+    /**
+     *  Cette fonction permet lister tous dataset de tableau pour chaque projet
+     * et aprés on va recuperer les worked day et price pour chaque personne et projet et
+     * enfin on va calculer le somme de price pour chaque projet
+     * @param monthNumber
+     * @param yearNumber
+     */
+    displayTable(monthNumber: number, yearNumber: number) {
+        this.getAllProjects().forEach(project => {
+            this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
+                if (data.project) {
+                    data.project.totalByProject = 0
+                }
+                this.personList = data.persons
+                this.personList.forEach(person => {
+                    person.price = 0
+                    person.worked = 0
+                    let indexPersonName = this.personListView.findIndex(p => p.firstName === person.firstName &&
+                        p.lastName === person.lastName)
+                    if (indexPersonName === -1) {
+                        this.personListView.push(person)
+                    }
+                    this.interventionService.getWorkedByPersonAndProjectByMonthAndYear(project.projectId, person.personId
+                        , monthNumber, yearNumber).subscribe((dataWorkedDay: number) => {
+                        person.worked = dataWorkedDay
+                        this.tjService.getTijByProjectAnPerson(project.projectId, person.personId)
+                            .subscribe((tarif: number) => {
+                                person.price = (tarif * dataWorkedDay)
+                                if (data.project) {
+                                    data.project.totalByProject = data.project.totalByProject + (tarif * dataWorkedDay)
+                                }
                             })
                     })
-                    if (data.project) {
-                        this.dataset.push(data)
-                    }
                 })
+                if (data.project) {
+                    this.dataset.push(data)
+                }
             })
         })
         this.dataset = []
+    }
+
+    /**
+     * Cette fonction permet de selectionner mois et année et faire l'appel à la fonction display Table
+     * @param normalizedMonth
+     * @param normalizedYear
+     * @param datepicker
+     */
+    chosenMonthAndYear(normalizedMonth: Moment, normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
+        this.date = new FormControl(normalizedMonth);
+        this.year = normalizedYear.year()
+        this.month = normalizedMonth.month() + 1
+        this.displayTable(this.month, this.year)
         datepicker.close();
     }
 

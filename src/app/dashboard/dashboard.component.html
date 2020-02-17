@@ -10,7 +10,7 @@
                     <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                     <mat-datepicker #dp
                                     startView="multi-year"
-                                    (monthSelected)="chosenMonthHandler($event,$event, dp)"
+                                    (monthSelected)="chosenMonthAndYear($event,$event, dp)"
                                     panelClass="example-month-picker">
                     </mat-datepicker>
                 </mat-form-field>
@@ -21,8 +21,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
 
-
-                            <table style="text-align: center" class="table" id="persons">
+                            <table style="text-align: center" class="table" id="table">
 
                                 <tr>
                                     <th>
@@ -31,7 +30,7 @@
                                     <th *ngFor="let myperson of personListView">
                                         {{myperson.firstName}} {{myperson.lastName}}
                                     </th>
-
+                                    <th>Total</th>
                                 </tr>
                                 <tr *ngFor="let data of dataset">
 
@@ -41,8 +40,10 @@
                                     <td *ngFor="let myperson of data.persons">
                                         {{ myperson.worked + " j -- " + myperson.price + "€"}}
                                     </td>
+                                    <td>
+                                        {{data.project.totalByProject + "€"}}
+                                    </td>
                                 </tr>
-
                             </table>
 
 

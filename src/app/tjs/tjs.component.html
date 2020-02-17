@@ -14,45 +14,33 @@
                                 <div class="card-body">
 
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead class="">
-                                            <th>
-                                                Person
-                                            </th>
-                                            <th>
-                                                Project
-                                            </th>
-                                            <th>
-                                                Daily Rate
-                                            </th>
-                                            <th> Edit</th>
-                                            <th> Delete</th>
-                                            </thead>
-                                            <tbody>
-                                            <tr *ngFor="let tj of tjs">
-                                                <td>{{tj.person.firstName}} {{tj.person.lastName}}</td>
-                                                <td>{{tj.project.projectName}}</td>
-                                                <td>{{tj.tarif}}</td>
-                                                <td>
-                                                    <button mat-raised-button type="button" matTooltip="Edit "
-                                                            [matTooltipPosition]="'above'"
-                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"
-                                                            (click)="updateTj(tj)">
-                                                        <i class="material-icons">edit</i>
-                                                    </button>
-                                                </td>
+                                        <table style="text-align: center" class="table" id="table">
 
-
-                                                <td>
-                                                    <button mat-raised-button type="button" atTooltip="voir details"
-                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"
-                                                            (click)="deletTj(tj.tjId)">
-                                                        <i class="material-icons">close</i>
-                                                    </button>
-                                                </td>
-
+                                            <tr>
+                                                <th>
+                                                    Projects/Persons
+                                                </th>
+                                                <th *ngFor="let myperson of personListView">
+                                                    {{myperson.firstName}} {{myperson.lastName}}
+                                                </th>
                                             </tr>
-                                            </tbody>
+                                            <tr *ngFor="let data of dataset">
+
+                                                <th>
+                                                    {{data.project.project}}
+                                                </th>
+                                                <td *ngFor="let myperson of data.persons">
+                                                    <div *ngIf="myperson.price ===0">
+                                                        <input type="text" minlength="4" maxlength="8" size="10"
+                                                               (keyup.enter)="onKey($event.target.value,
+                                                               data.project.projectId,myperson.personId)"><br>
+                                                    </div>
+                                                    <div *ngIf="myperson.price!=0">
+                                                        {{ myperson.price + "€"}}
+
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
 

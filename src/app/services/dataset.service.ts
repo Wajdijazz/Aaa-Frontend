@@ -12,7 +12,7 @@ export class DatasetService {
 
 
     getDatasetByProjectId(projectId: number) {
-        return this.http.get(`${config.apiUrl}/data/${projectId}/`)
+        return this.http.get(`${config.apiUrl}/data/${projectId}`)
 
     }
 }
