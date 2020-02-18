@@ -2,15 +2,44 @@
   calendar works!
 </p>
 
+<ng-template #cellTemplate let-day="day" let-locale="locale">
 
-<mwl-calendar-month-view class="calendar"
-        id = "mwl-calendar"
+    <div class="separatedDay" style="height: 100%">
 
-        [weekStartsOn]="1"
-        [viewDate]="viewDate"
-        [refresh]="refresh" >
+        <div id="numberOfDay">
+            <p class="cal-day-number" style="pointer-events: none" [ngStyle]="{'opacity':'100', 'color': (day.date | calendarDate:'monthViewDayNumber':locale) == 25 ? 'red' : 'black' }">
+                test
+            </p>
+        </div>
 
-</mwl-calendar-month-view>
+        <div id="halfDays">
+            <div #calendarDivTop class="half-day">
+                <div class="case-half-day">
+                    <span class="projectName">Project name</span>
+                </div>
+            </div>
+            <div class="half-day">
+                <div class="case-half-day">
+                    <span class="calendar-role" >test 2</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>
+
+<div>
+    <mwl-calendar-month-view class="calendar"
+         id = "mwl-calendar"
+
+         [weekStartsOn]="1"
+         [viewDate]="viewDate"
+         [refresh]="refresh"
+         [cellTemplate]="cellTemplate" >
+
+    </mwl-calendar-month-view>
+</div>
+
 
 <!--<div class="row text-center">-->
 <!--    <div class="col-md-4">-->
