@@ -28,7 +28,7 @@ export class ProjectsComponent implements OnInit {
 
     }
 
-    constructor(private clientService: ClientService, private projectService: ProjectService,public dialog: MatDialog) {
+    constructor(private clientService: ClientService, private projectService: ProjectService, public dialog: MatDialog) {
     }
 
     ngOnInit() {

@@ -1,99 +1,99 @@
-<p>
-  calendar works!
-</p>
+<!--<p>-->
+<!--  calendar works!-->
+<!--</p>-->
 
 
-<!--<mwl-calendar-month-view class="calendar"-->
-<!--        id = "mwl-calendar">-->
-<!--&lt;!&ndash;        [locale]="getLocale"&ndash;&gt;-->
-<!--&lt;!&ndash;        [weekStartsOn]="1"&ndash;&gt;-->
-<!--&lt;!&ndash;        [viewDate]="viewDate"&ndash;&gt;-->
-<!--&lt;!&ndash;        [refresh]="refresh"&ndash;&gt;-->
-<!--&lt;!&ndash;        (beforeViewRender)="beforeMonthViewRender($event)"&ndash;&gt;-->
-<!--&lt;!&ndash;        [cellTemplate]="cellTemplate"&ndash;&gt;-->
+<!--&lt;!&ndash;<mwl-calendar-month-view class="calendar"&ndash;&gt;-->
+<!--&lt;!&ndash;        id = "mwl-calendar">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        [locale]="getLocale"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        [weekStartsOn]="1"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        [viewDate]="viewDate"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        [refresh]="refresh"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        (beforeViewRender)="beforeMonthViewRender($event)"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        [cellTemplate]="cellTemplate"&ndash;&gt;&ndash;&gt;-->
 
-<!--</mwl-calendar-month-view>-->
+<!--&lt;!&ndash;</mwl-calendar-month-view>&ndash;&gt;-->
 
-<div class="cal-month-view" role="grid">
-    <mwl-calendar-month-view-header
-            [days]="columnHeaders"
-            [locale]="locale"
-            (columnHeaderClicked)="columnHeaderClicked.emit($event)"
-            [customTemplate]="headerTemplate"
-    >
-    </mwl-calendar-month-view-header>
-    <div class="cal-days">
-        <div
-                *ngFor="let rowIndex of view.rowOffsets; trackBy: trackByRowOffset"
-        >
-            <div class="cal-cell-row">
-                <mwl-calendar-month-cell
-                        *ngFor="
-            let day of view.days
-              | slice: rowIndex:rowIndex + view.totalDaysVisibleInWeek;
-            trackBy: trackByDate
-          "
-                        [ngClass]="day?.cssClass"
-                        [day]="day"
-                        [openDay]="openDay"
-                        [locale]="locale"
-                        [tooltipPlacement]="tooltipPlacement"
-                        [tooltipAppendToBody]="tooltipAppendToBody"
-                        [tooltipTemplate]="tooltipTemplate"
-                        [tooltipDelay]="tooltipDelay"
-                        [customTemplate]="cellTemplate"
-                        [ngStyle]="{ backgroundColor: day.backgroundColor }"
-                        (mwlClick)="dayClicked.emit({ day: day, sourceEvent: $event })"
-                        [clickListenerDisabled]="dayClicked.observers.length === 0"
-                        (mwlKeydownEnter)="
-            dayClicked.emit({ day: day, sourceEvent: $event })
-          "
-                        (highlightDay)="toggleDayHighlight($event.event, true)"
-                        (unhighlightDay)="toggleDayHighlight($event.event, false)"
-                        mwlDroppable
-                        dragOverClass="cal-drag-over"
-                        (drop)="
-            eventDropped(
-              day,
-              $event.dropData.event,
-              $event.dropData.draggedFrom
-            )
-          "
-                        (eventClicked)="
-            eventClicked.emit({
-              event: $event.event,
-              sourceEvent: $event.sourceEvent
-            })
-          "
-                        [attr.tabindex]="{} | calendarA11y: 'monthCellTabIndex'"
-                >
-                </mwl-calendar-month-cell>
-            </div>
-            <mwl-calendar-open-day-events
-                    [locale]="locale"
-                    [isOpen]="openRowIndex === rowIndex"
-                    [events]="openDay?.events"
-                    [date]="openDay?.date"
-                    [customTemplate]="openDayEventsTemplate"
-                    [eventTitleTemplate]="eventTitleTemplate"
-                    [eventActionsTemplate]="eventActionsTemplate"
-                    (eventClicked)="
-          eventClicked.emit({
-            event: $event.event,
-            sourceEvent: $event.sourceEvent
-          })
-        "
-                    mwlDroppable
-                    dragOverClass="cal-drag-over"
-                    (drop)="
-          eventDropped(
-            openDay,
-            $event.dropData.event,
-            $event.dropData.draggedFrom
-          )
-        "
-            >
-            </mwl-calendar-open-day-events>
-        </div>
-    </div>
-</div>
+<!--<div class="cal-month-view" role="grid">-->
+<!--    <mwl-calendar-month-view-header-->
+<!--            [days]="columnHeaders"-->
+<!--            [locale]="locale"-->
+<!--            (columnHeaderClicked)="columnHeaderClicked.emit($event)"-->
+<!--            [customTemplate]="headerTemplate"-->
+<!--    >-->
+<!--    </mwl-calendar-month-view-header>-->
+<!--    <div class="cal-days">-->
+<!--        <div-->
+<!--                *ngFor="let rowIndex of view.rowOffsets; trackBy: trackByRowOffset"-->
+<!--        >-->
+<!--            <div class="cal-cell-row">-->
+<!--                <mwl-calendar-month-cell-->
+<!--                        *ngFor="-->
+<!--            let day of view.days-->
+<!--              | slice: rowIndex:rowIndex + view.totalDaysVisibleInWeek;-->
+<!--            trackBy: trackByDate-->
+<!--          "-->
+<!--                        [ngClass]="day?.cssClass"-->
+<!--                        [day]="day"-->
+<!--                        [openDay]="openDay"-->
+<!--                        [locale]="locale"-->
+<!--                        [tooltipPlacement]="tooltipPlacement"-->
+<!--                        [tooltipAppendToBody]="tooltipAppendToBody"-->
+<!--                        [tooltipTemplate]="tooltipTemplate"-->
+<!--                        [tooltipDelay]="tooltipDelay"-->
+<!--                        [customTemplate]="cellTemplate"-->
+<!--                        [ngStyle]="{ backgroundColor: day.backgroundColor }"-->
+<!--                        (mwlClick)="dayClicked.emit({ day: day, sourceEvent: $event })"-->
+<!--                        [clickListenerDisabled]="dayClicked.observers.length === 0"-->
+<!--                        (mwlKeydownEnter)="-->
+<!--            dayClicked.emit({ day: day, sourceEvent: $event })-->
+<!--          "-->
+<!--                        (highlightDay)="toggleDayHighlight($event.event, true)"-->
+<!--                        (unhighlightDay)="toggleDayHighlight($event.event, false)"-->
+<!--                        mwlDroppable-->
+<!--                        dragOverClass="cal-drag-over"-->
+<!--                        (drop)="-->
+<!--            eventDropped(-->
+<!--              day,-->
+<!--              $event.dropData.event,-->
+<!--              $event.dropData.draggedFrom-->
+<!--            )-->
+<!--          "-->
+<!--                        (eventClicked)="-->
+<!--            eventClicked.emit({-->
+<!--              event: $event.event,-->
+<!--              sourceEvent: $event.sourceEvent-->
+<!--            })-->
+<!--          "-->
+<!--                        [attr.tabindex]="{} | calendarA11y: 'monthCellTabIndex'"-->
+<!--                >-->
+<!--                </mwl-calendar-month-cell>-->
+<!--            </div>-->
+<!--            <mwl-calendar-open-day-events-->
+<!--                    [locale]="locale"-->
+<!--                    [isOpen]="openRowIndex === rowIndex"-->
+<!--                    [events]="openDay?.events"-->
+<!--                    [date]="openDay?.date"-->
+<!--                    [customTemplate]="openDayEventsTemplate"-->
+<!--                    [eventTitleTemplate]="eventTitleTemplate"-->
+<!--                    [eventActionsTemplate]="eventActionsTemplate"-->
+<!--                    (eventClicked)="-->
+<!--          eventClicked.emit({-->
+<!--            event: $event.event,-->
+<!--            sourceEvent: $event.sourceEvent-->
+<!--          })-->
+<!--        "-->
+<!--                    mwlDroppable-->
+<!--                    dragOverClass="cal-drag-over"-->
+<!--                    (drop)="-->
+<!--          eventDropped(-->
+<!--            openDay,-->
+<!--            $event.dropData.event,-->
+<!--            $event.dropData.draggedFrom-->
+<!--          )-->
+<!--        "-->
+<!--            >-->
+<!--            </mwl-calendar-open-day-events>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
