@@ -1,26 +1,24 @@
-<p>
-  calendar works!
-</p>
-
 <ng-template #cellTemplate let-day="day" let-locale="locale">
 
     <div class="separatedDay" style="height: 100%">
 
         <div id="numberOfDay">
             <p class="cal-day-number" style="pointer-events: none" [ngStyle]="{'opacity':'100', 'color': (day.date | calendarDate:'monthViewDayNumber':locale) == 25 ? 'red' : 'black' }">
-                test
+                {{ day.date | calendarDate:'monthViewDayNumber':locale }}
             </p>
         </div>
 
         <div id="halfDays">
-            <div #calendarDivTop class="half-day">
+            <div #calendarDivTop class="half-day" id="{{day.date.getMonth()}}/{{day.date.getUTCDate()+1}}/{{day.date.getUTCFullYear()}}-AM">
                 <div class="case-half-day">
                     <span class="projectName">Project name</span>
+                    <span class="projectName">Role</span>
                 </div>
             </div>
-            <div class="half-day">
-                <div class="case-half-day">
-                    <span class="calendar-role" >test 2</span>
+            <div class="half-day" id="{{day.date.getMonth()}}/{{day.date.getUTCDate()+1}}/{{day.date.getUTCFullYear()}}-PM">
+                <div class="case-half-day" >
+                    <span class="projectName">Project name</span>
+                    <span class="projectName">Role</span>
                 </div>
             </div>
         </div>
@@ -28,17 +26,20 @@
 
 </ng-template>
 
-<div>
-    <mwl-calendar-month-view class="calendar"
-         id = "mwl-calendar"
 
-         [weekStartsOn]="1"
-         [viewDate]="viewDate"
-         [refresh]="refresh"
-         [cellTemplate]="cellTemplate" >
 
-    </mwl-calendar-month-view>
-</div>
+<mwl-calendar-month-view-header class = "calendar">
+</mwl-calendar-month-view-header>
+<mwl-calendar-month-view
+     [weekStartsOn]="1"
+     [viewDate]="viewDate"
+     [refresh]="refresh"
+     (beforeViewRender)="beforeMonthViewRender($event)"
+     [cellTemplate]="cellTemplate"
+     id="mwl-calendar"
+     class="calendar">
+</mwl-calendar-month-view>
+
 
 
 <!--<div class="row text-center">-->
