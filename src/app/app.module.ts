@@ -12,9 +12,9 @@ import { LoginComponent } from './login/login.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
-
-
-
+// Import module for angular-calendar
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
     imports: [
@@ -25,22 +25,20 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         RouterModule,
         AppRoutingModule,
         MatDialogModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory
+        })
     ],
-  declarations: [
-    AppComponent,
-    AdminLayoutComponent,
-    LoginComponent,
-
-
-
-
-
-
-
-
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        AdminLayoutComponent,
+        LoginComponent
+    ],
+    providers: [],
+    exports: [
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
