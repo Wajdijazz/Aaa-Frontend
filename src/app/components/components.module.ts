@@ -7,12 +7,16 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {MatIconModule} from '@angular/material/icon';
 import {CalendarComponent} from '../calendar/calendar.component';
+import {CalendarModule} from 'angular-calendar';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule,
         MatIconModule,
+        CalendarModule,
+        FormsModule,
     ],
   declarations: [
     FooterComponent,
