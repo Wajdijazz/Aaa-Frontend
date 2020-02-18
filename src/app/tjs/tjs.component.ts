@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Project} from '../projects/project';
-import {Person} from '../persons/person';
+import {Project} from '../entities/project';
+import {Person} from '../entities/person';
 import {PersonService} from '../services/person.service';
 import {ProjectService} from '../services/project.service';
 import {Tj} from './tj';

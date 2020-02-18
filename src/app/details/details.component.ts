@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {InterventionService} from '../services/intervention.service';
-import {Intervention} from '../interventions/intervention';
-import {Person} from '../persons/person';
-import {Project} from '../projects/project';
+import {Intervention} from '../entities/intervention';
+import {Person} from '../entities/person';
+import {Project} from '../entities/project';
 
 @Component({
     selector: 'app-details',

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {PersonService} from '../services/person.service';
 import {ProjectService} from '../services/project.service';
-import {Project} from '../projects/project';
-import {Person} from '../persons/person';
-import {Intervention} from './intervention';
+import {Project} from '../entities/project';
+import {Person} from '../entities/person';
+import {Intervention} from '../entities/intervention';
 import {InterventionService} from '../services/intervention.service';
 import {DetailsComponent} from '../details/details.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -27,8 +27,8 @@ export class InterventionsComponent implements OnInit {
         person: null,
         project: null,
         mode: null,
-        startDate:null,
-        endDate:null,
+        startDate: null,
+        endDate: null,
     }
     project: Project = {
         projectId: null,

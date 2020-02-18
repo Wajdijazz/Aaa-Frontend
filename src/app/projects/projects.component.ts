@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Client} from '../clients/client';
+import {Client} from '../entities/client';
 import {ClientService} from '../services/client.service';
-import {Project} from './project';
+import {Project} from '../entities/project';
 import {ProjectService} from '../services/project.service';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdatePersonComponent} from '../updates-data/update-person/update-person.component';

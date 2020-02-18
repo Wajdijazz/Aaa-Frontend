@@ -1,6 +1,6 @@
 export class Manager {
 
-    managerId : number;
+    managerId: number;
     firstName: string;
     lastName: string;
 

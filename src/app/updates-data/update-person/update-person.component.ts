@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {Person} from '../../persons/person';
-import {Manager} from '../../managers/manager';
+import {Person} from '../../entities/person';
+import {Manager} from '../../entities/manager';
 import {PersonService} from '../../services/person.service';
 import {ManagerService} from '../../services/manager.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';

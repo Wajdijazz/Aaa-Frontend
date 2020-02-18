@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {Project} from '../../projects/project';
-import {Client} from '../../clients/client';
+import {Project} from '../../entities/project';
+import {Client} from '../../entities/client';
 import {ClientService} from '../../services/client.service';
 import {ProjectService} from '../../services/project.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';

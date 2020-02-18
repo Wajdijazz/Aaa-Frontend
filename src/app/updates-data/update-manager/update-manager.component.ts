@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import {Manager} from '../../managers/manager';
+import {Manager} from '../../entities/manager';
 import {ManagerService} from '../../services/manager.service';
 
 @Component({

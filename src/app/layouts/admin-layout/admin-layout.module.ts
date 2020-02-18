@@ -34,6 +34,7 @@ import {UpdateProjectComponent} from '../../updates-data/update-project/update-p
 import {UpdateTjComponent} from '../../updates-data/update-tj/update-tj.component';
 import {MatTableModule} from '@angular/material/table';
 import {DetailsWorkComponent} from '../../details-work/details-work.component';
+import {ComponentsModule} from '../../components/components.module';
 
 @NgModule({
     imports: [
@@ -53,6 +54,7 @@ import {DetailsWorkComponent} from '../../details-work/details-work.component';
         MatDialogModule,
         MatTableModule,
         ReactiveFormsModule,
+        ComponentsModule,
     ],
     declarations: [
         DashboardComponent,

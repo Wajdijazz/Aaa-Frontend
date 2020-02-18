@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {MatIconModule} from '@angular/material/icon';
+import {CalendarComponent} from '../calendar/calendar.component';
 
 @NgModule({
     imports: [
@@ -16,12 +17,16 @@ import {MatIconModule} from '@angular/material/icon';
   declarations: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    CalendarComponent
+
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    CalendarComponent
+
   ]
 })
 export class ComponentsModule { }

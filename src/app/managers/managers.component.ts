@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ManagerService} from '../services/manager.service';
-import {Manager} from './manager';
+import {Manager} from '../entities/manager';
 import {NavigationEnd, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {DetailsComponent} from '../details/details.component';

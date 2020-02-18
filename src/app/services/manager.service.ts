@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {config} from '../config';
-import {Manager} from '../managers/manager';
+import {Manager} from '../entities/manager';
 
 @Injectable({
     providedIn: 'root'

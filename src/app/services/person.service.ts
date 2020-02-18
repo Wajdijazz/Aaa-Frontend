@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {config} from '../config';
-import {Person} from '../persons/person';
+import {Person} from '../entities/person';
 
 
 @Injectable({

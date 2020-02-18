@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Person} from './person';
+import {Person} from '../entities/person';
 import {PersonService} from '../services/person.service';
-import {Manager} from '../managers/manager';
+import {Manager} from '../entities/manager';
 import {ManagerService} from '../services/manager.service';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateManagerComponent} from '../updates-data/update-manager/update-manager.component';
