@@ -26,19 +26,59 @@
 
 </ng-template>
 
+<!--<ng-template #weekDayTemplate let-day="day" let-locale="locale">-->
 
+<!--    <div class="separatedDay" style="height: 100%">-->
 
-<mwl-calendar-month-view-header class = "calendar">
-</mwl-calendar-month-view-header>
-<mwl-calendar-month-view
-     [weekStartsOn]="1"
-     [viewDate]="viewDate"
-     [refresh]="refresh"
-     (beforeViewRender)="beforeMonthViewRender($event)"
-     [cellTemplate]="cellTemplate"
-     id="mwl-calendar"
-     class="calendar">
-</mwl-calendar-month-view>
+<!--        <p class="cal-day-number" style="pointer-events: none" [ngStyle]="{'opacity':'100', 'color': (day.date | calendarDate:'monthViewDayNumber':locale) == 25 ? 'red' : 'black' }">-->
+<!--            {{ day.toString() }}-->
+<!--        </p>-->
+<!--    </div>-->
+
+<!--</ng-template>-->
+
+<ng-template #weekDayTemplate let-days="days" let-locale="locale">
+    <div class="cal-day-headers cursor-default">
+        <div
+                class="cal-header"
+                *ngFor="let day of days"
+                [class.cal-past]="day.isPast"
+                [class.cal-future]="day.isFuture"
+                [class.cal-drag-over]="day.dragOver">
+            <div class="top separatedDay" [class.today]="day.isToday">
+                <div class="day-label text-uppercase">
+                    {{ day.date | calendarDate:'monthViewColumnHeader':locale }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<div>
+<!--    <ul>-->
+<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
+<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
+<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
+<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
+<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
+<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
+<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
+
+<!--    </ul>-->
+    <mwl-calendar-month-view
+            [weekStartsOn]="1"
+            [viewDate]="viewDate"
+            [refresh]="refresh"
+            (beforeViewRender)="beforeMonthViewRender($event)"
+            [cellTemplate]="cellTemplate"
+            [headerTemplate]="weekDayTemplate"
+            id="mwl-calendar"
+            class="calendar">
+
+    </mwl-calendar-month-view>
+</div>
+
 
 
 

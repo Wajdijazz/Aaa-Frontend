@@ -3,6 +3,106 @@
 }
 
 .calendar {
-  width:70%;
+  width:75%;
 }
 
+.lineare-datepicker {
+  //margin-top: 20px ;
+  //margin-bottom: 20px ;
+  //display:inline;
+  vertical-align: middle;
+  width: 110%;
+  font-size: 12px;
+
+  table {
+    display: inline-block;
+    border-collapse: collapse;
+    text-align: center;
+    width: auto;
+  }
+  th, tr, td {
+    border: 1px solid black;
+    padding: 3px;
+  }
+  th, td {
+    width: 30px;
+
+    @media screen and (max-width: 1810px) {
+      width: 26px;
+    }
+
+    @media screen and (max-width: 1650px) {
+      width: 20px;
+    }
+
+    @media screen and (max-width: 1350px) {
+      width: 35px;
+    }
+
+    @media screen and (max-width: 1050px) {
+      width: 30px;
+    }
+
+    @media screen and (max-width: 1000px) {
+      width: 20px;
+    }
+  }
+
+  tr {
+    height: 15px;
+  }
+  th tr {
+    display: inline-block;
+  }
+
+  .activeCell {
+    background-color: #00AFF0;
+  }
+
+  .notBusinessDay{
+    color: whitesmoke;
+    width: 3px !important;
+    font-size: 0;
+    background-color: grey;
+  }
+
+  .isPublicDay{
+    color: black;
+    background-color: grey;
+  }
+
+  table, .lineare-date-picker-validate {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+
+  .lineare-date-picker-validate {
+    font-size: 40px;
+  }
+
+}
+
+.calendar {
+  //text-align:center;
+  margin-bottom: 10px;
+  margin-top: 5px;
+
+  h3, app-lineare-date-picker {
+    vertical-align: middle;
+  }
+  h3 {
+    margin-bottom:0;
+    padding-bottom:0;
+    float: left;
+  }
+}
+
+.calendar-group {
+  width: fit-content;
+  margin: auto;
+}
+
+.top-alignment{
+  align-items: unset !important;
+}
