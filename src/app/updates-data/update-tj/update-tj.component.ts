@@ -6,6 +6,7 @@ import {PersonService} from '../../services/person.service';
 import {ProjectService} from '../../services/project.service';
 import {TjService} from '../../services/tj.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-update-tj',
@@ -20,28 +21,28 @@ export class UpdateTjComponent implements OnInit {
     tj: Tj = {
         tjId: null,
         tarif: null,
-        person: null,
-        project: null,
+        personId: null,
+        projectId: null,
     }
 
     project: Project = {
         projectId: null,
         projectName: '',
-        client: null,
+        clientId: null,
     }
 
     person: Person = {
         personId: null,
         firstName: '',
         lastName: '',
-        manager: null
+        managerId: null
     }
 
     personId;
     projectId;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private personService: PersonService, public dialog: MatDialog,
-                private projectService: ProjectService, private tjService: TjService) {
+                private projectService: ProjectService, private tjService: TjService, private router: Router) {
     }
 
     ngOnInit() {
@@ -69,9 +70,11 @@ export class UpdateTjComponent implements OnInit {
         this.personId = personId;
     }
 
-    updateTj(data: Tj) {
-      this.tjService.updateTj(this.data.tj.tjId,this.projectId,this.personId,data)
-        this.dialog.closeAll()
-        window.location.reload()
+    updateTj(dataTj: Tj) {
+        dataTj.projectId = this.data.projectId
+        dataTj.personId = this.data.personId
+        this.tjService.updateTj(dataTj);
+        this.dialog.closeAll();
+        this.router.navigateByUrl('/tjs');
     }
 }

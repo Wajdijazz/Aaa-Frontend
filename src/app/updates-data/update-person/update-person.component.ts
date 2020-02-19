@@ -4,6 +4,7 @@ import {Manager} from '../../managers/manager';
 import {PersonService} from '../../services/person.service';
 import {ManagerService} from '../../services/manager.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-update-person',
@@ -15,7 +16,7 @@ export class UpdatePersonComponent implements OnInit {
         personId: null,
         firstName: '',
         lastName: '',
-        manager: null,
+        managerId: null,
 
     }
     manager: Manager = {
@@ -27,7 +28,7 @@ export class UpdatePersonComponent implements OnInit {
     private managers: Manager[];
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private personService: PersonService,
-                private managerService: ManagerService, public dialog: MatDialog) {
+                private managerService: ManagerService, public dialog: MatDialog, private router: Router) {
     }
 
     ngOnInit() {
@@ -45,8 +46,10 @@ export class UpdatePersonComponent implements OnInit {
     }
 
     updatePerson(person) {
-        this.personService.updatePerson(this.data.person.personId, person, this.Idmanager)
+        person.managerId = this.Idmanager
+        person.personId = this.data.person.personId
+        this.personService.updatePerson(person)
         this.dialog.closeAll()
-        window.location.reload()
+        this.router.navigateByUrl('/persons');
     }
 }

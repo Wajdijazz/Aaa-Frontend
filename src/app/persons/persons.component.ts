@@ -6,6 +6,7 @@ import {ManagerService} from '../services/manager.service';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateManagerComponent} from '../updates-data/update-manager/update-manager.component';
 import {UpdatePersonComponent} from '../updates-data/update-person/update-person.component';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
     selector: 'app-persons',
@@ -13,6 +14,7 @@ import {UpdatePersonComponent} from '../updates-data/update-person/update-person
     styleUrls: ['./persons.component.scss']
 })
 export class PersonsComponent implements OnInit {
+    mySubscription: any;
     persons: Person[];
     managers: Manager[];
     manager: Manager = {
@@ -25,16 +27,25 @@ export class PersonsComponent implements OnInit {
         personId: null,
         firstName: '',
         lastName: '',
-        manager: null,
+        managerId: null,
 
     }
 
-    constructor(private personService: PersonService, private managerService: ManagerService, public dialog: MatDialog) {
+    constructor(private personService: PersonService, private managerService: ManagerService, public dialog: MatDialog,
+                private router: Router) {
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.mySubscription = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                this.router.navigated = false;
+            }
+        });
     }
 
     ngOnInit() {
-        this.getAllManagers()
-        this.getAllPersons()
+        this.getAllManagers();
+        this.getAllPersons();
 
     }
 
@@ -52,17 +63,18 @@ export class PersonsComponent implements OnInit {
 
     deletPerson(personId) {
         this.personService.deletePerson(personId)
-      window.location.reload();
+        this.router.navigateByUrl('/persons');
     }
 
     selectManager(managerId) {
-        this.Idmanager = managerId
+        this.Idmanager = managerId;
     }
 
     addPerson(data: Person) {
-        this.personService.savePerson(data, this.Idmanager)
-        window.location.reload();
-        this.getAllPersons()
+        data.managerId = this.Idmanager;
+        this.personService.savePerson(data);
+        this.getAllPersons();
+        this.router.navigateByUrl('/persons');
     }
 
     /**

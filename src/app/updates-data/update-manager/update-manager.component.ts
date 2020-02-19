@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {Manager} from '../../managers/manager';
 import {ManagerService} from '../../services/manager.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-update-manager',
@@ -10,7 +11,8 @@ import {ManagerService} from '../../services/manager.service';
 })
 export class UpdateManagerComponent implements OnInit {
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private managerService: ManagerService, public dialog: MatDialog) {
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private managerService: ManagerService,
+                public dialog: MatDialog, private router: Router) {
     }
 
     manager: Manager = {
@@ -24,8 +26,9 @@ export class UpdateManagerComponent implements OnInit {
     }
 
     updateManager(data: Manager) {
-        this.managerService.updateManager(this.data.manager.managerId, data)
+        data.managerId = this.data.manager.managerId
+        this.managerService.updateManager(data)
         this.dialog.closeAll()
-        window.location.reload()
+        this.router.navigateByUrl('/managers');
     }
 }

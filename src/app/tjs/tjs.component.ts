@@ -9,6 +9,7 @@ import {UpdateProjectComponent} from '../updates-data/update-project/update-proj
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateTjComponent} from '../updates-data/update-tj/update-tj.component';
 import {DatasetService} from '../services/dataset.service';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
     selector: 'app-tjs',
@@ -16,6 +17,7 @@ import {DatasetService} from '../services/dataset.service';
     styleUrls: ['./tjs.component.scss']
 })
 export class TjsComponent implements OnInit {
+    mySubscription: any;
     persons: Person[];
     projects: Project[];
     tjs: Tj[];
@@ -23,21 +25,21 @@ export class TjsComponent implements OnInit {
     tj: Tj = {
         tjId: null,
         tarif: null,
-        person: null,
-        project: null,
+        personId: null,
+        projectId: null,
     }
 
     project: Project = {
         projectId: null,
         projectName: '',
-        client: null,
+        clientId: null,
     }
 
     person: Person = {
         personId: null,
         firstName: '',
         lastName: '',
-        manager: null
+        managerId: null
     }
 
     personId;
@@ -47,11 +49,19 @@ export class TjsComponent implements OnInit {
     private dataset = [];
 
     constructor(private personService: PersonService, private projectService: ProjectService,
-                private tjService: TjService, public dialog: MatDialog, private datasetService: DatasetService) {
+                private tjService: TjService, public dialog: MatDialog, private datasetService: DatasetService, private router: Router) {
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.mySubscription = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                this.router.navigated = false;
+            }
+        });
     }
 
     ngOnInit() {
-        this.displayTable()
+        this.displayTable();
         this.getAllPersons();
         this.getAllProject();
     }
@@ -69,7 +79,7 @@ export class TjsComponent implements OnInit {
 
     getAllProject() {
         this.projectService.getProjects().subscribe((data: Project[]) => {
-            this.projects = data
+            this.projects = data;
         })
     }
 
@@ -80,58 +90,66 @@ export class TjsComponent implements OnInit {
 
     displayTable() {
         this.projectService.getProjects().subscribe((dataProject: Project[]) => {
-            this.projects = dataProject
+            this.projects = dataProject;
             this.projects.forEach(project => {
                 this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
-                    this.personList = data.persons
+                    this.personList = data.persons;
                     this.personList.forEach(person => {
-                        person.price = 0
+                        person.price = 0;
                         let indexName = this.personListView.findIndex(p => p.firstName === person.firstName &&
                             p.lastName === person.lastName)
                         if (indexName === -1) {
-                            this.personListView.push(person)
+                            this.personListView.push(person);
                         }
                         this.tjService.getTijByProjectAnPerson(project.projectId, person.personId)
                             .subscribe((tarif: any) => {
-                                person.price = tarif / 1
+                                person.price = tarif / 1;
                             })
                     })
                     if (data.project) {
-                        this.dataset.push(data)
+                        this.dataset.push(data);
                     }
                 })
             })
-            this.dataset = []
+            this.dataset = [];
         })
     }
 
     addTj(data: Tj) {
-        this.tjService.saveTj(data, this.projectId, this.personId);
-        window.location.reload();
+        data.personId = this.personId;
+        data.projectId = this.projectId;
+        this.tjService.saveTj(data);
+        this.router.navigateByUrl('/tjs');
+
     }
 
     onKey(event, projectId, personId) {
         console.log('project' + projectId + 'Person' + personId)
         const tarif = event;
-        this.tj.tarif = tarif
-        this.tjService.saveTj(this.tj, projectId, personId)
-        window.location.reload();
-
+        this.tj.tarif = tarif;
+        this.tj.projectId = projectId;
+        this.tj.personId = personId;
+        this.tjService.saveTj(this.tj);
+        this.router.navigateByUrl('/tjs');
     }
 
     deleteTj(tjId) {
         this.tjService.deleteTj(tjId)
-        window.location.reload();
+        this.router.navigateByUrl('/tjs');
     }
 
-    updateTj(tj): void {
+    updateTj(projectId: number, personId: number): void {
         let dialogRef = this.dialog.open(UpdateTjComponent, {
             width: '900px',
-            data: {tj}
+            data: {projectId, personId}
         });
         dialogRef.afterClosed().subscribe(result => {
         });
 
     }
-
+    ngOnDestroy() {
+        if (this.mySubscription) {
+            this.mySubscription.unsubscribe();
+        }
+    }
 }

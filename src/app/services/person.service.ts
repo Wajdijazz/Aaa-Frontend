@@ -16,16 +16,16 @@ export class PersonService {
         return this.http.get(`${config.apiUrl}/person/`);
     }
 
-    savePerson(data: Person, managerId: number) {
-        this.http.post(`${config.apiUrl}/person/manager/${managerId}/person`, data)
+    savePerson(data: Person) {
+        this.http.post(`${config.apiUrl}/person/`, data)
             .subscribe(
                 res => {
                 }
             );
     }
 
-   updatePerson(id:number,data: Person, managerId: number) {
-        this.http.put(`${config.apiUrl}/person/${id}/${managerId}`, data)
+   updatePerson(data: Person) {
+        this.http.put(`${config.apiUrl}/person/`, data)
             .subscribe(
                 res => {
                 }
