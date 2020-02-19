@@ -26,17 +26,6 @@
 
 </ng-template>
 
-<!--<ng-template #weekDayTemplate let-day="day" let-locale="locale">-->
-
-<!--    <div class="separatedDay" style="height: 100%">-->
-
-<!--        <p class="cal-day-number" style="pointer-events: none" [ngStyle]="{'opacity':'100', 'color': (day.date | calendarDate:'monthViewDayNumber':locale) == 25 ? 'red' : 'black' }">-->
-<!--            {{ day.toString() }}-->
-<!--        </p>-->
-<!--    </div>-->
-
-<!--</ng-template>-->
-
 <ng-template #weekDayTemplate let-days="days" let-locale="locale">
     <div class="cal-day-headers cursor-default">
         <div
@@ -56,16 +45,32 @@
 </ng-template>
 
 <div>
-<!--    <ul>-->
-<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
-<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
-<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
-<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
-<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
-<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
-<!--        <li class="cal-day-cell separatedDay">Monday</li>-->
 
-<!--    </ul>-->
+    <div
+            class="btn btn-primary"
+            mwlCalendarPreviousView
+            [view]="view"
+            [viewDate]="viewDate"
+            (viewDateChange)="refreshCalendar(configTime)"
+    >
+        Previous
+    </div>
+    <div
+            class="btn btn-outline-secondary"
+            mwlCalendarToday
+            [viewDate]="viewDate"
+    >
+        Today
+    </div>
+    <div
+            class="btn btn-primary"
+            mwlCalendarNextView
+            [view]="view"
+            [viewDate]="viewDate"
+            (viewDateChange)="refreshCalendar2(configTime)"
+    >
+        Next
+    </div>
     <mwl-calendar-month-view
             [weekStartsOn]="1"
             [viewDate]="viewDate"

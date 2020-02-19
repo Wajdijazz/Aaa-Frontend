@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {Subject} from 'rxjs';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Subject, timer} from 'rxjs';
 import {CalendarMonthViewDay, CalendarView} from 'angular-calendar';
+import {ConfigTime} from '../entities/ConfigTime';
+import {ConfigService} from '../services/config.service';
+import {debounce} from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',
@@ -9,17 +12,64 @@ import {CalendarMonthViewDay, CalendarView} from 'angular-calendar';
 })
 export class CalendarComponent implements OnInit {
 
+    private months =
+        ['JANUARY',
+            'FEBRUARY',
+            'MARCH',
+            'APRIL',
+            'MAY',
+            'JUNE',
+            'JULY',
+            'AUGUST',
+            'SEPTEMBER',
+            'OCTOBER',
+            'NOVEMBER',
+            'DECEMBER'];
+
     viewDate: Date = new Date();
     refresh: Subject<any> = new Subject();
     view: CalendarView = CalendarView.Month;
-
+    configTime: ConfigTime = new ConfigTime(this.months[new Date().getMonth()], new Date().getFullYear());
 
     listDate: number[] = [];
 
-    constructor() { }
+    constructor(private configService: ConfigService) { }
 
     ngOnInit() {
+        this.configTime.setActualDate();
+        // this.updateDate();
     }
+
+    // ngAfterViewInit(): void {
+    //     this.configService.getMessage().pipe(debounce(val => timer(500))).subscribe((configTime: ConfigTime) => {
+    //         if (configTime.year && configTime.month) {
+    //             this.refreshCalendar(configTime);
+    //             }
+    //     });
+    // }
+
+    refreshCalendar(configTime: ConfigTime) {
+        console.log('Refresh calendar..');
+        this.viewDate = new Date();
+        this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() - 1, 1);
+        this.refresh.next();
+        console.log('View date :' + this.viewDate);
+        console.log('refresh :' + this.refresh);
+    }
+
+    refreshCalendar2(configTime: ConfigTime) {
+        console.log('Refresh calendar..');
+        this.viewDate = new Date();
+        this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() + 1, 1);
+        this.refresh.next();
+        console.log('View date :' + this.viewDate);
+        console.log('refresh :' + this.refresh);
+    }
+
+    // updateDate() {
+    //     const currentTime = new ConfigTime(this.months[this.viewDate.getMonth()], this.viewDate.getFullYear());
+    //     this.configService.sendMessage(currentTime);
+    // }
 
     beforeMonthViewRender({body}: { body: CalendarMonthViewDay[] }): void {
         body.forEach(day => {
