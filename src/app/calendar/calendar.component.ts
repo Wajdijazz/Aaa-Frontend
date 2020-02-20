@@ -38,6 +38,7 @@ export class CalendarComponent implements OnInit {
     ngOnInit() {
 
         this.configTime.setActualDate();
+        console.log('nb month' + this.configTime.getMonthToNumber());
     }
 
     refreshCalendar(configTime: ConfigTime) {
