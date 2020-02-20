@@ -33,4 +33,12 @@ export class ConfigTime {
         this.year = date.getFullYear();
     }
 
+    toNextMonth () {
+        this.month = this.months[this.getMonthToNumber() + 1];
+    }
+
+    toPrevMonth () {
+        this.month = this.months[this.getMonthToNumber() - 1];
+    }
+
 }
