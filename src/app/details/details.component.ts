@@ -18,14 +18,14 @@ export class DetailsComponent implements OnInit {
     project: Project = {
         projectId: null,
         projectName: '',
-        client: null,
+        clientId: null,
     }
 
     person: Person = {
         personId: null,
         firstName: '',
         lastName: '',
-        manager: null
+        managerId: null
     }
     worked;
     private dateTest: Date;

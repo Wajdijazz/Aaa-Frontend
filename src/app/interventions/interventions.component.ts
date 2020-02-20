@@ -18,7 +18,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 
 export class InterventionsComponent implements OnInit {
     interventions: Intervention[];
-    newArr = []
+    newArr = [];
     persons: Person[];
     projects: Project [];
     intervention: Intervention = {
@@ -33,13 +33,13 @@ export class InterventionsComponent implements OnInit {
     project: Project = {
         projectId: null,
         projectName: '',
-        client: null,
+        clientId: null,
     }
     person: Person = {
         personId: null,
         firstName: '',
         lastName: '',
-        manager: null
+        managerId: null
     }
     personId;
     projectId;
@@ -53,7 +53,7 @@ export class InterventionsComponent implements OnInit {
     ngOnInit() {
         this.getAllPersons();
         this.getAllProject();
-        this.getAllInterventions()
+        this.getAllInterventions();
     }
 
     getAllInterventions() {
@@ -62,7 +62,7 @@ export class InterventionsComponent implements OnInit {
             this.interventions.forEach((item, index) => {
                 if (this.newArr.findIndex(i => i.person.personId == item.person.personId
                     && i.project.projectId == item.project.projectId) === -1) {
-                    this.newArr.push(item)
+                    this.newArr.push(item);
                 }
             });
         })
@@ -77,7 +77,7 @@ export class InterventionsComponent implements OnInit {
 
     getAllProject() {
         this.projectService.getProjects().subscribe((data: Project[]) => {
-            this.projects = data
+            this.projects = data;
         })
     }
 

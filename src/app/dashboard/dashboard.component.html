@@ -27,18 +27,25 @@
                                     <th>
                                         Projects/Persons
                                     </th>
-                                    <th *ngFor="let myperson of personListView">
-                                        {{myperson.firstName}} {{myperson.lastName}}
+                                    <th  *ngFor="let myperson of personListView">
+
+                                            {{myperson.firstName}} {{myperson.lastName}}
+
                                     </th>
                                     <th>Total</th>
                                 </tr>
                                 <tr *ngFor="let data of dataset">
 
                                     <th>
-                                        {{data.project.project}}
+                                        {{data.project.projectName}}
                                     </th>
-                                    <td *ngFor="let myperson of data.persons">
-                                        {{ myperson.worked + " j -- " + myperson.price + "€"}}
+                                    <td  *ngFor="let person of data.persons">
+                                        <div   *ngIf=" person.worked !=0">
+                                            <div id="{{person.personId}}">
+                                                {{ person.worked + " j -- " + person.price + "€"}}
+
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         {{data.project.totalByProject + "€"}}

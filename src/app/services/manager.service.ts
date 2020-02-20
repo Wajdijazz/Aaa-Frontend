@@ -22,8 +22,8 @@ export class ManagerService {
                 }
             );
     }
-    updateManager(id:number,data: Manager) {
-        this.http.put(`${config.apiUrl}/manager/${id}`, data)
+    updateManager(data: Manager) {
+        this.http.put(`${config.apiUrl}/manager/`, data)
             .subscribe(
                 res => {
                 }

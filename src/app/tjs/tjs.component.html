@@ -27,7 +27,7 @@
                                             <tr *ngFor="let data of dataset">
 
                                                 <th>
-                                                    {{data.project.project}}
+                                                    {{data.project.projectName}}
                                                 </th>
                                                 <td *ngFor="let myperson of data.persons">
                                                     <div *ngIf="myperson.price ===0">
@@ -35,7 +35,7 @@
                                                                (keyup.enter)="onKey($event.target.value,
                                                                data.project.projectId,myperson.personId)"><br>
                                                     </div>
-                                                    <div *ngIf="myperson.price!=0">
+                                                    <div *ngIf="myperson.price!=0" (click)="updateTj(data.project.projectId,myperson.personId)">
                                                         {{ myperson.price + "€"}}
 
                                                     </div>

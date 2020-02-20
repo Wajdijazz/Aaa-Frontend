@@ -11,8 +11,8 @@ export class TjService {
     constructor(private http: HttpClient) {
     }
 
-    saveTj(data: Tj, projectId: number, personId: number) {
-        this.http.post(`${config.apiUrl}/tj/project/${projectId}/person/${personId}`, data)
+    saveTj(data: Tj) {
+        this.http.post(`${config.apiUrl}/tj/`, data)
             .subscribe(
                 res => {
                 }
@@ -20,8 +20,9 @@ export class TjService {
     }
 
 
-    updateTj(id: number, projectId: number, personId: number, data: Tj) {
-        this.http.put(`${config.apiUrl}/tj/${id}/${projectId}/${personId}`, data)
+
+    updateTj(data: Tj) {
+        this.http.put(`${config.apiUrl}/tj/`, data)
             .subscribe(
                 res => {
                 }

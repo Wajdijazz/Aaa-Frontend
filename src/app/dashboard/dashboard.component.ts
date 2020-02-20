@@ -13,10 +13,8 @@ import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/mater
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
 import * as _moment from 'moment';
-// tslint:disable-next-line:no-duplicate-imports
-// @ts-ignore
+
 import {default as _rollupMoment, Moment} from 'moment';
-import {logger} from 'codelyzer/util/logger';
 import {Tj} from '../tjs/tj';
 
 const moment = _rollupMoment || _moment;
@@ -66,8 +64,8 @@ export class DashboardComponent implements OnInit {
     };
     tj: Tj = {
         tjId: null,
-        person: null,
-        project: null,
+        personId: null,
+        projectId: null,
         tarif: null
     };
 
@@ -77,6 +75,8 @@ export class DashboardComponent implements OnInit {
     private month: any;
     private year: number;
     private date: FormControl;
+    private   showAdd = false;
+
 
     constructor(private personService: PersonService, private projectService: ProjectService,
                 private interventionService: InterventionService,
@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.date = new FormControl(moment());
-        this.getAllProjects()
+        this.displayTable(this.date.value.month()+1,this.date.value.year());
     }
 
     /**
@@ -98,6 +98,7 @@ export class DashboardComponent implements OnInit {
         return this.projects;
     }
 
+
     /**
      *  Cette fonction permet lister tous dataset de tableau pour chaque projet
      * et aprés on va recuperer les worked day et price pour chaque personne et projet et
@@ -106,10 +107,12 @@ export class DashboardComponent implements OnInit {
      * @param yearNumber
      */
     displayTable(monthNumber: number, yearNumber: number) {
-        this.getAllProjects().forEach(project => {
+        this.projectService.getProjects().subscribe((dataProject: Project[]) => {
+            this.projects = dataProject;
+            this.projects.forEach(project => {
             this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
                 if (data.project) {
-                    data.project.totalByProject = 0
+                    data.project.totalByProject = 0;
                 }
                 this.personList = data.persons;
                 this.personList.forEach(person => {
@@ -118,7 +121,7 @@ export class DashboardComponent implements OnInit {
                     let indexPersonName = this.personListView.findIndex(p => p.firstName === person.firstName &&
                         p.lastName === person.lastName);
                     if (indexPersonName === -1) {
-                        this.personListView.push(person)
+                        this.personListView.push(person);
                     }
                     this.interventionService.getWorkedByPersonAndProjectByMonthAndYear(project.projectId, person.personId
                         , monthNumber, yearNumber).subscribe((dataWorkedDay: number) => {
@@ -127,13 +130,13 @@ export class DashboardComponent implements OnInit {
                             .subscribe((tarif: number) => {
                                 person.price = (tarif * dataWorkedDay);
                                 if (data.project) {
-                                    data.project.totalByProject = data.project.totalByProject + (tarif * dataWorkedDay)
+                                    data.project.totalByProject = data.project.totalByProject + person.price;
                                 }
                             })
                     })
                 });
                 if (data.project) {
-                    this.dataset.push(data)
+                    this.dataset.push(data);
                 }
             })
         });
@@ -153,5 +156,24 @@ export class DashboardComponent implements OnInit {
         this.displayTable(this.month, this.year);
         datepicker.close();
     }
+     afficherMasquer(id:string,id2:string)
+    {
+        console.log(id2)
+       if(document.getElementById(id).style.display === "none"  ) {
+           document.getElementById(id).style.display = "block";
+
+
+       }
+    else
+        document.getElementById(id).style.display = "none";
+        document.getElementById(id2).style.display = "none";
+
+
+
+
+    }
+
+
+
 
 }

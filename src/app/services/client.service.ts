@@ -23,8 +23,8 @@ export class ClientService {
                 }
             );
     }
-    updateClient(id:number,data: Client) {
-        this.http.put(`${config.apiUrl}/client/${id}`, data)
+    updateClient(data: Client) {
+        this.http.put(`${config.apiUrl}/client/`, data)
             .subscribe(
                 res => {
                 }

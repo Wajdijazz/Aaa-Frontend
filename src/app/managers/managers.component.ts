@@ -3,7 +3,6 @@ import {ManagerService} from '../services/manager.service';
 import {Manager} from '../entities/manager';
 import {NavigationEnd, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
-import {DetailsComponent} from '../details/details.component';
 import {UpdateManagerComponent} from '../updates-data/update-manager/update-manager.component';
 
 @Component({
@@ -12,6 +11,7 @@ import {UpdateManagerComponent} from '../updates-data/update-manager/update-mana
     styleUrls: ['./managers.component.scss']
 })
 export class ManagersComponent implements OnInit {
+    mySubscription: any;
     private managers: Manager[];
     manager: Manager = {
 
@@ -20,12 +20,22 @@ export class ManagersComponent implements OnInit {
         lastName: ''
     }
 
-    constructor(private managerService: ManagerService,public dialog: MatDialog) {
+    constructor(private managerService: ManagerService, public dialog: MatDialog, private router: Router) {
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.mySubscription = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                this.router.navigated = false;
+            }
+        });
     }
 
     ngOnInit() {
-        this.getAllManagers()
+        this.getAllManagers();
+
     }
+
 
     getAllManagers() {
         this.managerService.getManagers().subscribe((data: Manager[]) => {
@@ -35,15 +45,14 @@ export class ManagersComponent implements OnInit {
     }
 
     addManager(data: Manager) {
-        this.managerService.saveManager(data)
-        this.getAllManagers()
-        window.location.reload()
+        this.managerService.saveManager(data);
+        this.getAllManagers();
+        this.router.navigateByUrl('/managers');
     }
 
     deleteManager(managerId) {
-        this.managerService.deleteManager(managerId)
-        this.getAllManagers()
-        window.location.reload();
+        this.managerService.deleteManager(managerId);
+        this.router.navigateByUrl('/managers');
     }
 
     /**
@@ -58,6 +67,12 @@ export class ManagersComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
         });
 
-}
+    }
+
+    ngOnDestroy() {
+        if (this.mySubscription) {
+            this.mySubscription.unsubscribe();
+        }
+    }
 
 }

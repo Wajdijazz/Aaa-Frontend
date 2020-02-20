@@ -5,6 +5,7 @@ import {Client} from '../entities/client';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateManagerComponent} from '../updates-data/update-manager/update-manager.component';
 import {UpdateClientComponent} from '../updates-data/update-client/update-client.component';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
     selector: 'app-clients',
@@ -12,6 +13,7 @@ import {UpdateClientComponent} from '../updates-data/update-client/update-client
     styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
+    mySubscription: any;
     clients: Client[];
     client: Client = {
         clientId: null,
@@ -19,12 +21,20 @@ export class ClientsComponent implements OnInit {
         clientContact: '',
     }
 
-    constructor(private clientService: ClientService,public dialog: MatDialog) {
+    constructor(private clientService: ClientService, public dialog: MatDialog, private router: Router) {
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.mySubscription = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                this.router.navigated = false;
+            }
+        });
     }
 
 
     ngOnInit() {
-        this.getAllClients()
+        this.getAllClients();
     }
 
     getAllClients() {
@@ -34,15 +44,14 @@ export class ClientsComponent implements OnInit {
     }
 
     addClient(data: Client) {
-        this.clientService.saveClient(data)
-        window.location.reload();
-        this.getAllClients()
+        this.clientService.saveClient(data);
+        this.getAllClients();
+        this.router.navigateByUrl('/clients');
     }
 
     deleteClient(clientId) {
-        this.clientService.deleteClient(clientId)
-        this.getAllClients()
-        window.location.reload();
+        this.clientService.deleteClient(clientId);
+        this.router.navigateByUrl('/clients');
     }
 
     updateClient(client): void {
@@ -55,6 +64,9 @@ export class ClientsComponent implements OnInit {
 
     }
 
-
-
+    ngOnDestroy() {
+        if (this.mySubscription) {
+            this.mySubscription.unsubscribe();
+        }
+    }
 }
