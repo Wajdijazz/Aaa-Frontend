@@ -36,31 +36,32 @@ export class CalendarComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.configTime.setActualDate();
-        console.log('nb month' + this.configTime.getMonthToNumber());
     }
 
-    refreshCalendar(configTime: ConfigTime) {
-        console.log('Refresh calendar..');
-        this.viewDate = new Date();
-        this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() - 1, 1);
-        this.refresh.next();
-        this.configTime.toPrevMonth();
-        console.log('View date :' + this.viewDate);
-        console.log('refresh :' + this.refresh);
-        console.log('Config :' + this.configTime.month + '   ' + configTime.year);
+    refreshCalendar(configTime: ConfigTime, sign: string) {
+        switch (sign) {
+            case '=' :
+                this.viewDate = new Date();
+                this.configTime.setActualDate();
+                break;
+            case '+' :
+                this.viewDate = new Date();
+                this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() + 1, 1);
+                this.configTime.toNextMonth();
+                break;
+            case '-' :
+                this.viewDate = new Date();
+                this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() - 1, 1);
+                this.configTime.toPrevMonth();
+                break;
+        }
     }
 
     refreshCalendar2(configTime: ConfigTime) {
-        console.log('Refresh calendar..');
         this.viewDate = new Date();
         this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() + 1, 1);
-        this.refresh.next();
         this.configTime.toNextMonth();
-        console.log('View date :' + this.viewDate);
-        console.log('refresh :' + this.refresh);
-        console.log('Config :' + this.configTime.month + '   ' + configTime.year);
     }
 
 }
