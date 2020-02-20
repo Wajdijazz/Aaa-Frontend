@@ -7,6 +7,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {UpdatePersonComponent} from '../updates-data/update-person/update-person.component';
 import {UpdateProjectComponent} from '../updates-data/update-project/update-project.component';
 import {NavigationEnd, Router} from '@angular/router';
+import {ManagerService} from '../services/manager.service';
+import {Manager} from '../managers/manager';
 
 @Component({
     selector: 'app-projects',
@@ -16,7 +18,7 @@ import {NavigationEnd, Router} from '@angular/router';
 export class ProjectsComponent implements OnInit {
     mySubscription: any;
     clients: Client[];
-    projects: Project[];
+    projects =[];
     client: Client = {
         clientId: null,
         clientName: '',
@@ -26,12 +28,19 @@ export class ProjectsComponent implements OnInit {
     project: Project = {
         projectId: null,
         projectName: '',
-        clientId: null
-
+        clientId: null,
+        managerId: null
     }
+    manager: Manager = {
+        managerId: null,
+        firstName: '',
+        lastName: ''
+    }
+    Idmanager: number;
+    private managers: Manager[];
 
     constructor(private clientService: ClientService, private projectService: ProjectService, public dialog: MatDialog,
-                private router: Router) {
+                private router: Router, private managerService: ManagerService) {
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
             return false;
         };
@@ -45,10 +54,12 @@ export class ProjectsComponent implements OnInit {
     ngOnInit() {
         this.getAllClients();
         this.getAllProjects();
+        this.getAllManagers();
+        this.ngOnDestroy();
     }
 
     getAllProjects() {
-        this.projectService.getProjects().subscribe((data: Project[]) => {
+        this.projectService.getProjects().subscribe((data: any) => {
             this.projects = data;
         })
     }
@@ -59,12 +70,23 @@ export class ProjectsComponent implements OnInit {
         })
     }
 
+    getAllManagers() {
+        this.managerService.getManagers().subscribe((data: Manager[]) => {
+            this.managers = data;
+        })
+    }
+
     selectClient(clientId) {
         this.IdClient = clientId;
     }
 
+    selectManager(managerId) {
+        this.Idmanager = managerId;
+    }
+
     addProject(data: Project) {
         data.clientId = this.IdClient;
+        data.managerId = this.Idmanager;
         this.projectService.saveProject(data);
         this.getAllProjects();
         this.router.navigateByUrl('/projects');
@@ -72,6 +94,7 @@ export class ProjectsComponent implements OnInit {
 
     deletProject(projectId) {
         this.projectService.deleteProject(projectId);
+        this.getAllManagers();
         this.router.navigateByUrl('/projects');
     }
 
@@ -84,9 +107,12 @@ export class ProjectsComponent implements OnInit {
         });
 
     }
+
     ngOnDestroy() {
         if (this.mySubscription) {
             this.mySubscription.unsubscribe();
         }
     }
+
+
 }

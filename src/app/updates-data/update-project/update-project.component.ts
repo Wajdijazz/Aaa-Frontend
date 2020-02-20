@@ -15,7 +15,8 @@ export class UpdateProjectComponent implements OnInit {
     project: Project = {
         projectId: null,
         projectName: '',
-        clientId: null
+        clientId: null,
+        managerId:null
     }
     client: Client = {
         clientId: null,

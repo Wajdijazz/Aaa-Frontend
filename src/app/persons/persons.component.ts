@@ -15,7 +15,7 @@ import {NavigationEnd, Router} from '@angular/router';
 })
 export class PersonsComponent implements OnInit {
     mySubscription: any;
-    persons: Person[];
+    persons=[];
     managers: Manager[];
     manager: Manager = {
         managerId: null,
@@ -46,11 +46,12 @@ export class PersonsComponent implements OnInit {
     ngOnInit() {
         this.getAllManagers();
         this.getAllPersons();
+        this.ngOnDestroy();
 
     }
 
     getAllPersons() {
-        this.personService.getPersons().subscribe((data: Person[]) => {
+        this.personService.getPersons().subscribe((data: any) => {
             this.persons = data;
         })
     }
@@ -89,6 +90,11 @@ export class PersonsComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
         });
 
+    }
+    ngOnDestroy() {
+        if (this.mySubscription) {
+            this.mySubscription.unsubscribe();
+        }
     }
 
 

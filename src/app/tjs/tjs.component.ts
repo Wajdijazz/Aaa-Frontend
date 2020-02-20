@@ -33,6 +33,7 @@ export class TjsComponent implements OnInit {
         projectId: null,
         projectName: '',
         clientId: null,
+        managerId:null,
     }
 
     person: Person = {
@@ -64,6 +65,7 @@ export class TjsComponent implements OnInit {
         this.displayTable();
         this.getAllPersons();
         this.getAllProject();
+        this.ngOnDestroy();
     }
 
     getAllPersons() {
@@ -74,7 +76,6 @@ export class TjsComponent implements OnInit {
 
     selectPerson(personId) {
         this.personId = personId;
-        console.log(personId);
     }
 
     getAllProject() {
@@ -85,7 +86,6 @@ export class TjsComponent implements OnInit {
 
     selectProject(projectId) {
         this.projectId = projectId;
-        console.log(projectId);
     }
 
     displayTable() {
@@ -124,7 +124,6 @@ export class TjsComponent implements OnInit {
     }
 
     onKey(event, projectId, personId) {
-        console.log('project' + projectId + 'Person' + personId)
         const tarif = event;
         this.tj.tarif = tarif;
         this.tj.projectId = projectId;

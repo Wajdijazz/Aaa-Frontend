@@ -29,6 +29,7 @@ export class UpdateTjComponent implements OnInit {
         projectId: null,
         projectName: '',
         clientId: null,
+        managerId:null
     }
 
     person: Person = {

@@ -34,6 +34,7 @@ export class InterventionsComponent implements OnInit {
         projectId: null,
         projectName: '',
         clientId: null,
+        managerId:null
     }
     person: Person = {
         personId: null,

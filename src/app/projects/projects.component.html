@@ -17,10 +17,13 @@
                                         <table class="table table-hover">
                                             <thead class="">
                                             <th>
-                                                Project Name
+                                                Project
                                             </th>
                                             <th>
-                                                Client Name
+                                                Client
+                                            </th>
+                                            <th>
+                                                Manager
                                             </th>
                                             <th> Edit</th>
                                             <th> Delete</th>
@@ -29,6 +32,8 @@
                                             <tr *ngFor="let project of projects">
                                                 <td>{{project.projectName}}</td>
                                                 <td>{{project.client.clientName}}</td>
+                                                <td>{{project.manager.firstName}}  {{project.manager.lastName}}</td>
+
                                                 <td>
                                                     <button mat-raised-button type="button" atTooltip="voir details"
                                                             class="btn btn-primary btn-link btn-sm btn-just-icon"
@@ -67,7 +72,15 @@
                                                 {{ client.clientName }}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                    <button mat-raised-button type="submit"
+                                    <mat-form-field>
+                                        <mat-select placeholder="Select manager" name="manager list"
+                                                    [(ngModel)]="manager" (selectionChange)="selectManager(manager)"
+                                                    required>
+                                            <mat-option *ngFor="let manager of managers" [value]="manager.managerId">
+                                                {{ manager.firstName }} {{ manager.lastName }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <button mat-raised-button type="button"
                                             class="btn btn-info pull-right" (click)="addProject(project)"> Add
                                     </button>
                                 </form>
