@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Project} from '../entities/project';
 import {Person} from '../entities/person';
 import {PersonService} from '../services/person.service';
@@ -16,7 +16,7 @@ import {NavigationEnd, Router} from '@angular/router';
     templateUrl: './tjs.component.html',
     styleUrls: ['./tjs.component.scss']
 })
-export class TjsComponent implements OnInit {
+export class TjsComponent implements OnInit, OnDestroy {
     mySubscription: any;
     persons: Person[];
     projects: Project[];
@@ -33,7 +33,7 @@ export class TjsComponent implements OnInit {
         projectId: null,
         projectName: '',
         clientId: null,
-        managerId:null,
+        managerId: null,
     }
 
     person: Person = {
@@ -146,6 +146,7 @@ export class TjsComponent implements OnInit {
         });
 
     }
+
     ngOnDestroy() {
         if (this.mySubscription) {
             this.mySubscription.unsubscribe();
