@@ -58,10 +58,4 @@ export class CalendarComponent implements OnInit {
         }
     }
 
-    refreshCalendar2(configTime: ConfigTime) {
-        this.viewDate = new Date();
-        this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() + 1, 1);
-        this.configTime.toNextMonth();
-    }
-
 }
