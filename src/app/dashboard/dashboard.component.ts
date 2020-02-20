@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit {
         personId: null,
         firstName: '',
         lastName: '',
-        manager: null,
+        managerId: null,
     };
     tj: Tj = {
         tjId: null,
@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.date = new FormControl(moment());
-        this.displayTable(this.date.value.month()+1,this.date.value.year());
+        this.displayTable(this.date.value.month() + 1, this.date.value.year());
     }
 
     /**
@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
                 this.personList.forEach(person => {
                     person.price = 0;
                     person.worked = 0;
-                    let indexPersonName = this.personListView.findIndex(p => p.firstName === person.firstName &&
+                    const indexPersonName = this.personListView.findIndex(p => p.firstName === person.firstName &&
                         p.lastName === person.lastName);
                     if (indexPersonName === -1) {
                         this.personListView.push(person);
@@ -138,10 +138,10 @@ export class DashboardComponent implements OnInit {
                 if (data.project) {
                     this.dataset.push(data);
                 }
-            })
+            })})
         });
         this.dataset = []
-    }
+    };
 
     /**
      * Cette fonction permet de selectionner mois et année et faire l'appel à la fonction display Table
@@ -156,17 +156,16 @@ export class DashboardComponent implements OnInit {
         this.displayTable(this.month, this.year);
         datepicker.close();
     }
-     afficherMasquer(id:string,id2:string)
-    {
+     afficherMasquer(id: string, id2: string) {
         console.log(id2)
-       if(document.getElementById(id).style.display === "none"  ) {
-           document.getElementById(id).style.display = "block";
+       if (document.getElementById(id).style.display === 'none'  ) {
+           document.getElementById(id).style.display = 'block';
 
 
+       } else {
+        document.getElementById(id).style.display = 'none';
        }
-    else
-        document.getElementById(id).style.display = "none";
-        document.getElementById(id2).style.display = "none";
+        document.getElementById(id2).style.display = 'none';
 
 
 

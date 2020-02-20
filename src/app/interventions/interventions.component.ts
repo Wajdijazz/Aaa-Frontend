@@ -34,7 +34,7 @@ export class InterventionsComponent implements OnInit {
         projectId: null,
         projectName: '',
         clientId: null,
-        managerId:null
+        managerId: null
     }
     person: Person = {
         personId: null,
@@ -107,7 +107,7 @@ export class InterventionsComponent implements OnInit {
      * @param intervention
      */
     openDialog(intervention): void {
-        let dialogRef = this.dialog.open(DetailsComponent, {
+        const dialogRef = this.dialog.open(DetailsComponent, {
             width: '900px',
             data: {person: intervention.person, project: intervention.project}
         });
