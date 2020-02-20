@@ -19,6 +19,7 @@ export class DetailsComponent implements OnInit {
         projectId: null,
         projectName: '',
         clientId: null,
+        managerId:null
     }
 
     person: Person = {

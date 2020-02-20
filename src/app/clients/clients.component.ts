@@ -35,6 +35,7 @@ export class ClientsComponent implements OnInit {
 
     ngOnInit() {
         this.getAllClients();
+        this.ngOnDestroy();
     }
 
     getAllClients() {

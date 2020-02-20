@@ -33,21 +33,20 @@ export class ManagersComponent implements OnInit {
 
     ngOnInit() {
         this.getAllManagers();
-
+        this.ngOnDestroy()
     }
-
 
     getAllManagers() {
         this.managerService.getManagers().subscribe((data: Manager[]) => {
             this.managers = data;
         })
-
     }
 
     addManager(data: Manager) {
         this.managerService.saveManager(data);
         this.getAllManagers();
         this.router.navigateByUrl('/managers');
+
     }
 
     deleteManager(managerId) {
@@ -74,5 +73,4 @@ export class ManagersComponent implements OnInit {
             this.mySubscription.unsubscribe();
         }
     }
-
 }
