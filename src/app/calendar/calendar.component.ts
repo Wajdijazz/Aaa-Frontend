@@ -31,27 +31,21 @@ export class CalendarComponent implements OnInit {
     view: CalendarView = CalendarView.Month;
     configTime: ConfigTime = new ConfigTime(this.months[new Date().getMonth()], new Date().getFullYear());
 
-    constructor() {
-
-    }
-
     ngOnInit() {
         this.configTime.setActualDate();
     }
 
     refreshCalendar(configTime: ConfigTime, sign: string) {
+        this.viewDate = new Date();
         switch (sign) {
             case '=' :
-                this.viewDate = new Date();
                 this.configTime.setActualDate();
                 break;
             case '+' :
-                this.viewDate = new Date();
                 this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() + 1, 1);
                 this.configTime.toNextMonth();
                 break;
             case '-' :
-                this.viewDate = new Date();
                 this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() - 1, 1);
                 this.configTime.toPrevMonth();
                 break;
