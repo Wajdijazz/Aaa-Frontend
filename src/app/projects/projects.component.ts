@@ -1,41 +1,41 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Client} from '../entities/client';
 import {ClientService} from '../services/client.service';
 import {Project} from '../entities/project';
 import {ProjectService} from '../services/project.service';
 import {MatDialog} from '@angular/material/dialog';
-import {UpdatePersonComponent} from '../updates-data/update-person/update-person.component';
 import {UpdateProjectComponent} from '../updates-data/update-project/update-project.component';
 import {NavigationEnd, Router} from '@angular/router';
 import {ManagerService} from '../services/manager.service';
-import {Manager} from '../managers/manager';
+import {Manager} from '../entities/manager';
+
 
 @Component({
     selector: 'app-projects',
     templateUrl: './projects.component.html',
     styleUrls: ['./projects.component.scss']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, OnDestroy {
     mySubscription: any;
     clients: Client[];
-    projects =[];
+    projects = [];
     client: Client = {
         clientId: null,
         clientName: '',
         clientContact: ''
-    }
+    };
     IdClient;
     project: Project = {
         projectId: null,
         projectName: '',
         clientId: null,
         managerId: null
-    }
+    };
     manager: Manager = {
         managerId: null,
         firstName: '',
         lastName: ''
-    }
+    };
     Idmanager: number;
     private managers: Manager[];
 
@@ -99,7 +99,7 @@ export class ProjectsComponent implements OnInit {
     }
 
     updateProject(project): void {
-        let dialogRef = this.dialog.open(UpdateProjectComponent, {
+        const dialogRef = this.dialog.open(UpdateProjectComponent, {
             width: '900px',
             data: {project}
         });
