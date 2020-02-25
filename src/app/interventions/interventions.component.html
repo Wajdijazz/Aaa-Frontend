@@ -84,12 +84,8 @@
                                     </mat-form-field>
                                     <mat-form-field>
                                         <input matInput name="startDate" id="startDate" #startDate="ngModel"
-                                               [(ngModel)]="intervention.startDate" placeholder="Start date" type="date"
+                                               [(ngModel)]="intervention.date" placeholder="Date" type="date"
                                                required>
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <input matInput name="endDate" id="endDate" #endDate="ngModel"
-                                               [(ngModel)]="intervention.endDate" type="date" placeholder="End date">
                                     </mat-form-field>
                                     <button mat-raised-button type="submit" class="btn btn-info pull-right"
                                             (click)="addIntervention(intervention)"> Add

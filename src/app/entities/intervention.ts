@@ -4,7 +4,5 @@ export class Intervention {
     mode: any;
     project: any;
     person: any;
-    startDate: Date;
-    endDate: Date;
 }
 

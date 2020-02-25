@@ -12,8 +12,10 @@ export class InterventionService {
     constructor(private http: HttpClient) {
     }
 
-    saveIntervention(data: Intervention, projectId: number, personId: number) {
-        this.http.post(`${config.apiUrl}/intervention/project/${projectId}/person/${personId}`, data)
+    saveIntervention(intervention: Intervention) {
+        this.http
+            .post(`${config.apiUrl}/intervention/project/${intervention.project.id}/person/${intervention.person.personId}`,
+                intervention)
             .subscribe(
                 res => {
                 }
@@ -24,7 +26,7 @@ export class InterventionService {
         return this.http.get(`${config.apiUrl}/intervention/`);
     }
 
-    deleteIntervention(personId: number, projectId: number) {
+    deleteInterventions(personId: number, projectId: number) {
         this.http.delete(`${config.apiUrl}/intervention/person/${personId}/project/${projectId}`)
             .subscribe(
                 res => {
