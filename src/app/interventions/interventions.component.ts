@@ -6,7 +6,7 @@ import {Person} from '../entities/person';
 import {Intervention} from '../entities/intervention';
 import {InterventionService} from '../services/intervention.service';
 import {DetailsComponent} from '../details/details.component';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Component({
@@ -26,22 +26,20 @@ export class InterventionsComponent implements OnInit {
         date: null,
         person: null,
         project: null,
-        mode: null,
-        startDate: null,
-        endDate: null,
-    }
+        mode: null
+    };
     project: Project = {
         projectId: null,
         projectName: '',
         clientId: null,
         managerId: null
-    }
+    };
     person: Person = {
         personId: null,
         firstName: '',
         lastName: '',
         managerId: null
-    }
+    };
     personId;
     projectId;
     private listInterventions: void;
@@ -61,8 +59,8 @@ export class InterventionsComponent implements OnInit {
         this.interventionService.getInterventions().subscribe((data: Intervention[]) => {
             this.interventions = data;
             this.interventions.forEach((item, index) => {
-                if (this.newArr.findIndex(i => i.person.personId == item.person.personId
-                    && i.project.projectId == item.project.projectId) === -1) {
+                if (this.newArr.findIndex(i => i.person.personId === item.person.personId
+                    && i.project.projectId === item.project.projectId) === -1) {
                     this.newArr.push(item);
                 }
             });
@@ -92,14 +90,11 @@ export class InterventionsComponent implements OnInit {
     }
 
     addIntervention(data: Intervention) {
-        this.listInterventions = this.getAllInterventions()
-        this.interventionService.saveIntervention(data, this.projectId, this.personId);
-        window.location.reload();
+        this.interventionService.saveIntervention(data);
     }
 
     deletIntervention(personId, projectId) {
-        this.interventionService.deleteIntervention(personId, projectId);
-        window.location.reload();
+        this.interventionService.deleteInterventions(personId, projectId);
     }
 
     /**

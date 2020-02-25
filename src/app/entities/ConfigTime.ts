@@ -34,7 +34,7 @@ export class ConfigTime {
     }
 
     toNextMonth () {
-        if (this.getMonthToNumber() == 11) {
+        if (this.getMonthToNumber() === 11) {
             this.year = this.year + 1;
             this.month = this.months[0]
         } else {
@@ -43,8 +43,8 @@ export class ConfigTime {
     }
 
     toPrevMonth () {
-        if (this.getMonthToNumber() == 0) {
-            this.year = this.year - 1;
+        if (this.getMonthToNumber() === 0) {
+            this.year -= 1;
             this.month = this.months[11]
         } else {
             this.month = this.months[this.getMonthToNumber() - 1];

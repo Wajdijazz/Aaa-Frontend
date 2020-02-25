@@ -1,14 +1,18 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {Subject, timer} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
 import {CalendarMonthViewDay, CalendarView} from 'angular-calendar';
 import {ConfigTime} from '../entities/ConfigTime';
-import {ConfigService} from '../services/config.service';
-import {debounce} from 'rxjs/operators';
+import {Intervention} from '../entities/intervention';
+import {Person} from '../entities/person';
+import {Project} from '../entities/project';
+import {PersonService} from '../services/person.service';
+import {ProjectService} from '../services/project.service';
+import {InterventionService} from '../services/intervention.service';
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+    selector: 'app-calendar',
+    templateUrl: './calendar.component.html',
+    styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
 
@@ -31,31 +35,83 @@ export class CalendarComponent implements OnInit {
     view: CalendarView = CalendarView.Month;
     configTime: ConfigTime = new ConfigTime(this.months[new Date().getMonth()], new Date().getFullYear());
 
-    constructor() {
+    interventions: Array<Intervention> = [];
+    persons: Array<Person> = [];
+    projects: Array<Project> = [];
 
+    selectedPerson: Person;
+    selectedProject: Project;
+    selectedDate: Date;
+
+    constructor(private personService: PersonService,
+                private projectService: ProjectService,
+                private interventionService: InterventionService) {
     }
 
     ngOnInit() {
         this.configTime.setActualDate();
+        this.getAllPersons();
+        this.getAllProject();
     }
 
     refreshCalendar(configTime: ConfigTime, sign: string) {
+        this.viewDate = new Date();
         switch (sign) {
             case '=' :
-                this.viewDate = new Date();
                 this.configTime.setActualDate();
                 break;
             case '+' :
-                this.viewDate = new Date();
                 this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() + 1, 1);
                 this.configTime.toNextMonth();
                 break;
             case '-' :
-                this.viewDate = new Date();
                 this.viewDate.setFullYear(configTime.year, configTime.getMonthToNumber() - 1, 1);
                 this.configTime.toPrevMonth();
                 break;
         }
     }
+
+    hover(event: any) {
+        const target = event.currentTarget.parentElement;
+        if (target.classList.contains('hover')) {
+            target.classList.remove('hover');
+        } else {
+            target.classList.add('hover');
+        }
+    }
+
+    addDay(day: Date, mode: string, event: any): void {
+        const intervention: Intervention = new Intervention();
+        intervention.date = day;
+        intervention.mode = mode;
+        this.interventions.push(intervention);
+        const target = event.currentTarget.parentElement;
+        target.classList.add('selectedDay');
+    }
+
+    getAllPersons() {
+        this.personService.getPersons().subscribe((data: Person[]) => {
+            this.persons = data;
+        })
+    }
+
+    getAllProject() {
+        this.projectService.getProjects().subscribe((data: Project[]) => {
+            this.projects = data;
+        })
+    }
+
+    addIntervention(data: Intervention) {
+        this.interventionService.saveIntervention(data);
+    }
+
+    wholeDayClicked(day: CalendarMonthViewDay, event: any, wholeDay = true): void {
+
+    }
+
+    dayClicked(day: CalendarMonthViewDay, period: string, event: any): void {
+
+    }
+
 
 }
