@@ -5,7 +5,6 @@ import {PersonService} from '../services/person.service';
 import {ProjectService} from '../services/project.service';
 import {Tj} from './tj';
 import {TjService} from '../services/tj.service';
-import {UpdateProjectComponent} from '../updates-data/update-project/update-project.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateTjComponent} from '../updates-data/update-tj/update-tj.component';
 import {DatasetService} from '../services/dataset.service';
@@ -65,7 +64,6 @@ export class TjsComponent implements OnInit, OnDestroy {
         this.displayTable();
         this.getAllPersons();
         this.getAllProject();
-        this.ngOnDestroy();
     }
 
     getAllPersons() {
@@ -74,19 +72,12 @@ export class TjsComponent implements OnInit, OnDestroy {
         })
     }
 
-    selectPerson(personId) {
-        this.personId = personId;
-    }
-
     getAllProject() {
         this.projectService.getProjects().subscribe((data: Project[]) => {
             this.projects = data;
         })
     }
 
-    selectProject(projectId) {
-        this.projectId = projectId;
-    }
 
     displayTable() {
         this.projectService.getProjects().subscribe((dataProject: Project[]) => {
@@ -96,8 +87,7 @@ export class TjsComponent implements OnInit, OnDestroy {
                     this.personList = data.persons;
                     this.personList.forEach(person => {
                         person.price = 0;
-                        let indexName = this.personListView.findIndex(p => p.firstName === person.firstName &&
-                            p.lastName === person.lastName)
+                        let indexName = this.personListView.findIndex(p => p.personId === person.personId)
                         if (indexName === -1) {
                             this.personListView.push(person);
                         }
@@ -119,6 +109,7 @@ export class TjsComponent implements OnInit, OnDestroy {
         data.personId = this.personId;
         data.projectId = this.projectId;
         this.tjService.saveTj(data);
+        this.router.navigated = false;
         this.router.navigateByUrl('/tjs');
 
     }

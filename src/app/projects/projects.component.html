@@ -31,8 +31,8 @@
                                             <tbody>
                                             <tr *ngFor="let project of projects">
                                                 <td>{{project.projectName}}</td>
-                                                <td>{{project.client.clientName}}</td>
-                                                <td>{{project.manager.firstName}}  {{project.manager.lastName}}</td>
+                                                <td>{{project.clientDto.clientName}}</td>
+                                                <td>{{project.managerDto.firstName}}  {{project.managerDto.lastName}}</td>
 
                                                 <td>
                                                     <button mat-raised-button type="button" atTooltip="voir details"

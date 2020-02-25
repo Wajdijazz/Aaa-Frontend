@@ -33,7 +33,6 @@ import {UpdateClientComponent} from '../../updates-data/update-client/update-cli
 import {UpdateProjectComponent} from '../../updates-data/update-project/update-project.component';
 import {UpdateTjComponent} from '../../updates-data/update-tj/update-tj.component';
 import {MatTableModule} from '@angular/material/table';
-import {DetailsWorkComponent} from '../../details-work/details-work.component';
 import {ComponentsModule} from '../../components/components.module';
 
 @NgModule({
@@ -71,7 +70,6 @@ import {ComponentsModule} from '../../components/components.module';
         UpdateClientComponent,
         UpdateProjectComponent,
         UpdateTjComponent,
-        DetailsWorkComponent
     ]
 })
 

@@ -1,20 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ManagerService} from '../services/manager.service';
 import {Manager} from '../entities/manager';
 import {NavigationEnd, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {UpdateManagerComponent} from '../updates-data/update-manager/update-manager.component';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-managers',
     templateUrl: './managers.component.html',
     styleUrls: ['./managers.component.scss']
 })
-export class ManagersComponent implements OnInit {
+export class ManagersComponent implements OnInit ,OnDestroy{
     mySubscription: any;
     private managers: Manager[];
     manager: Manager = {
-
         managerId: null,
         firstName: '',
         lastName: ''
@@ -33,7 +33,6 @@ export class ManagersComponent implements OnInit {
 
     ngOnInit() {
         this.getAllManagers();
-        this.ngOnDestroy()
     }
 
     getAllManagers() {
@@ -44,9 +43,8 @@ export class ManagersComponent implements OnInit {
 
     addManager(data: Manager) {
         this.managerService.saveManager(data);
-        this.getAllManagers();
+        this.router.navigated = false;
         this.router.navigateByUrl('/managers');
-
     }
 
     deleteManager(managerId) {

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
 import {Person} from '../entities/person';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PersonService} from '../services/person.service';
 import {Manager} from '../entities/manager';
 import {ManagerService} from '../services/manager.service';
@@ -13,9 +13,9 @@ import {NavigationEnd, Router} from '@angular/router';
     templateUrl: './persons.component.html',
     styleUrls: ['./persons.component.scss']
 })
-export class PersonsComponent implements OnInit {
+export class PersonsComponent implements OnInit, OnDestroy {
     mySubscription: any;
-    persons=[];
+    persons = [];
     managers: Manager[];
     manager: Manager = {
         managerId: null,
@@ -46,7 +46,6 @@ export class PersonsComponent implements OnInit {
     ngOnInit() {
         this.getAllManagers();
         this.getAllPersons();
-        this.ngOnDestroy();
 
     }
 
@@ -91,6 +90,7 @@ export class PersonsComponent implements OnInit {
         });
 
     }
+
     ngOnDestroy() {
         if (this.mySubscription) {
             this.mySubscription.unsubscribe();

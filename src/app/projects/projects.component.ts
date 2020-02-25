@@ -1,42 +1,34 @@
-import {Component, OnInit} from '@angular/core';
 import {Client} from '../entities/client';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ClientService} from '../services/client.service';
 import {Project} from '../entities/project';
 import {ProjectService} from '../services/project.service';
 import {MatDialog} from '@angular/material/dialog';
-import {UpdatePersonComponent} from '../updates-data/update-person/update-person.component';
 import {UpdateProjectComponent} from '../updates-data/update-project/update-project.component';
 import {NavigationEnd, Router} from '@angular/router';
 import {ManagerService} from '../services/manager.service';
-import {Manager} from '../managers/manager';
+import {Manager} from '../entities/manager';
 
 @Component({
     selector: 'app-projects',
     templateUrl: './projects.component.html',
     styleUrls: ['./projects.component.scss']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, OnDestroy {
     mySubscription: any;
     clients: Client[];
-    projects =[];
-    client: Client = {
-        clientId: null,
-        clientName: '',
-        clientContact: ''
-    }
-    IdClient;
+    projects = [];
+    client: Client;
+    IdClient: number;
+
     project: Project = {
         projectId: null,
         projectName: '',
         clientId: null,
         managerId: null
     }
-    manager: Manager = {
-        managerId: null,
-        firstName: '',
-        lastName: ''
-    }
-    Idmanager: number;
+    manager: Manager;
+    IdManager: number;
     private managers: Manager[];
 
     constructor(private clientService: ClientService, private projectService: ProjectService, public dialog: MatDialog,
@@ -55,7 +47,6 @@ export class ProjectsComponent implements OnInit {
         this.getAllClients();
         this.getAllProjects();
         this.getAllManagers();
-        this.ngOnDestroy();
     }
 
     getAllProjects() {
@@ -81,14 +72,13 @@ export class ProjectsComponent implements OnInit {
     }
 
     selectManager(managerId) {
-        this.Idmanager = managerId;
+        this.IdManager = managerId;
     }
 
-    addProject(data: Project) {
-        data.clientId = this.IdClient;
-        data.managerId = this.Idmanager;
-        this.projectService.saveProject(data);
-        this.getAllProjects();
+    addProject(project: Project) {
+         project.clientId=this.IdClient;
+         project.managerId=this.IdManager;
+        this.projectService.saveProject(project);
         this.router.navigateByUrl('/projects');
     }
 
