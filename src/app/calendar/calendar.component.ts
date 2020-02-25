@@ -52,6 +52,7 @@ export class CalendarComponent implements OnInit {
         this.configTime.setActualDate();
         this.getAllPersons();
         this.getAllProject();
+        console.log('init');
     }
 
     refreshCalendar(configTime: ConfigTime, sign: string) {
@@ -87,6 +88,7 @@ export class CalendarComponent implements OnInit {
         this.interventions.push(intervention);
         const target = event.currentTarget.parentElement;
         target.classList.add('selectedDay');
+        console.log(this.selectedDate);
     }
 
     getAllPersons() {

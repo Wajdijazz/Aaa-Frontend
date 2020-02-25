@@ -2,7 +2,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import {AppRoutingModule} from './app.routing';
+import {AppRouting} from './app.routing';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 
@@ -70,7 +70,7 @@ import {MatModule} from './mat.module';
         CommonModule,
         FormsModule,
         HttpClientModule,
-        AppRoutingModule,
+        AppRouting,
         CalendarModule.forRoot({
             provide: DateAdapter,
             useFactory: adapterFactory
