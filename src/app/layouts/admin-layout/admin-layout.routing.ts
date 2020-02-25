@@ -34,8 +34,4 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'update-tj', component: UpdateTjComponent},
     {path : 'details-worked', component: DetailsWorkComponent},
 
-
-
-
-
 ];
