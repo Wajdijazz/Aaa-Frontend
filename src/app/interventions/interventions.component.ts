@@ -17,10 +17,8 @@ import {CalendarComponent} from '../calendar/calendar.component';
 })
 
 
-export class InterventionsComponent implements OnInit, AfterViewInit {
+export class InterventionsComponent implements OnInit {
 
-    @ViewChild(CalendarComponent)
-    calComponent: CalendarComponent;
     interventions: Intervention[];
 
     persons: Person[];
@@ -38,10 +36,6 @@ export class InterventionsComponent implements OnInit, AfterViewInit {
         this.getAllPersons();
         this.getAllProject();
         this.getAllInterventions();
-    }
-
-    ngAfterViewInit(): void {
-        this.interventions = this.calComponent.interventions;
     }
 
     getAllInterventions() {
@@ -64,9 +58,6 @@ export class InterventionsComponent implements OnInit, AfterViewInit {
     }
 
     addIntervention(data: Array<Intervention>, project: Project, person: Person) {
-        console.log(data);
-        console.log(project);
-        console.log(person);
         data.forEach(int => {
             int.project = project;
             int.person = person;

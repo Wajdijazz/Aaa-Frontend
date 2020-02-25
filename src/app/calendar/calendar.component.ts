@@ -83,15 +83,29 @@ export class CalendarComponent implements OnInit {
         }
     }
 
-    addDay(day: Date, mode: string, event: any): void {
+    selectDay(day: Date, mode: string, event: any): void {
         const intervention: Intervention = new Intervention();
         intervention.date = day;
         intervention.mode = mode;
-        this.interventions.push(intervention);
         const target = event.currentTarget.parentElement;
-        target.classList.add('selectedDay');
-        console.log(this.interventions);
-        this.interventionChanged.emit(this.interventions);
+        let index = 0;
+
+        if (
+                this.interventions.some(int => {
+                if (int.date === intervention.date && int.mode === intervention.mode) {
+                     index = this.interventions.indexOf(int);
+                     return true;
+                }
+                return false;
+                })
+            ) {
+            this.interventions.splice(index, 1);
+            target.classList.remove('selectedDay');
+        } else {
+            this.interventions.push(intervention);
+            target.classList.add('selectedDay');
+            this.interventionChanged.emit(this.interventions);
+        }
     }
 
     getAllPersons() {

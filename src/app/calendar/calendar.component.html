@@ -13,14 +13,14 @@
         <div id="halfDays">
             <div class="half-day"
                  id="{{day.date.getMonth()}}/{{day.date.getUTCDate()+1}}/{{day.date.getUTCFullYear()}}-AM">
-                <div class="case-half-day" (mwlClick)="addDay(day.date, 'AM', $event)">
+                <div class="case-half-day" (mwlClick)="selectDay(day.date, 'AM', $event)">
                     <span class="projectName">Project name</span>
                     <span class="projectName">Role</span>
                 </div>
             </div>
             <div class="half-day"
                  id="{{day.date.getMonth()}}/{{day.date.getUTCDate()+1}}/{{day.date.getUTCFullYear()}}-PM">
-                <div class="case-half-day" (mwlClick)="addDay(day.date, 'PM', $event)">
+                <div class="case-half-day" (mwlClick)="selectDay(day.date, 'PM', $event)">
                     <span class="projectName">Project name</span>
                     <span class="projectName">Role</span>
                 </div>
