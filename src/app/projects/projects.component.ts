@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import {Component, OnDestroy, OnInit} from '@angular/core';
-=======
->>>>>>> origin/wajdi
 import {Client} from '../entities/client';
-import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ClientService} from '../services/client.service';
 import {Project} from '../entities/project';
 import {ProjectService} from '../services/project.service';
@@ -12,10 +8,7 @@ import {UpdateProjectComponent} from '../updates-data/update-project/update-proj
 import {NavigationEnd, Router} from '@angular/router';
 import {ManagerService} from '../services/manager.service';
 import {Manager} from '../entities/manager';
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/wajdi
 
 @Component({
     selector: 'app-projects',
@@ -26,36 +19,28 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     mySubscription: any;
     clients: Client[];
     projects = [];
-<<<<<<< HEAD
+
     client: Client = {
         clientId: null,
         clientName: '',
         clientContact: ''
     };
-    IdClient;
-=======
-    client: Client;
+
     IdClient: number;
 
->>>>>>> origin/wajdi
     project: Project = {
         projectId: null,
         projectName: '',
         clientId: null,
         managerId: null
-<<<<<<< HEAD
     };
     manager: Manager = {
         managerId: null,
         firstName: '',
         lastName: ''
     };
-    Idmanager: number;
-=======
-    }
-    manager: Manager;
+
     IdManager: number;
->>>>>>> origin/wajdi
     private managers: Manager[];
 
     constructor(private clientService: ClientService, private projectService: ProjectService, public dialog: MatDialog,

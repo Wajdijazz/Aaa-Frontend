@@ -31,7 +31,6 @@ import {UpdatePersonComponent} from './updates-data/update-person/update-person.
 import {UpdateClientComponent} from './updates-data/update-client/update-client.component';
 import {UpdateProjectComponent} from './updates-data/update-project/update-project.component';
 import {UpdateTjComponent} from './updates-data/update-tj/update-tj.component';
-import {DetailsWorkComponent} from './details-work/details-work.component';
 import {CalendarComponent} from './calendar/calendar.component';
 
 import {BrowserModule} from '@angular/platform-browser';
@@ -60,7 +59,6 @@ import {MatModule} from './mat.module';
         UpdateClientComponent,
         UpdateProjectComponent,
         UpdateTjComponent,
-        DetailsWorkComponent,
         CalendarComponent
     ],
     imports: [
