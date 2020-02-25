@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs';
 import {CalendarMonthViewDay, CalendarView} from 'angular-calendar';
 import {ConfigTime} from '../entities/ConfigTime';
@@ -8,6 +8,9 @@ import {Project} from '../entities/project';
 import {PersonService} from '../services/person.service';
 import {ProjectService} from '../services/project.service';
 import {InterventionService} from '../services/intervention.service';
+import {InterventionsComponent} from '../interventions/interventions.component';
+
+
 
 @Component({
     selector: 'app-calendar',
@@ -35,13 +38,12 @@ export class CalendarComponent implements OnInit {
     view: CalendarView = CalendarView.Month;
     configTime: ConfigTime = new ConfigTime(this.months[new Date().getMonth()], new Date().getFullYear());
 
+    @Output()
+    interventionChanged: EventEmitter<Array<Intervention>> = new EventEmitter();
+
     interventions: Array<Intervention> = [];
     persons: Array<Person> = [];
     projects: Array<Project> = [];
-
-    selectedPerson: Person;
-    selectedProject: Project;
-    selectedDate: Date;
 
     constructor(private personService: PersonService,
                 private projectService: ProjectService,
@@ -88,7 +90,8 @@ export class CalendarComponent implements OnInit {
         this.interventions.push(intervention);
         const target = event.currentTarget.parentElement;
         target.classList.add('selectedDay');
-        console.log(this.selectedDate);
+        console.log(this.interventions);
+        this.interventionChanged.emit(this.interventions);
     }
 
     getAllPersons() {
@@ -101,10 +104,6 @@ export class CalendarComponent implements OnInit {
         this.projectService.getProjects().subscribe((data: Project[]) => {
             this.projects = data;
         })
-    }
-
-    addIntervention(data: Intervention) {
-        this.interventionService.saveIntervention(data);
     }
 
     wholeDayClicked(day: CalendarMonthViewDay, event: any, wholeDay = true): void {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {PersonService} from '../services/person.service';
 import {ProjectService} from '../services/project.service';
 import {Project} from '../entities/project';
@@ -7,6 +7,7 @@ import {Intervention} from '../entities/intervention';
 import {InterventionService} from '../services/intervention.service';
 import {DetailsComponent} from '../details/details.component';
 import {MatDialog} from '@angular/material/dialog';
+import {CalendarComponent} from '../calendar/calendar.component';
 
 
 @Component({
@@ -16,33 +17,17 @@ import {MatDialog} from '@angular/material/dialog';
 })
 
 
-export class InterventionsComponent implements OnInit {
+export class InterventionsComponent implements OnInit, AfterViewInit {
+
+    @ViewChild(CalendarComponent)
+    calComponent: CalendarComponent;
     interventions: Intervention[];
-    newArr = [];
+
     persons: Person[];
     projects: Project [];
-    intervention: Intervention = {
-        interventionId: null,
-        date: null,
-        person: null,
-        project: null,
-        mode: null
-    };
-    project: Project = {
-        projectId: null,
-        projectName: '',
-        clientId: null,
-        managerId: null
-    };
-    person: Person = {
-        personId: null,
-        firstName: '',
-        lastName: '',
-        managerId: null
-    };
-    personId;
-    projectId;
-    private listInterventions: void;
+
+    selectedPerson: Person;
+    selectedProject: Project;
 
     constructor(public dialog: MatDialog, private personService: PersonService,
                 private projectService: ProjectService,
@@ -55,15 +40,13 @@ export class InterventionsComponent implements OnInit {
         this.getAllInterventions();
     }
 
+    ngAfterViewInit(): void {
+        this.interventions = this.calComponent.interventions;
+    }
+
     getAllInterventions() {
         this.interventionService.getInterventions().subscribe((data: Intervention[]) => {
             this.interventions = data;
-            this.interventions.forEach((item, index) => {
-                if (this.newArr.findIndex(i => i.person.personId === item.person.personId
-                    && i.project.projectId === item.project.projectId) === -1) {
-                    this.newArr.push(item);
-                }
-            });
         })
 
     }
@@ -80,20 +63,22 @@ export class InterventionsComponent implements OnInit {
         })
     }
 
-    selectProject(projectId) {
-        this.projectId = projectId;
+    addIntervention(data: Array<Intervention>, project: Project, person: Person) {
+        console.log(data);
+        console.log(project);
+        console.log(person);
+        data.forEach(int => {
+            int.project = project;
+            int.person = person;
+        });
+        this.interventionService.saveIntervention(data, project, person);
     }
 
-    selectPerson(personId) {
-        this.personId = personId;
-        console.log(personId);
+    interventionChangedHandler(interventions: Array<Intervention>) {
+        this.interventions = interventions;
     }
 
-    addIntervention(data: Intervention) {
-        this.interventionService.saveIntervention(data);
-    }
-
-    deletIntervention(personId, projectId) {
+    deleteIntervention(personId, projectId) {
         this.interventionService.deleteInterventions(personId, projectId);
     }
 
