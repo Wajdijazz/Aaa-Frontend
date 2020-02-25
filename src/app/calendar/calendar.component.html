@@ -89,29 +89,29 @@
 </div>
 
 
-<form #f="ngForm">
-    <mat-form-field>
-        <mat-label> Select Person</mat-label>
-        <mat-select name="persons list" [(ngModel)]="selectedPerson" required>
-            <mat-option *ngFor="let person of persons" [value]="person.personId">
-                {{ person.firstName }} {{person.lastName}} </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label> Select Project</mat-label>
-        <mat-select name="project list"
-                    [(ngModel)]="selectedProject" required>
-            <mat-option *ngFor="let project of projects"
-                        [value]="project.projectId">
-                {{ project.projectName }}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput name="date" id="date" #date="ngModel"
-               [(ngModel)]="selectedDate" placeholder="Date" type="date"
-               required>
-    </mat-form-field>
-    <button mat-raised-button type="submit" class="btn btn-info pull-right"
-            (click)="addIntervention(intervention)"> Add
-    </button>
-</form>
+<!--<form #f="ngForm">-->
+<!--    <mat-form-field>-->
+<!--        <mat-label> Select Person</mat-label>-->
+<!--        <mat-select name="persons list" [(ngModel)]="selectedPerson" required>-->
+<!--            <mat-option *ngFor="let person of persons" [value]="person.personId">-->
+<!--                {{ person.firstName }} {{person.lastName}} </mat-option>-->
+<!--        </mat-select>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field>-->
+<!--        <mat-label> Select Project</mat-label>-->
+<!--        <mat-select name="project list"-->
+<!--                    [(ngModel)]="selectedProject" required>-->
+<!--            <mat-option *ngFor="let project of projects"-->
+<!--                        [value]="project.projectId">-->
+<!--                {{ project.projectName }}</mat-option>-->
+<!--        </mat-select>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field>-->
+<!--        <input matInput name="date" id="date" #date="ngModel"-->
+<!--               [(ngModel)]="selectedDate" placeholder="Date" type="date"-->
+<!--               required>-->
+<!--    </mat-form-field>-->
+<!--    <button mat-raised-button type="submit" class="btn btn-info pull-right"-->
+<!--            (click)="addIntervention(intervention)"> Add-->
+<!--    </button>-->
+<!--</form>-->
