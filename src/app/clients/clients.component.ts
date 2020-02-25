@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ClientService} from '../services/client.service';
 import {Person} from '../entities/person';
 import {Client} from '../entities/client';
@@ -12,7 +12,7 @@ import {NavigationEnd, Router} from '@angular/router';
     templateUrl: './clients.component.html',
     styleUrls: ['./clients.component.scss']
 })
-export class ClientsComponent implements OnInit {
+export class ClientsComponent implements OnInit, OnDestroy {
     mySubscription: any;
     clients: Client[];
     client: Client = {
@@ -35,7 +35,6 @@ export class ClientsComponent implements OnInit {
 
     ngOnInit() {
         this.getAllClients();
-        this.ngOnDestroy();
     }
 
     getAllClients() {

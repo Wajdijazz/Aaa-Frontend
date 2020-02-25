@@ -13,7 +13,6 @@ import {UpdatePersonComponent} from '../../updates-data/update-person/update-per
 import {UpdateClientComponent} from '../../updates-data/update-client/update-client.component';
 import {UpdateProjectComponent} from '../../updates-data/update-project/update-project.component';
 import {UpdateTjComponent} from '../../updates-data/update-tj/update-tj.component';
-import {DetailsWorkComponent} from '../../details-work/details-work.component';
 
 
 
@@ -32,6 +31,5 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'update-client', component: UpdateClientComponent},
     {path: 'update-project', component: UpdateProjectComponent},
     {path: 'update-tj', component: UpdateTjComponent},
-    {path : 'details-worked', component: DetailsWorkComponent},
 
 ];

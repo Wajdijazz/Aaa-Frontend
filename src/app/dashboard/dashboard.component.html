@@ -37,8 +37,8 @@
                                 <tr *ngFor="let data of dataset">
 
                                     <th>
-                                        {{data.project.projectName}}-{{data.project.client.clientName}}<br>
-                                        ({{data.project.manager.firstName}} {{data.project.manager.lastName}})
+                                        {{data.project.projectName}}-{{data.project.clientDto.clientName}}<br>
+                                        ({{data.project.managerDto.firstName}} {{data.project.managerDto.lastName}})
                                     </th>
                                     <td *ngFor="let person of data.persons">
                                         <div *ngIf=" person.worked !=0">
