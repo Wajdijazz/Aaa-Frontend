@@ -20,12 +20,12 @@ import {CalendarComponent} from '../calendar/calendar.component';
 export class InterventionsComponent implements OnInit {
 
     interventions: Intervention[];
-
     persons: Person[];
     projects: Project [];
 
     selectedPerson: Person;
     selectedProject: Project;
+    selectedDayToAdd: Array<Intervention>; // Tableau d'interventions des jours selectionnes
 
     constructor(public dialog: MatDialog, private personService: PersonService,
                 private projectService: ProjectService,
@@ -65,8 +65,12 @@ export class InterventionsComponent implements OnInit {
         this.interventionService.saveIntervention(data, project, person);
     }
 
-    interventionChangedHandler(interventions: Array<Intervention>) {
-        this.interventions = interventions;
+    /**
+     * Permet de gérer l'évènement émit par CalendarComponent lorsque l'on selectionne un jour
+     * @param interventions
+     */
+    selectedDayChangedHandler(interventions: Array<Intervention>) {
+        this.selectedDayToAdd = interventions;
     }
 
     deleteIntervention(personId, projectId) {

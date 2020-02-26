@@ -39,22 +39,17 @@ export class CalendarComponent implements OnInit {
     configTime: ConfigTime = new ConfigTime(this.months[new Date().getMonth()], new Date().getFullYear());
 
     @Output()
-    interventionChanged: EventEmitter<Array<Intervention>> = new EventEmitter();
+    selectionChanged: EventEmitter<Array<Intervention>> = new EventEmitter();
+    selectedDayOfIntervention: Array<Intervention> = [];
 
     interventions: Array<Intervention> = [];
-    persons: Array<Person> = [];
-    projects: Array<Project> = [];
 
-    constructor(private personService: PersonService,
-                private projectService: ProjectService,
-                private interventionService: InterventionService) {
+    constructor(private interventionService: InterventionService) {
     }
 
     ngOnInit() {
         this.configTime.setActualDate();
-        this.getAllPersons();
-        this.getAllProject();
-        console.log('init');
+        this.getAllIntervention();
     }
 
     refreshCalendar(configTime: ConfigTime, sign: string) {
@@ -91,42 +86,28 @@ export class CalendarComponent implements OnInit {
         let index = 0;
 
         if (
-                this.interventions.some(int => {
+                this.selectedDayOfIntervention.some(int => {
                 if (int.date === intervention.date && int.mode === intervention.mode) {
-                     index = this.interventions.indexOf(int);
+                     index = this.selectedDayOfIntervention.indexOf(int);
                      return true;
                 }
                 return false;
                 })
             ) {
-            this.interventions.splice(index, 1);
+            this.selectedDayOfIntervention.splice(index, 1);
             target.classList.remove('selectedDay');
+            this.selectionChanged.emit(this.selectedDayOfIntervention);
         } else {
-            this.interventions.push(intervention);
+            this.selectedDayOfIntervention.push(intervention);
             target.classList.add('selectedDay');
-            this.interventionChanged.emit(this.interventions);
+            this.selectionChanged.emit(this.selectedDayOfIntervention);
         }
     }
 
-    getAllPersons() {
-        this.personService.getPersons().subscribe((data: Person[]) => {
-            this.persons = data;
-        })
+    getAllIntervention() {
+        this.interventionService.getInterventions().subscribe((listOfIntervention: Intervention[]) => {
+            this.interventions = listOfIntervention;
+        });
     }
-
-    getAllProject() {
-        this.projectService.getProjects().subscribe((data: Project[]) => {
-            this.projects = data;
-        })
-    }
-
-    wholeDayClicked(day: CalendarMonthViewDay, event: any, wholeDay = true): void {
-
-    }
-
-    dayClicked(day: CalendarMonthViewDay, period: string, event: any): void {
-
-    }
-
 
 }

@@ -101,7 +101,7 @@
     </div>
 
     <div class="block calendar">
-        <app-calendar (interventionChanged)="interventionChangedHandler($event)"></app-calendar>
+        <app-calendar (selectionChanged)="selectedDayChangedHandler($event)"></app-calendar>
     </div>
 
     <div>
@@ -127,7 +127,7 @@
 <!--                   >-->
 <!--        </mat-form-field>-->
         <button mat-raised-button type="submit" class="btn btn-info pull-right"
-                (click)="addIntervention(interventions, selectedProject, selectedPerson)"> Add
+                (click)="addIntervention(selectedDayToAdd, selectedProject, selectedPerson)"> Add
         </button>
     </div>
 </div>
