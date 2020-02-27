@@ -1,15 +1,9 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Subject} from 'rxjs';
-import {CalendarMonthViewDay, CalendarView} from 'angular-calendar';
+import {CalendarView} from 'angular-calendar';
 import {ConfigTime} from '../entities/ConfigTime';
 import {Intervention} from '../entities/intervention';
-import {Person} from '../entities/person';
-import {Project} from '../entities/project';
-import {PersonService} from '../services/person.service';
-import {ProjectService} from '../services/project.service';
 import {InterventionService} from '../services/intervention.service';
-import {InterventionsComponent} from '../interventions/interventions.component';
-
 
 
 @Component({
@@ -42,7 +36,7 @@ export class CalendarComponent implements OnInit {
     selectionChanged: EventEmitter<Array<Intervention>> = new EventEmitter();
     selectedDayOfIntervention: Array<Intervention> = [];
 
-    interventions: Array<Intervention> = [];
+    interventions: Map<String, Array<Intervention>> = new Map<String, Array<Intervention>>();
 
     constructor(private interventionService: InterventionService) {
     }
@@ -86,14 +80,14 @@ export class CalendarComponent implements OnInit {
         let index = 0;
 
         if (
-                this.selectedDayOfIntervention.some(int => {
+            this.selectedDayOfIntervention.some(int => {
                 if (int.date === intervention.date && int.mode === intervention.mode) {
-                     index = this.selectedDayOfIntervention.indexOf(int);
-                     return true;
+                    index = this.selectedDayOfIntervention.indexOf(int);
+                    return true;
                 }
                 return false;
-                })
-            ) {
+            })
+        ) {
             this.selectedDayOfIntervention.splice(index, 1);
             target.classList.remove('selectedDay');
             this.selectionChanged.emit(this.selectedDayOfIntervention);
@@ -105,9 +99,40 @@ export class CalendarComponent implements OnInit {
     }
 
     getAllIntervention() {
-        this.interventionService.getInterventions().subscribe((listOfIntervention: Intervention[]) => {
+        this.interventionService.getInterventionsByDay().subscribe((listOfIntervention: Map<String, Array<Intervention>>) => {
+            console.log(listOfIntervention)
             this.interventions = listOfIntervention;
         });
+        console.log('list interventions' + this.interventions);
+    }
+
+    getInterventionOfPeriod(day: Date, mode: string): Array<Intervention> {
+        const intervention: Intervention = new Intervention();
+        intervention.date = day;
+        intervention.mode = mode;
+        let aux: Array<Intervention> = new Array<Intervention>();
+        Object.keys(this.interventions).forEach((key) => {
+            if (key.substr(0, 10) == this.formatDate(day)) {
+                aux = this.interventions[key];
+            }
+        });
+        return aux;
+    }
+
+    formatDate(date): string {
+        let d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        return [year, month, day].join('-');
     }
 
 }

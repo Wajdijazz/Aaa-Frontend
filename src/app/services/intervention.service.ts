@@ -55,4 +55,8 @@ export class InterventionService {
     getWorkedByPersonAndProjectByMonthAndYear(projectId: number, personId: number, monthNumber: number, yearNumber: number) {
         return this.http.get(`${config.apiUrl}/intervention/${projectId}/${personId}/${monthNumber}/${yearNumber}`);
     }
+
+    getInterventionsByDay() {
+        return this.http.get(`${config.apiUrl}/intervention/getAllByDay`);
+    }
 }

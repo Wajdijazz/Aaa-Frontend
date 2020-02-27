@@ -13,10 +13,17 @@
         <div id="halfDays">
             <div class="half-day"
                  id="{{day.date.getMonth()}}/{{day.date.getUTCDate()+1}}/{{day.date.getUTCFullYear()}}-AM">
-                <div class="case-half-day" (mwlClick)="selectDay(day.date, 'AM', $event)">
-                    <span class="projectName">Project name</span>
-                    <span class="projectName">Role</span>
+                <div class="case-half-day" *ngIf="getInterventionOfPeriod(day.date, 'AM').length > 0 else elseBlock"
+                     (mwlClick)="selectDay(day.date, 'AM', $event)">
+                    <span class="projectName" *ngFor="let int of getInterventionOfPeriod(day.date, 'AM')">
+                        {{int.person.firstName}} {{int.person.lastName}}
+                    </span>
                 </div>
+                <ng-template #elseBlock class="case-half-day" (mwlClick)="selectDay(day.date, 'AM', $event)">
+                    <span class="projectName">
+                        ...
+                    </span>
+                </ng-template>
             </div>
             <div class="half-day"
                  id="{{day.date.getMonth()}}/{{day.date.getUTCDate()+1}}/{{day.date.getUTCFullYear()}}-PM">
