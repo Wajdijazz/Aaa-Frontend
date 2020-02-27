@@ -25,6 +25,9 @@
                                             <th>
                                                 Manager
                                             </th>
+                                            <th>
+                                                Active
+                                            </th>
                                             <th> Edit</th>
                                             <th> Delete</th>
                                             </thead>
@@ -34,7 +37,28 @@
                                                 <td>{{person.lastName}}</td>
                                                 <td>{{person.managerDto.firstName}} {{person.managerDto.lastName}}</td>
                                                 <td>
-                                                    <button type="button" mat-raised-button type="button" atTooltip="voir details"
+                                                    <div *ngIf="person.isActive">
+                                                        <div class="icon-color-active">
+                                                            <i (click)="disablePerson(person.personId)"
+                                                               class="material-icons">
+                                                                visibility
+                                                            </i>
+                                                            </div>
+                                                        </div>
+                                                    <div *ngIf="!person.isActive">
+                                                        <div class="icon-color-inactive">
+                                                            <i (click)="enablePerson(person.personId)"
+                                                               class="material-icons">
+                                                                visibility_off
+                                                            </i>
+                                                        </div>
+                                                    </div>
+
+
+                                                </td>
+                                                <td>
+                                                    <button type="button" mat-raised-button type="button"
+                                                            atTooltip="voir details"
                                                             class="btn btn-primary btn-link btn-sm btn-just-icon"
                                                             (click)="updatePerson(person)">
                                                         <i class="material-icons">edit</i>

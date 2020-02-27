@@ -5,4 +5,6 @@ export class Project {
     projectName:string
     clientId:number;
     managerId:number;
+    isActive: boolean;
+
 }

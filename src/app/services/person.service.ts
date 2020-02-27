@@ -31,6 +31,14 @@ export class PersonService {
                 }
             );
     }
+    updateisActivePerson(id:number,data: Person) {
+        this.http.put(`${config.apiUrl}/person/${id}`, data)
+            .subscribe(
+                res => {
+                }
+            );
+    }
+
 
 
     deletePerson(id: number) {

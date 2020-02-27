@@ -3,6 +3,8 @@ export class Person {
     firstName: string;
     lastName: string;
     managerId: number;
+    managerDto:any;
+    isActive: boolean;
 
 
 }
