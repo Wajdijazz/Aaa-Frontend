@@ -7,93 +7,93 @@
                         <h4 class="card-title mt-0"> List Of interventions </h4>
                         <p class="card-category"></p>
                     </div>
-                    <div class="card-body">
-                        <mat-tab-group animationDuration="0ms">
-                            <mat-tab label="Interventions List">
-                                <br>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead class="">
-                                            <th>
-                                                Person
-                                            </th>
-                                            <th>
-                                                Project
-                                            </th>
+<!--                    <div class="card-body">-->
+<!--                        <mat-tab-group animationDuration="0ms">-->
+<!--                            <mat-tab label="Interventions List">-->
+<!--                                <br>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="table-responsive">-->
+<!--                                        <table class="table table-hover">-->
+<!--                                            <thead class="">-->
+<!--                                            <th>-->
+<!--                                                Person-->
+<!--                                            </th>-->
+<!--                                            <th>-->
+<!--                                                Project-->
+<!--                                            </th>-->
 
-                                            <th> Details</th>
-                                            <th> Edit</th>
-                                            <th> Delete</th>
-                                            </thead>
-                                            <tbody>
-                                            <tr *ngFor="let intervention of newArr">
-                                                <td>{{intervention.person.firstName}}
-                                                    {{intervention.person.lastName}}</td>
-                                                <td>{{intervention.project.projectName}}</td>
+<!--                                            <th> Details</th>-->
+<!--                                            <th> Edit</th>-->
+<!--                                            <th> Delete</th>-->
+<!--                                            </thead>-->
+<!--                                            <tbody>-->
+<!--                                            <tr *ngFor="let intervention of newArr">-->
+<!--                                                <td>{{intervention.person.firstName}}-->
+<!--                                                    {{intervention.person.lastName}}</td>-->
+<!--                                                <td>{{intervention.project.projectName}}</td>-->
 
-                                                <td>
-                                                    <button mat-raised-button type="button" matTooltip="Details "
-                                                            [matTooltipPosition]="'above'"
-                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"
-                                                            (click)="openDialog(intervention)">
-                                                        <i class="material-icons">details</i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button mat-raised-button type="button" matTooltip="Edit "
-                                                            [matTooltipPosition]="'above'"
-                                                            class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                        <i class="material-icons">edit</i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button mat-raised-button type="button" atTooltip="voir details"
-                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"
-                                                            (click)="deletIntervention(intervention.person.personId,
-                                                             intervention.project.projectId)">
-                                                        <i class="material-icons">close</i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </mat-tab>
-                            <mat-tab label="New intervention">
-                                <br>
-                                <form #f="ngForm">
-                                    <mat-form-field>
-                                        <mat-label> Select Person</mat-label>
-                                        <mat-select name="persons list" [(ngModel)]="person"
-                                                    (selectionChange)="selectPerson(person)" required>
-                                            <mat-option *ngFor="let person of persons" [value]="person.personId">
-                                                {{ person.firstName }} {{person.lastName}} </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <mat-label> Select Project</mat-label>
-                                        <mat-select name="project list"
-                                                    [(ngModel)]="project" (selectionChange)="selectProject(project)"
-                                                    required>
-                                            <mat-option *ngFor="let project of projects"
-                                                        [value]="project.projectId">
-                                                {{ project.projectName }}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <input matInput name="startDate" id="startDate" #startDate="ngModel"
-                                               [(ngModel)]="intervention.date" placeholder="Date" type="date"
-                                               required>
-                                    </mat-form-field>
-                                    <button mat-raised-button type="submit" class="btn btn-info pull-right"
-                                            (click)="addIntervention(intervention)"> Add
-                                    </button>
-                                </form>
-                            </mat-tab>
-                        </mat-tab-group>
-                    </div>
+<!--                                                <td>-->
+<!--                                                    <button mat-raised-button type="button" matTooltip="Details "-->
+<!--                                                            [matTooltipPosition]="'above'"-->
+<!--                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"-->
+<!--                                                            (click)="openDialog(intervention)">-->
+<!--                                                        <i class="material-icons">details</i>-->
+<!--                                                    </button>-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <button mat-raised-button type="button" matTooltip="Edit "-->
+<!--                                                            [matTooltipPosition]="'above'"-->
+<!--                                                            class="btn btn-primary btn-link btn-sm btn-just-icon">-->
+<!--                                                        <i class="material-icons">edit</i>-->
+<!--                                                    </button>-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <button mat-raised-button type="button" atTooltip="voir details"-->
+<!--                                                            class="btn btn-primary btn-link btn-sm btn-just-icon"-->
+<!--                                                            (click)="deletIntervention(intervention.person.personId,-->
+<!--                                                             intervention.project.projectId)">-->
+<!--                                                        <i class="material-icons">close</i>-->
+<!--                                                    </button>-->
+<!--                                                </td>-->
+<!--                                            </tr>-->
+<!--                                            </tbody>-->
+<!--                                        </table>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </mat-tab>-->
+<!--                            <mat-tab label="New intervention">-->
+<!--                                <br>-->
+<!--                                <form #f="ngForm">-->
+<!--                                    <mat-form-field>-->
+<!--                                        <mat-label> Select Person</mat-label>-->
+<!--                                        <mat-select name="persons list" [(ngModel)]="person"-->
+<!--                                                    (selectionChange)="selectPerson(person)" required>-->
+<!--                                            <mat-option *ngFor="let person of persons" [value]="person.personId">-->
+<!--                                                {{ person.firstName }} {{person.lastName}} </mat-option>-->
+<!--                                        </mat-select>-->
+<!--                                    </mat-form-field>-->
+<!--                                    <mat-form-field>-->
+<!--                                        <mat-label> Select Project</mat-label>-->
+<!--                                        <mat-select name="project list"-->
+<!--                                                    [(ngModel)]="project" (selectionChange)="selectProject(project)"-->
+<!--                                                    required>-->
+<!--                                            <mat-option *ngFor="let project of projects"-->
+<!--                                                        [value]="project.projectId">-->
+<!--                                                {{ project.projectName }}</mat-option>-->
+<!--                                        </mat-select>-->
+<!--                                    </mat-form-field>-->
+<!--                                    <mat-form-field>-->
+<!--                                        <input matInput name="startDate" id="startDate" #startDate="ngModel"-->
+<!--                                               [(ngModel)]="intervention.date" placeholder="Date" type="date"-->
+<!--                                               required>-->
+<!--                                    </mat-form-field>-->
+<!--                                    <button mat-raised-button type="submit" class="btn btn-info pull-right"-->
+<!--                                            (click)="addIntervention(intervention)"> Add-->
+<!--                                    </button>-->
+<!--                                </form>-->
+<!--                            </mat-tab>-->
+<!--                        </mat-tab-group>-->
+<!--                    </div>-->
                     <hr>
                 </div>
             </div>
@@ -101,7 +101,34 @@
     </div>
 
     <div class="block calendar">
-        <app-calendar></app-calendar>
+        <app-calendar (selectionChanged)="selectedDayChangedHandler($event)"></app-calendar>
+    </div>
+
+    <div>
+        <mat-form-field>
+            <mat-label> Select Person</mat-label>
+            <mat-select name="persons list" [(ngModel)]="selectedPerson">
+                <mat-option *ngFor="let person of persons" [value]="person">
+                    {{ person.firstName }} {{person.lastName}} </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label> Select Project</mat-label>
+            <mat-select name="project list"
+                        [(ngModel)]="selectedProject">
+                <mat-option *ngFor="let project of projects"
+                            [value]="project">
+                    {{ project.projectName }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+<!--        <mat-form-field>-->
+<!--            <input matInput name="date" id="date" #date="ngModel"-->
+<!--                   [(ngModel)]="selectedDate" placeholder="Date" type="date"-->
+<!--                   >-->
+<!--        </mat-form-field>-->
+        <button mat-raised-button type="submit" class="btn btn-info pull-right"
+                (click)="addIntervention(selectedDayToAdd, selectedProject, selectedPerson)"> Add
+        </button>
     </div>
 </div>
 

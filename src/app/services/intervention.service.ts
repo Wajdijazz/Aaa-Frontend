@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {config} from '../config';
 import {Intervention} from '../entities/intervention';
 import {Observable} from 'rxjs';
+import {Project} from '../entities/project';
+import {Person} from '../entities/person';
 
 @Injectable({
     providedIn: 'root'
@@ -12,9 +14,9 @@ export class InterventionService {
     constructor(private http: HttpClient) {
     }
 
-    saveIntervention(intervention: Intervention) {
+    saveIntervention(intervention: Array<Intervention>, project: Project, person: Person) {
         this.http
-            .post(`${config.apiUrl}/intervention/project/${intervention.project.id}/person/${intervention.person.personId}`,
+            .post(`${config.apiUrl}/intervention/project/${project.projectId}/person/${person.personId}`,
                 intervention)
             .subscribe(
                 res => {
@@ -52,5 +54,9 @@ export class InterventionService {
 
     getWorkedByPersonAndProjectByMonthAndYear(projectId: number, personId: number, monthNumber: number, yearNumber: number) {
         return this.http.get(`${config.apiUrl}/intervention/${projectId}/${personId}/${monthNumber}/${yearNumber}`);
+    }
+
+    getInterventionsByDay() {
+        return this.http.get(`${config.apiUrl}/intervention/getAllByDay`);
     }
 }
