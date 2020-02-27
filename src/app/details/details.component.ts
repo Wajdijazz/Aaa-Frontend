@@ -19,14 +19,17 @@ export class DetailsComponent implements OnInit {
         projectId: null,
         projectName: '',
         clientId: null,
-        managerId: null
+        managerId: null,
+        isActive:null
     }
 
     person: Person = {
         personId: null,
         firstName: '',
         lastName: '',
-        managerId: null
+        managerId: null,
+        managerDto:null,
+        isActive:null
     }
     worked;
     private dateTest: Date;

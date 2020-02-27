@@ -40,4 +40,13 @@ export class ProjectService {
                 }
             );
     }
+
+    updateisActivePerson(projectId: number, project: Project) {
+        this.http.put(`${config.apiUrl}/project/${projectId}`, project)
+            .subscribe(
+                res => {
+                }
+            );
+
+    }
 }

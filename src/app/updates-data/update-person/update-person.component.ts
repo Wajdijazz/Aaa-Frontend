@@ -17,6 +17,8 @@ export class UpdatePersonComponent implements OnInit {
         firstName: '',
         lastName: '',
         managerId: null,
+        managerDto:null,
+        isActive:null
 
     }
     manager: Manager = {

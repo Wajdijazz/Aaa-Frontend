@@ -32,7 +32,8 @@ export class ProjectsComponent implements OnInit, OnDestroy {
         projectId: null,
         projectName: '',
         clientId: null,
-        managerId: null
+        managerId: null,
+        isActive: null
     };
     manager: Manager = {
         managerId: null,
@@ -65,6 +66,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
         this.projectService.getProjects().subscribe((data: any) => {
             this.projects = data;
         })
+        return this.projects;
     }
 
     getAllClients() {
@@ -88,8 +90,9 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     }
 
     addProject(project: Project) {
-         project.clientId=this.IdClient;
-         project.managerId=this.IdManager;
+        project.clientId = this.IdClient;
+        project.managerId = this.IdManager;
+        project.isActive = true;
         this.projectService.saveProject(project);
         this.router.navigateByUrl('/projects');
     }
@@ -117,4 +120,24 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     }
 
 
+    disableProject(projectId: number) {
+        this.projects.forEach(project => {
+            if (project.projectId === projectId) {
+                project.isActive = !project.isActive;
+            }
+        });
+        this.project.isActive = false;
+        this.projectService.updateisActivePerson(projectId, this.project);
+    }
+
+
+    enableProject(projectId: number) {
+        this.projects.forEach(project => {
+            if (project.projectId === projectId) {
+                project.isActive = !project.isActive;
+            }
+        });
+        this.project.isActive = true;
+        this.projectService.updateisActivePerson(projectId, this.project);
+    }
 }

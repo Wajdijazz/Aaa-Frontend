@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import * as Chartist from 'chartist';
 import {PersonService} from '../services/person.service';
 import {ProjectService} from '../services/project.service';
@@ -16,6 +16,7 @@ import * as _moment from 'moment';
 
 import {default as _rollupMoment, Moment} from 'moment';
 import {Tj} from '../tjs/tj';
+import {SharedDataService} from '../services/shared-data.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -61,6 +62,8 @@ export class DashboardComponent implements OnInit {
         firstName: '',
         lastName: '',
         managerId: null,
+        managerDto: null,
+        isActive: true
     };
     tj: Tj = {
         tjId: null,
@@ -75,7 +78,7 @@ export class DashboardComponent implements OnInit {
     private month: any;
     private year: number;
     private date: FormControl;
-    private   showAdd = false;
+    private projectActive: Project[];
 
 
     constructor(private personService: PersonService, private projectService: ProjectService,
@@ -109,36 +112,38 @@ export class DashboardComponent implements OnInit {
     displayTable(monthNumber: number, yearNumber: number) {
         this.projectService.getProjects().subscribe((dataProject: Project[]) => {
             this.projects = dataProject;
-            this.projects.forEach(project => {
-            this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
-                if (data.project) {
-                    data.project.totalByProject = 0;
-                }
-                this.personList = data.persons;
-                this.personList.forEach(person => {
-                    person.price = 0;
-                    person.worked = 0;
-                    const indexPersonName = this.personListView.findIndex(p => p.firstName === person.firstName &&
-                        p.lastName === person.lastName);
-                    if (indexPersonName === -1) {
-                        this.personListView.push(person);
+            this.projectActive=this.projects.filter(project=>project.isActive === true);
+            this.projectActive.forEach(project => {
+                this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
+                    if (data.project) {
+                        data.project.totalByProject = 0;
                     }
-                    this.interventionService.getWorkedByPersonAndProjectByMonthAndYear(project.projectId, person.personId
-                        , monthNumber, yearNumber).subscribe((dataWorkedDay: number) => {
-                        person.worked = dataWorkedDay;
-                        this.tjService.getTijByProjectAnPerson(project.projectId, person.personId)
-                            .subscribe((tarif: number) => {
-                                person.price = (tarif * dataWorkedDay);
-                                if (data.project) {
-                                    data.project.totalByProject = data.project.totalByProject + person.price;
-                                }
-                            })
-                    })
-                });
-                if (data.project) {
-                    this.dataset.push(data);
-                }
-            })})
+                    this.personList = data.persons;
+                    this.personList.forEach(person => {
+                        person.price = 0;
+                        person.worked = 0;
+                        const indexPersonName = this.personListView.findIndex(p => p.firstName === person.firstName &&
+                            p.lastName === person.lastName);
+                        if (indexPersonName === -1) {
+                            this.personListView.push(person);
+                        }
+                        this.interventionService.getWorkedByPersonAndProjectByMonthAndYear(project.projectId, person.personId
+                            , monthNumber, yearNumber).subscribe((dataWorkedDay: number) => {
+                            person.worked = dataWorkedDay;
+                            this.tjService.getTijByProjectAnPerson(project.projectId, person.personId)
+                                .subscribe((tarif: number) => {
+                                    person.price = (tarif * dataWorkedDay);
+                                    if (data.project) {
+                                        data.project.totalByProject = data.project.totalByProject + person.price;
+                                    }
+                                })
+                        })
+                    });
+                    if (data.project) {
+                        this.dataset.push(data);
+                    }
+                })
+            })
         });
         this.dataset = []
     };
@@ -156,23 +161,20 @@ export class DashboardComponent implements OnInit {
         this.displayTable(this.month, this.year);
         datepicker.close();
     }
-     afficherMasquer(id: string, id2: string) {
+
+    afficherMasquer(id: string, id2: string) {
         console.log(id2)
-       if (document.getElementById(id).style.display === 'none'  ) {
-           document.getElementById(id).style.display = 'block';
+        if (document.getElementById(id).style.display === 'none') {
+            document.getElementById(id).style.display = 'block';
 
 
-       } else {
-        document.getElementById(id).style.display = 'none';
-       }
+        } else {
+            document.getElementById(id).style.display = 'none';
+        }
         document.getElementById(id2).style.display = 'none';
 
 
-
-
     }
-
-
 
 
 }

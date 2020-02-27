@@ -33,13 +33,16 @@ export class TjsComponent implements OnInit, OnDestroy {
         projectName: '',
         clientId: null,
         managerId: null,
+        isActive:null
     }
 
     person: Person = {
         personId: null,
         firstName: '',
         lastName: '',
-        managerId: null
+        managerId: null,
+        managerDto:null,
+        isActive:null
     }
 
     personId;
@@ -47,6 +50,7 @@ export class TjsComponent implements OnInit, OnDestroy {
     private personList = [];
     private personListView = [];
     private dataset = [];
+    private projectActive: Project[];
 
     constructor(private personService: PersonService, private projectService: ProjectService,
                 private tjService: TjService, public dialog: MatDialog, private datasetService: DatasetService, private router: Router) {
@@ -82,7 +86,8 @@ export class TjsComponent implements OnInit, OnDestroy {
     displayTable() {
         this.projectService.getProjects().subscribe((dataProject: Project[]) => {
             this.projects = dataProject;
-            this.projects.forEach(project => {
+            this.projectActive=this.projects.filter(project=>project.isActive === true);
+            this.projectActive.forEach(project => {
                 this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
                     this.personList = data.persons;
                     this.personList.forEach(person => {

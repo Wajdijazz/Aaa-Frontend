@@ -1,10 +1,9 @@
 import {Person} from '../entities/person';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Output} from '@angular/core';
 import {PersonService} from '../services/person.service';
 import {Manager} from '../entities/manager';
 import {ManagerService} from '../services/manager.service';
 import {MatDialog} from '@angular/material/dialog';
-import {UpdateManagerComponent} from '../updates-data/update-manager/update-manager.component';
 import {UpdatePersonComponent} from '../updates-data/update-person/update-person.component';
 import {NavigationEnd, Router} from '@angular/router';
 
@@ -14,8 +13,9 @@ import {NavigationEnd, Router} from '@angular/router';
     styleUrls: ['./persons.component.scss']
 })
 export class PersonsComponent implements OnInit, OnDestroy {
+
     mySubscription: any;
-    persons = [];
+    persons: Person[];
     managers: Manager[];
     manager: Manager = {
         managerId: null,
@@ -28,6 +28,8 @@ export class PersonsComponent implements OnInit, OnDestroy {
         firstName: '',
         lastName: '',
         managerId: null,
+        managerDto: null,
+        isActive: null
 
     }
 
@@ -46,13 +48,13 @@ export class PersonsComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.getAllManagers();
         this.getAllPersons();
-
     }
 
     getAllPersons() {
-        this.personService.getPersons().subscribe((data: any) => {
+        this.personService.getPersons().subscribe((data: Person[]) => {
             this.persons = data;
         })
+        return this.persons
     }
 
     getAllManagers() {
@@ -72,6 +74,7 @@ export class PersonsComponent implements OnInit, OnDestroy {
 
     addPerson(data: Person) {
         data.managerId = this.Idmanager;
+        data.isActive = true;
         this.personService.savePerson(data);
         this.getAllPersons();
         this.router.navigateByUrl('/persons');
@@ -98,4 +101,23 @@ export class PersonsComponent implements OnInit, OnDestroy {
     }
 
 
+    disablePerson(personId: number) {
+        this.persons.forEach(person => {
+            if (person.personId === personId) {
+                person.isActive = !person.isActive;
+            }
+        });
+        this.person.isActive = false;
+        this.personService.updateisActivePerson(personId, this.person);
+    }
+
+    enablePerson(personId: number) {
+        this.persons.forEach(person => {
+            if (person.personId === personId) {
+                person.isActive = !person.isActive;
+            }
+        });
+        this.person.isActive = true;
+        this.personService.updateisActivePerson(personId, this.person);
+    }
 }
