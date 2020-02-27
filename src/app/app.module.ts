@@ -77,13 +77,6 @@ import {MatModule} from './mat.module';
         ReactiveFormsModule,
     ],
     providers: [
-        // InterventionService,
-        // PersonService,
-        // ProjectService,
-        // TjService,
-        // ClientService,
-        // DatasetService,
-        // ManagerService
     ],
     exports: [
         FooterComponent,
