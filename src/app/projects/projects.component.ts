@@ -127,7 +127,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
             }
         });
         this.project.isActive = false;
-        this.projectService.updateisActivePerson(projectId, this.project);
+        this.projectService.updateisActivePeroject(projectId, this.project);
     }
 
 
@@ -138,6 +138,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
             }
         });
         this.project.isActive = true;
-        this.projectService.updateisActivePerson(projectId, this.project);
+        this.projectService.updateisActivePeroject(projectId, this.project);
     }
 }

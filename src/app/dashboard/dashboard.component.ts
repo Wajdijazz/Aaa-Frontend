@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import * as Chartist from 'chartist';
 import {PersonService} from '../services/person.service';
 import {ProjectService} from '../services/project.service';
@@ -16,7 +16,9 @@ import * as _moment from 'moment';
 
 import {default as _rollupMoment, Moment} from 'moment';
 import {Tj} from '../tjs/tj';
-import {SharedDataService} from '../services/shared-data.service';
+import {Dashboard} from '../entities/dashboard';
+import {DasboardService} from '../services/dasboard.service';
+import {NavigationEnd, Router} from '@angular/router';
 
 const moment = _rollupMoment || _moment;
 
@@ -45,8 +47,8 @@ export const MY_FORMATS = {
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
-export class DashboardComponent implements OnInit {
-
+export class DashboardComponent implements OnInit, OnDestroy {
+    mySubscription: any;
     private projects: Project[];
 
     worked: any;
@@ -63,14 +65,31 @@ export class DashboardComponent implements OnInit {
         lastName: '',
         managerId: null,
         managerDto: null,
-        isActive: true
+        isActive: null
     };
+
+    project: Project = {
+        projectId: null,
+        projectName: null,
+        isActive: null,
+        managerId: null,
+        clientId: null,
+
+    }
     tj: Tj = {
         tjId: null,
         personId: null,
         projectId: null,
         tarif: null
     };
+    dashboard: Dashboard = {
+        dashboardId: null,
+        personId: null,
+        projectId: null,
+        tarif: null,
+        worked_day: null,
+        total: null
+    }
 
     dataset = [];
     private personList = [];
@@ -83,7 +102,18 @@ export class DashboardComponent implements OnInit {
 
     constructor(private personService: PersonService, private projectService: ProjectService,
                 private interventionService: InterventionService,
-                private tjService: TjService, private datasetService: DatasetService) {
+                private tjService: TjService, private datasetService: DatasetService,
+                private  dashboardService: DasboardService, private router: Router) {
+
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.mySubscription = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                // Trick the Router into believing it's last link wasn't previously loaded
+                this.router.navigated = false;
+            }
+        });
     }
 
     ngOnInit() {
@@ -109,10 +139,10 @@ export class DashboardComponent implements OnInit {
      * @param monthNumber
      * @param yearNumber
      */
-    displayTable(monthNumber: number, yearNumber: number) {
+    displayTable(monthNumber: number, yearNumber: number) : void {
         this.projectService.getProjects().subscribe((dataProject: Project[]) => {
             this.projects = dataProject;
-            this.projectActive=this.projects.filter(project=>project.isActive === true);
+            this.projectActive = this.projects.filter(project => project.isActive === true);
             this.projectActive.forEach(project => {
                 this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
                     if (data.project) {
@@ -136,6 +166,7 @@ export class DashboardComponent implements OnInit {
                                     if (data.project) {
                                         data.project.totalByProject = data.project.totalByProject + person.price;
                                     }
+
                                 })
                         })
                     });
@@ -154,7 +185,7 @@ export class DashboardComponent implements OnInit {
      * @param normalizedYear
      * @param datepicker
      */
-    chosenMonthAndYear(normalizedMonth: Moment, normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
+    chosenMonthAndYear(normalizedMonth: Moment, normalizedYear: Moment, datepicker: MatDatepicker<Moment>) : void {
         this.date = new FormControl(normalizedMonth);
         this.year = normalizedYear.year();
         this.month = normalizedMonth.month() + 1;
@@ -162,19 +193,30 @@ export class DashboardComponent implements OnInit {
         datepicker.close();
     }
 
-    afficherMasquer(id: string, id2: string) {
-        console.log(id2)
-        if (document.getElementById(id).style.display === 'none') {
-            document.getElementById(id).style.display = 'block';
-
-
-        } else {
-            document.getElementById(id).style.display = 'none';
-        }
-        document.getElementById(id2).style.display = 'none';
-
-
+    /**
+     * Cette methode permet de masquer un projet de tableau
+     * @param projectId
+     */
+    disableProject(projectId: any) : void {
+        this.project.isActive = false;
+        this.projectService.updateisActivePeroject(projectId, this.project);
+        this.router.navigateByUrl('/dashboard');
     }
 
+    /**
+     * Cette methode permet de masquer une personne de tableau
+     * @param personId
+     */
+    disablePerson(personId: number) : void {
+        this.person.isActive = false;
+        this.personService.updateisActivePerson(personId, this.person);
+        this.router.navigateByUrl('/dashboard');
+    }
+
+    ngOnDestroy() {
+        if (this.mySubscription) {
+            this.mySubscription.unsubscribe();
+        }
+    }
 
 }

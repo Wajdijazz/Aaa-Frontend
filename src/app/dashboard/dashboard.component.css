@@ -12,3 +12,6 @@ table, th, td,tr,thead,tbody {
 .example-month-picker .mat-calendar-arrow {
     display: none;
 }
+.icon-color-inactive{
+    color: #bf360c;
+}
