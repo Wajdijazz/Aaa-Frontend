@@ -20,7 +20,6 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-
                             <table style="text-align: center" class="table" id="table">
 
                                 <tr>
@@ -28,8 +27,13 @@
                                         Projects/Persons
                                     </th>
                                     <th *ngFor="let myperson of personListView">
-
                                         {{myperson.firstName}} {{myperson.lastName}}
+                                        <div  class="icon-color-inactive">
+                                            <i (click)="disablePerson(myperson.personId)"
+                                               class="material-icons">
+                                                link_off
+                                            </i>
+                                        </div>
 
                                     </th>
                                     <th>Total</th>
@@ -39,6 +43,12 @@
                                     <th>
                                         {{data.project.projectName}}-{{data.project.clientDto.clientName}}<br>
                                         ({{data.project.managerDto.firstName}} {{data.project.managerDto.lastName}})
+                                        <div  class="icon-color-inactive">
+                                            <i (click)="disableProject(data.project.projectId)"
+                                               class="material-icons">
+                                                link_off
+                                            </i>
+                                        </div>
                                     </th>
                                     <td *ngFor="let person of data.persons">
                                         <div *ngIf=" person.worked !=0">
@@ -53,9 +63,8 @@
                                     </td>
                                 </tr>
                             </table>
-
-
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -63,3 +72,4 @@
         </div>
     </div>
 </div>
+
