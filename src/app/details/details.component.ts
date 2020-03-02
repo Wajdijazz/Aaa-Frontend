@@ -18,8 +18,8 @@ export class DetailsComponent implements OnInit {
     project: Project = {
         projectId: null,
         projectName: '',
-        clientId: null,
-        managerId: null,
+        clientDto: null,
+        managerDto: null,
         isActive:null
     }
 
@@ -27,7 +27,6 @@ export class DetailsComponent implements OnInit {
         personId: null,
         firstName: '',
         lastName: '',
-        managerId: null,
         managerDto:null,
         isActive:null
     }

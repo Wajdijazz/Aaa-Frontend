@@ -28,8 +28,8 @@ export class UpdateTjComponent implements OnInit {
     project: Project = {
         projectId: null,
         projectName: '',
-        clientId: null,
-        managerId:null,
+        clientDto: null,
+        managerDto:null,
         isActive:null
     }
 
@@ -37,7 +37,6 @@ export class UpdateTjComponent implements OnInit {
         personId: null,
         firstName: '',
         lastName: '',
-        managerId: null,
         managerDto:null,
         isActive:null
     }
@@ -75,9 +74,7 @@ export class UpdateTjComponent implements OnInit {
     }
 
     updateTj(dataTj: Tj) {
-        dataTj.projectId = this.data.projectId
-        dataTj.personId = this.data.personId
-        this.tjService.updateTj(dataTj);
+        this.tjService.updateTj(dataTj, this.data.projectId, this.data.personId);
         this.dialog.closeAll();
         this.router.navigateByUrl('/tjs');
     }

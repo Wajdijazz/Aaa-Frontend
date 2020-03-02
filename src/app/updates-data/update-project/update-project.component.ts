@@ -5,6 +5,8 @@ import {ClientService} from '../../services/client.service';
 import {ProjectService} from '../../services/project.service';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import {Manager} from '../../entities/manager';
+import {ManagerService} from '../../services/manager.service';
 
 @Component({
     selector: 'app-update-project',
@@ -15,9 +17,9 @@ export class UpdateProjectComponent implements OnInit {
     project: Project = {
         projectId: null,
         projectName: '',
-        clientId: null,
-        managerId:null,
-        isActive:null
+        clientDto: null,
+        managerDto: null,
+        isActive: null
     }
     client: Client = {
         clientId: null,
@@ -26,13 +28,25 @@ export class UpdateProjectComponent implements OnInit {
     }
     clients: Client[];
     private IdClient: any;
+    manager: Manager = {
+        managerId: null,
+        firstName: '',
+        lastName: ''
+    };
+    private managers: Manager[];
+    private IdManager: any;
+
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private clientService: ClientService,
-                private projectService: ProjectService, public dialog: MatDialog, private router: Router) {
+                private projectService: ProjectService, public dialog: MatDialog, private router: Router,
+                private managerService: ManagerService) {
     }
 
     ngOnInit() {
-        this.getAllClients()
+        this.getAllClients();
+        this.getAllManagers();
+
+
     }
 
     getAllClients() {
@@ -45,13 +59,22 @@ export class UpdateProjectComponent implements OnInit {
         this.IdClient = clientId
     }
 
+    selectManager(managerId) {
+        this.IdManager = managerId;
+    }
+
+
     updateProject(data: Project) {
-        data.projectId=this.data.project.projectId
-        data.clientId=this.IdClient
-        this.projectService.updateProject(data)
+        data.projectId = this.data.project.projectId
+        this.projectService.updateProject(data, this.IdClient, this.IdManager);
         console.log(data)
         this.dialog.closeAll()
         this.router.navigateByUrl('/projects');
     }
 
+    private getAllManagers() {
+        this.managerService.getManagers().subscribe((data: Manager[]) => {
+            this.managers = data;
+        })
+    }
 }

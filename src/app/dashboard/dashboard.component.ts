@@ -63,7 +63,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         personId: null,
         firstName: '',
         lastName: '',
-        managerId: null,
         managerDto: null,
         isActive: null
     };
@@ -72,8 +71,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         projectId: null,
         projectName: null,
         isActive: null,
-        managerId: null,
-        clientId: null,
+        managerDto: null,
+        clientDto: null,
 
     }
     tj: Tj = {
@@ -98,6 +97,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private year: number;
     private date: FormControl;
     private projectActive: Project[];
+    private savedData=[];
+    private dataSource: any;
+    private persons= [] ;
+    private projectsList=[];
 
 
     constructor(private personService: PersonService, private projectService: ProjectService,
@@ -126,7 +129,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
      */
     getAllProjects() {
         this.projectService.getProjects().subscribe((dataProject: Project[]) => {
-            this.projects = dataProject
+            this.projects = dataProject;
         });
         return this.projects;
     }
@@ -140,7 +143,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
      * @param yearNumber
      */
     displayTable(monthNumber: number, yearNumber: number) : void {
-        this.projectService.getProjects().subscribe((dataProject: Project[]) => {
+      this.projectService.getProjects().subscribe((dataProject: Project[]) => {
             this.projects = dataProject;
             this.projectActive = this.projects.filter(project => project.isActive === true);
             this.projectActive.forEach(project => {
@@ -166,6 +169,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                                     if (data.project) {
                                         data.project.totalByProject = data.project.totalByProject + person.price;
                                     }
+                                    this.savedData.push(project.projectId,person.personId,person.price,person.worked);
 
                                 })
                         })

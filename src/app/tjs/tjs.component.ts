@@ -31,18 +31,17 @@ export class TjsComponent implements OnInit, OnDestroy {
     project: Project = {
         projectId: null,
         projectName: '',
-        clientId: null,
-        managerId: null,
-        isActive:null
+        clientDto: null,
+        managerDto: null,
+        isActive: null
     }
 
     person: Person = {
         personId: null,
         firstName: '',
         lastName: '',
-        managerId: null,
-        managerDto:null,
-        isActive:null
+        managerDto: null,
+        isActive: null
     }
 
     personId;
@@ -51,6 +50,8 @@ export class TjsComponent implements OnInit, OnDestroy {
     private personListView = [];
     private dataset = [];
     private projectActive: Project[];
+    private personsList = [];
+    private projectsList = [];
 
     constructor(private personService: PersonService, private projectService: ProjectService,
                 private tjService: TjService, public dialog: MatDialog, private datasetService: DatasetService, private router: Router) {
@@ -86,7 +87,7 @@ export class TjsComponent implements OnInit, OnDestroy {
     displayTable() {
         this.projectService.getProjects().subscribe((dataProject: Project[]) => {
             this.projects = dataProject;
-            this.projectActive=this.projects.filter(project=>project.isActive === true);
+            this.projectActive = this.projects.filter(project => project.isActive === true);
             this.projectActive.forEach(project => {
                 this.datasetService.getDatasetByProjectId(project.projectId).subscribe((data: any) => {
                     this.personList = data.persons;
@@ -110,28 +111,15 @@ export class TjsComponent implements OnInit, OnDestroy {
         })
     }
 
-    addTj(data: Tj) {
-        data.personId = this.personId;
-        data.projectId = this.projectId;
-        this.tjService.saveTj(data);
-        this.router.navigated = false;
-        this.router.navigateByUrl('/tjs');
-
-    }
-
     onKey(event, projectId, personId) {
         const tarif = event;
         this.tj.tarif = tarif;
-        this.tj.projectId = projectId;
-        this.tj.personId = personId;
-        this.tjService.saveTj(this.tj);
+        this.tjService.saveTj(this.tj, projectId, personId);
         this.router.navigateByUrl('/tjs');
     }
 
-    deleteTj(tjId) {
-        this.tjService.deleteTj(tjId)
-        this.router.navigateByUrl('/tjs');
-    }
+
+
 
     updateTj(projectId: number, personId: number): void {
         let dialogRef = this.dialog.open(UpdateTjComponent, {
@@ -147,5 +135,17 @@ export class TjsComponent implements OnInit, OnDestroy {
         if (this.mySubscription) {
             this.mySubscription.unsubscribe();
         }
+    }
+
+    deleteProject(projectId: any) {
+        this.tjService.deleteTjByProject(projectId)
+        this.router.navigateByUrl('/tjs');
+
+    }
+
+    deletePerson(personId: any) {
+        this.tjService.deleteTjByPerson(personId)
+        this.router.navigateByUrl('/tjs');
+
     }
 }

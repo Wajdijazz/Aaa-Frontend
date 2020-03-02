@@ -17,7 +17,6 @@ import {UpdateTjComponent} from '../../updates-data/update-tj/update-tj.componen
 
 
 export const AdminLayoutRoutes: Routes = [
-
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'persons',   component: PersonsComponent },
     { path: 'projects',     component: ProjectsComponent },

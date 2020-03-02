@@ -16,29 +16,29 @@ export class PersonService {
         return this.http.get(`${config.apiUrl}/person/`);
     }
 
-    savePerson(data: Person) {
-        this.http.post(`${config.apiUrl}/person/`, data)
+    savePerson(data: Person, managerId: number) {
+        this.http.post(`${config.apiUrl}/person/${managerId}`, data)
             .subscribe(
                 res => {
                 }
             );
     }
 
-   updatePerson(data: Person) {
-        this.http.put(`${config.apiUrl}/person/`, data)
+    updatePerson(data: Person, managerId: number) {
+        this.http.put(`${config.apiUrl}/person/manager/${managerId}`, data)
             .subscribe(
                 res => {
                 }
             );
     }
-    updateisActivePerson(id:number,data: Person) {
+
+    updateisActivePerson(id: number, data: Person) {
         this.http.put(`${config.apiUrl}/person/${id}`, data)
             .subscribe(
                 res => {
                 }
             );
     }
-
 
 
     deletePerson(id: number) {

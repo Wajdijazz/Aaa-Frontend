@@ -15,8 +15,8 @@ export class ProjectService {
         return this.http.get(`${config.apiUrl}/project/`);
     }
 
-    saveProject(data: Project) {
-        this.http.post(`${config.apiUrl}/project/`, data)
+    saveProject(data: Project, clientId: number, managerId: number) {
+        this.http.post(`${config.apiUrl}/project/client/${clientId}/manager/${managerId}`, data)
             .subscribe(
                 res => {
                 }
@@ -24,8 +24,8 @@ export class ProjectService {
     }
 
 
-    updateProject(data: Project) {
-        this.http.put(`${config.apiUrl}/project/`, data)
+    updateProject(data: Project, clientId: number, managerId: number) {
+        this.http.put(`${config.apiUrl}/project/client/${clientId}/manager/${managerId}`, data)
             .subscribe(
                 res => {
                 }

@@ -15,6 +15,14 @@
                     {{ client.clientName }}</mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Select manager" name="manager list"
+                        [(ngModel)]="manager" (selectionChange)="selectManager(manager)"
+                        required>
+                <mat-option *ngFor="let manager of managers" [value]="manager.managerId">
+                    {{ manager.firstName }} {{ manager.lastName }}</mat-option>
+            </mat-select>
+        </mat-form-field>
         <button mat-raised-button type="submit"
                 class="btn btn-info pull-right" (click)="updateProject(project)"> UPDATE
         </button>

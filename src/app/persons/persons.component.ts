@@ -27,7 +27,6 @@ export class PersonsComponent implements OnInit, OnDestroy {
         personId: null,
         firstName: '',
         lastName: '',
-        managerId: null,
         managerDto: null,
         isActive: null
 
@@ -69,13 +68,14 @@ export class PersonsComponent implements OnInit, OnDestroy {
     }
 
     selectManager(managerId) {
+
         this.Idmanager = managerId;
     }
 
     addPerson(data: Person) {
-        data.managerId = this.Idmanager;
         data.isActive = true;
-        this.personService.savePerson(data);
+        console.log(data);
+        this.personService.savePerson(data,this.Idmanager);
         this.getAllPersons();
         this.router.navigateByUrl('/persons');
     }

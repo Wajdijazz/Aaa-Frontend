@@ -31,8 +31,8 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     project: Project = {
         projectId: null,
         projectName: '',
-        clientId: null,
-        managerId: null,
+        clientDto: null,
+        managerDto: null,
         isActive: null
     };
     manager: Manager = {
@@ -90,10 +90,8 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     }
 
     addProject(project: Project) {
-        project.clientId = this.IdClient;
-        project.managerId = this.IdManager;
         project.isActive = true;
-        this.projectService.saveProject(project);
+        this.projectService.saveProject(project,this.IdClient,this.IdManager);
         this.router.navigateByUrl('/projects');
     }
 

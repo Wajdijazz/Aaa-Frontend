@@ -16,7 +16,6 @@ export class UpdatePersonComponent implements OnInit {
         personId: null,
         firstName: '',
         lastName: '',
-        managerId: null,
         managerDto:null,
         isActive:null
 
@@ -26,8 +25,8 @@ export class UpdatePersonComponent implements OnInit {
         firstName: '',
         lastName: ''
     }
-    private Idmanager: any;
     private managers: Manager[];
+    private Idmanager: any;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private personService: PersonService,
                 private managerService: ManagerService, public dialog: MatDialog, private router: Router) {
@@ -38,19 +37,19 @@ export class UpdatePersonComponent implements OnInit {
     }
 
     getAllManagers() {
-        this.managerService.getManagers().subscribe((data: Manager[]) => {
-            this.managers = data
+        this.managerService.getManagers().subscribe((manager: Manager[]) => {
+            this.managers = manager;
         })
     }
 
     selectManager(managerId) {
-        this.Idmanager = managerId
+        this.Idmanager = managerId;
     }
 
     updatePerson(person) {
-        person.managerId = this.Idmanager
-        person.personId = this.data.person.personId
-        this.personService.updatePerson(person)
+        person.isActive = this.data.person.isActive;
+        person.personId=this.data.person.personId;
+        this.personService.updatePerson(person,this.Idmanager);
         this.dialog.closeAll()
         this.router.navigateByUrl('/persons');
     }

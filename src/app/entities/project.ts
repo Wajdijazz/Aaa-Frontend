@@ -1,10 +1,12 @@
+import {Client} from './client';
+import {Manager} from './manager';
 
 
 export class Project {
-    projectId: number
-    projectName:string
-    clientId:number;
-    managerId:number;
+    projectId: number;
+    projectName: string;
+    clientDto: Client;
+    managerDto: Manager;
     isActive: boolean;
 
 }
