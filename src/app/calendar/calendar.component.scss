@@ -23,8 +23,6 @@
 
 .calendar{
   vertical-align: top;
-  display: inline-block;
-  float: right;
   margin-left: 5%;
 }
 
@@ -130,7 +128,7 @@
 }
 
 .calendar-role {
-  position: absolute; bottom: 0; right: 10px
+  position: absolute; bottom: 0; right: 10px;
 }
 
 .selectedDay {

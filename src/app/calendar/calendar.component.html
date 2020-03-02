@@ -13,24 +13,35 @@
         <div id="halfDays">
             <div class="half-day"
                  id="{{day.date.getMonth()}}/{{day.date.getUTCDate()+1}}/{{day.date.getUTCFullYear()}}-AM">
-                <div class="case-half-day" *ngIf="getInterventionOfPeriod(day.date, 'AM').length > 0 else elseBlock"
+                <div class="case-half-day" *ngIf="getInterventionOfPeriod(day.date, 'AM').length > 0 else elseBlockAM"
                      (mwlClick)="selectDay(day.date, 'AM', $event)">
                     <span class="projectName" *ngFor="let int of getInterventionOfPeriod(day.date, 'AM')">
                         {{int.person.firstName}} {{int.person.lastName}}
                     </span>
                 </div>
-                <ng-template #elseBlock class="case-half-day" (mwlClick)="selectDay(day.date, 'AM', $event)">
-                    <span class="projectName">
-                        ...
+                <ng-template #elseBlockAM class="case-half-day" >
+                    <div (click)="selectDay(day.date, 'AM', $event)">
+                        <span class="projectName">
+                        INSERT SOMETHING HERE
                     </span>
+                    </div>
                 </ng-template>
             </div>
             <div class="half-day"
                  id="{{day.date.getMonth()}}/{{day.date.getUTCDate()+1}}/{{day.date.getUTCFullYear()}}-PM">
-                <div class="case-half-day" (mwlClick)="selectDay(day.date, 'PM', $event)">
-                    <span class="projectName">Project name</span>
-                    <span class="projectName">Role</span>
+                <div class="case-half-day" *ngIf="getInterventionOfPeriod(day.date, 'PM').length > 0 else elseBlockPM"
+                     (mwlClick)="selectDay(day.date, 'PM', $event)">
+                    <span class="projectName" *ngFor="let int of getInterventionOfPeriod(day.date, 'PM')">
+                        {{int.person.firstName}} {{int.person.lastName}}
+                    </span>
                 </div>
+                <ng-template #elseBlockPM class="case-half-day" (mwlClick)="selectDay(day.date, 'PM', $event)">
+                    <div (click)="selectDay(day.date, 'PM', $event)">
+                        <span class="projectName">
+                        INSERT SOMETHING HERE
+                    </span>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>

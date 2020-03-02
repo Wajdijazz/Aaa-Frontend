@@ -90,12 +90,11 @@ export class CalendarComponent implements OnInit {
         ) {
             this.selectedDayOfIntervention.splice(index, 1);
             target.classList.remove('selectedDay');
-            this.selectionChanged.emit(this.selectedDayOfIntervention);
         } else {
             this.selectedDayOfIntervention.push(intervention);
             target.classList.add('selectedDay');
-            this.selectionChanged.emit(this.selectedDayOfIntervention);
         }
+        this.selectionChanged.emit(this.selectedDayOfIntervention);
     }
 
     getAllIntervention() {
@@ -112,7 +111,7 @@ export class CalendarComponent implements OnInit {
         intervention.mode = mode;
         let aux: Array<Intervention> = new Array<Intervention>();
         Object.keys(this.interventions).forEach((key) => {
-            if (key.substr(0, 10) == this.formatDate(day)) {
+            if (key.substr(0, 10) === this.formatDate(day)) {
                 aux = this.interventions[key];
             }
         });
